@@ -101,11 +101,11 @@ export default function HomePage() {
         />
         {/* Hero Image — desktop */}
         <Image
-          src="/images/hero/desktop/Hero Desktop 01.webp"
+          src="/images/hero/desktop/001 Desktop.png"
           alt="Maison ISIVIS — Luxury fashion, model in navy tweed ensemble with signature packaging"
           fill
           priority
-          className="hidden object-cover object-center sm:block"
+          className="hidden object-cover object-top sm:block"
           sizes="100vw"
         />
 
@@ -113,7 +113,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
 
         {/* CTA — bottom center */}
-        <div className="relative z-10 pb-16 text-center sm:pb-20">
+        <div className="relative z-10 pb-24 text-center sm:pb-28">
           <Link
             href="/products"
             className="group inline-flex items-center justify-center gap-2 rounded-luxury bg-white/90 px-10 py-4 text-base font-medium uppercase tracking-luxury text-brand-purple shadow-luxury backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-luxury-lg"

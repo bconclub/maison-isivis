@@ -29,8 +29,8 @@ interface AdminState {
   collectionProducts: CollectionProductMap;
   initialized: boolean;
 
-  // Init — seeds from mock data locally
-  initialize: () => void;
+  // Init — loads from Supabase (mock fallback)
+  initialize: () => void | Promise<void>;
 
   // Product CRUD — syncs with Supabase in background
   addProduct: (product: Product) => Promise<Product | null>;
@@ -96,8 +96,10 @@ export const useAdminStore = create<AdminState>()(
       collectionProducts: {},
       initialized: false,
 
-      initialize: () => {
+      initialize: async () => {
         if (get().initialized) return;
+
+        // Start with mock data as fallback
         set({
           products: [...MOCK_PRODUCTS],
           categories: [...MOCK_CATEGORIES],
@@ -107,6 +109,24 @@ export const useAdminStore = create<AdminState>()(
           collectionProducts: { ...DEFAULT_COLLECTION_PRODUCTS },
           initialized: true,
         });
+
+        // Fetch real data from Supabase to replace mock IDs
+        try {
+          const [prodRes, catRes] = await Promise.all([
+            fetch("/api/admin/products"),
+            fetch("/api/admin/categories"),
+          ]);
+          if (prodRes.ok) {
+            const { products } = await prodRes.json();
+            if (products?.length) set({ products });
+          }
+          if (catRes.ok) {
+            const { categories } = await catRes.json();
+            if (categories?.length) set({ categories });
+          }
+        } catch {
+          // Supabase unavailable, keep mock data
+        }
       },
 
       // ── Product CRUD (Supabase-synced) ──
