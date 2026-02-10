@@ -1,12 +1,16 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { toast } from "@/components/ui/Toast";
 import { useAdminStore } from "@/lib/stores/admin-store";
 
 interface GeneratedContent {
+  productName: string;
+  suggestedPrice: number | null;
+  colors: string;
+  sizes: string;
   shortDescription: string;
   description: string;
   fabric: string;
@@ -18,10 +22,8 @@ interface GeneratedContent {
 }
 
 export interface AIApplyPayload extends GeneratedContent {
-  /** Also pass the modal inputs so the form can fill basic fields */
-  productName: string;
+  /** Category ID resolved from the modal's category select */
   categoryId: string | null;
-  price: number | null;
 }
 
 interface AIGenerateModalProps {
@@ -61,6 +63,31 @@ export function AIGenerateModal({
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<GeneratedContent | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Listen for clipboard paste (Ctrl+V / Cmd+V) when modal is open
+  const handlePaste = useCallback(
+    (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (const item of Array.from(items)) {
+        if (item.type.startsWith("image/")) {
+          e.preventDefault();
+          const file = item.getAsFile();
+          if (file) handleImageSelect(file);
+          return;
+        }
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("paste", handlePaste);
+    }
+    return () => document.removeEventListener("paste", handlePaste);
+  }, [isOpen, handlePaste]);
 
   // Sync defaults when modal opens with new data
   useState(() => {
@@ -151,11 +178,17 @@ export function AIGenerateModal({
     if (!preview) return;
     // Find category ID from name
     const matchedCat = categories.find((c) => c.name === category);
+
+    // Use AI-extracted productName if user didn't type one, or use user input
+    const finalName = productName.trim() || preview.productName || "";
+    // Use AI-extracted price if user didn't set one
+    const finalPrice = price ? parseFloat(price) : preview.suggestedPrice;
+
     onApply({
       ...preview,
-      productName: productName.trim(),
+      productName: finalName,
+      suggestedPrice: finalPrice,
       categoryId: matchedCat?.id ?? null,
-      price: price ? parseFloat(price) : null,
     });
     onClose();
     toast("AI content applied to form", "success");
@@ -213,7 +246,7 @@ export function AIGenerateModal({
                   <line x1="12" y1="3" x2="12" y2="15" />
                 </svg>
                 <span className="text-sm text-neutral-500">
-                  Click or drag a screenshot here
+                  Click, drag, or paste (Ctrl+V) a screenshot
                 </span>
               </div>
             )}
@@ -359,6 +392,14 @@ export function AIGenerateModal({
             <h3 className="text-sm font-semibold text-neutral-900">
               Generated Content Preview
             </h3>
+
+            {/* Extracted product details */}
+            <div className="grid gap-3 sm:grid-cols-2">
+              <PreviewField label="Product Name" value={preview.productName} />
+              <PreviewField label="Price" value={preview.suggestedPrice != null ? `\u00a3${preview.suggestedPrice}` : "Not set"} />
+              <PreviewField label="Colours" value={preview.colors || "None"} />
+              <PreviewField label="Sizes" value={preview.sizes || "None"} />
+            </div>
 
             <PreviewField label="Short Description" value={preview.shortDescription} />
             <PreviewField label="Full Description" value={preview.description} multiline />

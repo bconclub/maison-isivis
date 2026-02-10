@@ -216,22 +216,27 @@ export function ProductForm({ product, mode }: ProductFormProps) {
   }
 
   function handleAIApply(content: AIApplyPayload) {
-    // Basic fields from modal inputs
+    // ── Product name & slug ──
     if (content.productName) {
       setValue("name", content.productName);
       setValue("slug", slugify(content.productName));
     }
+
+    // ── Category ──
     if (content.categoryId) {
       setValue("categoryId", content.categoryId);
     }
-    // Generate SKU based on category (use AI category if provided, else current form value)
+
+    // ── SKU (auto-generated from category) ──
     const skuCategoryId = content.categoryId ?? watch("categoryId") ?? null;
     setValue("sku", generateSKU(skuCategoryId));
-    if (content.price != null) {
-      setValue("price", content.price);
+
+    // ── Price ──
+    if (content.suggestedPrice != null) {
+      setValue("price", content.suggestedPrice);
     }
 
-    // AI-generated content fields
+    // ── AI-generated content fields ──
     setValue("shortDescription", content.shortDescription);
     setValue("description", content.description);
     setValue("fabric", content.fabric);
@@ -240,6 +245,58 @@ export function ProductForm({ product, mode }: ProductFormProps) {
     setValue("metaDescription", content.metaDescription);
     setValue("keywords", content.keywords);
     if (content.badge) setValue("badge", content.badge);
+
+    // ── Auto-generate variants from colors × sizes ──
+    const colorsList = content.colors
+      ? content.colors.split(",").map((c) => c.trim()).filter(Boolean)
+      : [];
+    const sizesList = content.sizes
+      ? content.sizes.split(",").map((s) => s.trim()).filter(Boolean)
+      : [];
+
+    if (colorsList.length > 0 || sizesList.length > 0) {
+      const basePrice = content.suggestedPrice ?? watch("price") ?? 0;
+      const newVariants: ProductVariant[] = [];
+
+      if (colorsList.length > 0 && sizesList.length > 0) {
+        // Cross-product: every color × every size
+        for (const color of colorsList) {
+          for (const size of sizesList) {
+            newVariants.push({
+              variantId: `var-${Date.now()}-${newVariants.length}`,
+              color,
+              size,
+              stock: 10,
+              price: basePrice,
+            });
+          }
+        }
+      } else if (colorsList.length > 0) {
+        for (const color of colorsList) {
+          newVariants.push({
+            variantId: `var-${Date.now()}-${newVariants.length}`,
+            color,
+            stock: 10,
+            price: basePrice,
+          });
+        }
+      } else {
+        for (const size of sizesList) {
+          newVariants.push({
+            variantId: `var-${Date.now()}-${newVariants.length}`,
+            size,
+            stock: 10,
+            price: basePrice,
+          });
+        }
+      }
+
+      setVariants(newVariants);
+      setValue("hasVariants", true);
+    }
+
+    // ── Mark as new arrival by default ──
+    setValue("newArrival", true);
   }
 
   return (

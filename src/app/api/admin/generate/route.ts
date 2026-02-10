@@ -14,6 +14,10 @@ interface GenerateRequest {
 }
 
 interface GeneratedContent {
+  productName: string;
+  suggestedPrice: number | null;
+  colors: string;
+  sizes: string;
   shortDescription: string;
   description: string;
   fabric: string;
@@ -53,6 +57,10 @@ Additional field rules:
 
 You MUST respond with ONLY valid JSON matching this exact structure:
 {
+  "productName": "The product name (extract from image or use the provided name)",
+  "suggestedPrice": 285,
+  "colors": "Black, Ivory, Dusty Rose",
+  "sizes": "XS, S, M, L, XL",
   "shortDescription": "...",
   "description": "...",
   "fabric": "...",
@@ -62,6 +70,12 @@ You MUST respond with ONLY valid JSON matching this exact structure:
   "keywords": "...",
   "badge": "..."
 }
+
+IMPORTANT for extraction fields:
+- productName: Use the exact product name if provided. If extracting from an image, use the name visible in the screenshot.
+- suggestedPrice: Use the exact price if provided. If extracting from image, use the visible price as a number (no currency symbol). If no price is available, use null.
+- colors: Comma-separated colour names. Extract from image if visible, or use provided colours. If none available, suggest 2-3 appropriate luxury colours.
+- sizes: Comma-separated size labels. Extract from image if visible, or use provided sizes. If none available, use "XS, S, M, L, XL".
 
 No markdown, no code fences, no extra text. Just the JSON object.`;
 
