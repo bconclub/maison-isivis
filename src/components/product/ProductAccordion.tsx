@@ -21,9 +21,9 @@ function AccordionItem({ title, children, defaultOpen = false }: AccordionItemPr
     <div className="border-b border-neutral-100">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-5 text-left"
+        className="group flex w-full items-center justify-between py-5 text-left"
       >
-        <span className="text-body-sm font-medium uppercase tracking-luxury text-neutral-800">
+        <span className="text-body-sm font-medium uppercase tracking-luxury text-neutral-800 transition-colors duration-200 group-hover:text-brand-purple">
           {title}
         </span>
         <svg
@@ -35,7 +35,7 @@ function AccordionItem({ title, children, defaultOpen = false }: AccordionItemPr
           strokeWidth="2"
           strokeLinecap="round"
           className={cn(
-            "shrink-0 text-neutral-400 transition-transform duration-200",
+            "shrink-0 text-neutral-400 transition-all duration-200 group-hover:text-brand-purple",
             open && "rotate-180"
           )}
         >
@@ -60,7 +60,7 @@ function AccordionItem({ title, children, defaultOpen = false }: AccordionItemPr
 
 export function ProductAccordion({ product }: ProductAccordionProps) {
   return (
-    <div className="border-t border-neutral-100">
+    <div className="border-t-2 border-transparent" style={{ borderImage: "linear-gradient(to right, #0D0033, #0033CC) 1" }}>
       {/* Description */}
       {product.description && (
         <AccordionItem title="Description" defaultOpen>

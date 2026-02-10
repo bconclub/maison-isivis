@@ -7,7 +7,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Collections | Maison ISIVIS",
   description:
-    "Browse our luxury fashion collections. Shop by category or explore our curated style edits from the Maison ISIVIS London atelier.",
+    "Browse our luxury fashion collections. Shop by category or explore our curated style edits from the Maison ISIVIS atelier.",
 };
 
 const COLLECTION_IMAGES: Record<string, string> = {

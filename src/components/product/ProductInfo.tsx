@@ -10,9 +10,8 @@ import { WishlistButton } from "./WishlistButton";
 import { useCartStore } from "@/lib/stores/cart-store";
 import { toast } from "@/components/ui/Toast";
 import { Badge } from "@/components/ui/Badge";
-import { isLowStock } from "@/lib/utils";
-import { SIZES, COLORS } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { isLowStock, cn } from "@/lib/utils";
+import { SIZES } from "@/lib/constants";
 
 interface ProductInfoProps {
   product: Product;
@@ -26,10 +25,10 @@ export function ProductInfo({ product }: ProductInfoProps) {
   const addItem = useCartStore((s) => s.addItem);
   const openCart = useCartStore((s) => s.openCart);
 
-  // Determine available sizes and colors from variants, fallback to all
+  // Only show sizes and colors if the product has variants with them
   const availableSizes = product.hasVariants
     ? [...new Set(product.variants.map((v) => v.size).filter(Boolean) as string[])]
-    : [...SIZES];
+    : [];
   const unavailableSizes = product.hasVariants
     ? SIZES.filter(
         (s) =>
@@ -39,7 +38,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
   const availableColors = product.hasVariants
     ? [...new Set(product.variants.map((v) => v.color).filter(Boolean) as string[])]
-    : [...COLORS];
+    : [];
 
   const lowStock = isLowStock(product.stockQuantity, product.lowStockThreshold);
 
@@ -90,6 +89,9 @@ export function ProductInfo({ product }: ProductInfoProps) {
         size="lg"
       />
 
+      {/* Accent divider */}
+      <div className="h-px w-12 bg-gradient-to-r from-brand-purple to-brand-blue" />
+
       {/* Short description */}
       {product.shortDescription && (
         <p className="text-body-sm leading-relaxed text-neutral-600">
@@ -137,17 +139,20 @@ export function ProductInfo({ product }: ProductInfoProps) {
           className={cn(
             "flex h-14 flex-1 items-center justify-center rounded-luxury-md text-body-sm font-medium uppercase tracking-luxury transition-all duration-300",
             product.inStock
-              ? "bg-brand-purple text-white hover:bg-brand-purple-light hover:shadow-luxury"
+              ? "bg-gradient-to-r from-brand-purple via-brand-purple-80 to-brand-blue text-white shadow-md hover:shadow-luxury hover:brightness-110"
               : "cursor-not-allowed bg-neutral-200 text-neutral-400"
           )}
         >
           {product.inStock ? "Add to Bag" : "Out of Stock"}
         </button>
 
-        <div className="flex h-14 w-14 items-center justify-center rounded-luxury-md border border-neutral-200">
+        <div className="flex h-14 w-14 items-center justify-center rounded-luxury-md border border-neutral-200 transition-colors duration-200 hover:border-brand-purple/40">
           <WishlistButton productId={product.id} size="lg" />
         </div>
       </div>
+
+      {/* Divider */}
+      <div className="h-px bg-neutral-100" />
 
       {/* SKU */}
       <p className="text-caption text-neutral-400">
