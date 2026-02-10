@@ -96,23 +96,6 @@ export function ProductAccordion({ product }: ProductAccordionProps) {
         </AccordionItem>
       )}
 
-      {/* Shipping & Returns */}
-      <AccordionItem title="Shipping & Returns">
-        <div className="space-y-3">
-          <p>
-            <span className="font-medium text-neutral-800">Free UK Delivery</span>{" "}
-            on orders over £150. Standard delivery within 3–5 business days.
-          </p>
-          <p>
-            <span className="font-medium text-neutral-800">Express Delivery</span>{" "}
-            available for £9.99. Next-day delivery when ordered before 2pm.
-          </p>
-          <p>
-            <span className="font-medium text-neutral-800">Returns</span>{" "}
-            accepted within 14 days of delivery. Items must be unworn with tags attached.
-          </p>
-        </div>
-      </AccordionItem>
     </div>
   );
 }
