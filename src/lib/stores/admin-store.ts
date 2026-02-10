@@ -97,35 +97,35 @@ export const useAdminStore = create<AdminState>()(
       initialized: false,
 
       initialize: async () => {
-        if (get().initialized) return;
+        // Seed mock data on very first load (before any Supabase data exists)
+        if (!get().initialized) {
+          set({
+            products: [...MOCK_PRODUCTS],
+            categories: [...MOCK_CATEGORIES],
+            collections: [...MOCK_COLLECTIONS],
+            orders: [...MOCK_ORDERS],
+            reviews: [...MOCK_REVIEWS],
+            collectionProducts: { ...DEFAULT_COLLECTION_PRODUCTS },
+            initialized: true,
+          });
+        }
 
-        // Start with mock data as fallback
-        set({
-          products: [...MOCK_PRODUCTS],
-          categories: [...MOCK_CATEGORIES],
-          collections: [...MOCK_COLLECTIONS],
-          orders: [...MOCK_ORDERS],
-          reviews: [...MOCK_REVIEWS],
-          collectionProducts: { ...DEFAULT_COLLECTION_PRODUCTS },
-          initialized: true,
-        });
-
-        // Fetch real data from Supabase to replace mock IDs
+        // ALWAYS fetch from Supabase to ensure real UUIDs for categories/products
         try {
           const [prodRes, catRes] = await Promise.all([
             fetch("/api/admin/products"),
             fetch("/api/admin/categories"),
           ]);
-          if (prodRes.ok) {
-            const { products } = await prodRes.json();
-            if (products?.length) set({ products });
-          }
           if (catRes.ok) {
             const { categories } = await catRes.json();
             if (categories?.length) set({ categories });
           }
+          if (prodRes.ok) {
+            const { products } = await prodRes.json();
+            if (products?.length) set({ products });
+          }
         } catch {
-          // Supabase unavailable, keep mock data
+          // Supabase unavailable, keep persisted/mock data
         }
       },
 

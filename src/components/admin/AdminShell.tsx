@@ -12,9 +12,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Wait for Zustand persist to finish rehydrating from localStorage,
-    // THEN call initialize() to seed mock data if needed (first load).
-    const unsubscribe = onAdminStoreHydrate(() => {
-      initialize();
+    // THEN fetch real data from Supabase before showing the admin panel.
+    const unsubscribe = onAdminStoreHydrate(async () => {
+      await initialize();
       setReady(true);
     });
     return unsubscribe;
