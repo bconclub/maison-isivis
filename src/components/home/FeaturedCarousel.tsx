@@ -142,22 +142,14 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-brand-purple/0 transition-colors duration-300 group-hover:bg-brand-purple/10" />
 
-                  {/* Badges */}
-                  <div className="absolute left-2.5 top-2.5 flex flex-col gap-1.5">
-                    {product.badge && (
-                      <Badge
-                        variant={
-                          product.badge === "Sale"
-                            ? "sale"
-                            : product.badge === "New"
-                              ? "new"
-                              : "primary"
-                        }
-                      >
+                  {/* Badge — bottom-left, small & subtle */}
+                  {product.badge && (
+                    <div className="absolute bottom-2.5 left-2.5">
+                      <span className="rounded bg-white/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-neutral-800 backdrop-blur-sm">
                         {product.badge}
-                      </Badge>
-                    )}
-                  </div>
+                      </span>
+                    </div>
+                  )}
 
                   {/* Wishlist icon on hover */}
                   <div
