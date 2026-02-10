@@ -40,7 +40,7 @@ export function HeroSlideshow() {
       <img
         src={MOBILE_SLIDE.src}
         alt={MOBILE_SLIDE.alt}
-        className="absolute inset-0 h-full w-full object-cover object-top sm:hidden"
+        className="absolute inset-0 h-full w-full object-contain object-center sm:hidden"
       />
 
       {/* Hero Images — desktop (crossfade, width-fitted from top) */}

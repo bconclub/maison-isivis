@@ -10,8 +10,8 @@ interface PriceDisplayProps {
 }
 
 const sizeClasses = {
-  sm: "text-body-sm",
-  md: "text-base",
+  sm: "text-base",
+  md: "text-lg",
   lg: "text-h4 font-semibold",
 };
 
@@ -26,7 +26,7 @@ export function PriceDisplay({
 
   return (
     <div className={cn("flex items-baseline gap-2", className)}>
-      <span className={cn(sizeClasses[size], "font-medium text-brand-purple")}>
+      <span className={cn(sizeClasses[size], "font-normal text-brand-purple")}>
         {formatPrice(salePrice ?? price)}
       </span>
       {effectiveCompare && (
