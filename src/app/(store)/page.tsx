@@ -89,7 +89,7 @@ export default function HomePage() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <section className="relative flex min-h-[100svh] items-end overflow-hidden bg-neutral-100 pb-16 sm:items-center sm:pb-0 lg:min-h-screen">
+      <section className="relative flex min-h-[100svh] items-end justify-center overflow-hidden bg-neutral-100 lg:min-h-screen">
         {/* Hero Image — mobile */}
         <Image
           src="/images/hero/mobile/001.webp"
@@ -101,7 +101,7 @@ export default function HomePage() {
         />
         {/* Hero Image — desktop */}
         <Image
-          src="/images/hero/desktop/Hero Cover.jpeg"
+          src="/images/hero/desktop/Hero Desktop 01.webp"
           alt="Maison ISIVIS — Luxury fashion, model in navy tweed ensemble with signature packaging"
           fill
           priority
@@ -109,46 +109,30 @@ export default function HomePage() {
           sizes="100vw"
         />
 
-        {/* Overlay — bottom gradient on mobile, left gradient on desktop */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-purple/90 via-brand-purple/40 to-transparent sm:bg-gradient-to-r sm:from-brand-purple/80 sm:via-brand-purple/40 sm:to-transparent" />
+        {/* Overlay — subtle bottom gradient so text is legible over image */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
 
-        {/* Text Content — bottom on mobile, left on desktop */}
-        <div className="container-luxury relative z-10">
-          <div className="max-w-xl">
-            <p className="mb-2 font-script text-lg tracking-wide text-white/80 sm:text-xl">
-              Pr&ecirc;t-&agrave;-couture for the modern woman
-            </p>
-            <h1 className="font-heading text-hero font-bold leading-none text-white">
-              Turn Your Fantasy
-              <br />
-              Into Reality
-            </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-white/80 sm:text-body-lg">
-              Handcrafted luxury from our London atelier. Where Golden Age
-              glamour meets modern sensuality.
-            </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/products"
-                className="group inline-flex items-center justify-center gap-2 rounded-luxury bg-white px-10 py-4 text-base font-medium uppercase tracking-luxury text-brand-purple shadow-luxury transition-all duration-300 hover:-translate-y-0.5 hover:shadow-luxury-lg"
-              >
-                Discover The Collection
-                <svg
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M5 12h14m-7-7 7 7-7 7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-            </div>
-          </div>
+        {/* CTA — bottom center */}
+        <div className="relative z-10 pb-16 text-center sm:pb-20">
+          <Link
+            href="/products"
+            className="group inline-flex items-center justify-center gap-2 rounded-luxury bg-white/90 px-10 py-4 text-base font-medium uppercase tracking-luxury text-brand-purple shadow-luxury backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-luxury-lg"
+          >
+            Explore
+            <svg
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M5 12h14m-7-7 7 7-7 7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
         </div>
       </section>
 
