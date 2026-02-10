@@ -46,7 +46,7 @@ export default function OrdersPage() {
 
   return (
     <div>
-      <h2 className="mb-6 font-heading text-h3 font-semibold text-neutral-900">
+      <h2 className="mb-6 font-heading text-h3 font-light text-neutral-800">
         Order History
       </h2>
 

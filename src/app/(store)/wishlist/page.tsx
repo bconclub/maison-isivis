@@ -12,7 +12,7 @@ export default function WishlistPage() {
     <div className="container-luxury py-8 sm:py-12">
       <Breadcrumbs items={[{ label: "Wishlist" }]} className="mb-6" />
 
-      <h1 className="mb-8 font-heading text-h2 font-semibold text-neutral-900 sm:text-h1">
+      <h1 className="mb-8 font-heading text-h2 font-light text-neutral-800 sm:text-h1">
         Your Wishlist
       </h1>
 

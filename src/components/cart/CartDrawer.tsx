@@ -62,7 +62,7 @@ export function CartDrawer() {
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
-              <h2 className="font-heading text-h4 font-semibold text-neutral-900">
+              <h2 className="font-heading text-h4 font-light text-neutral-800">
                 Your Bag
                 {items.length > 0 && (
                   <span className="ml-2 text-body-sm font-normal text-neutral-400">

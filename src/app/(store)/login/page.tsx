@@ -21,7 +21,7 @@ export default function LoginPage() {
             height={48}
             className="mx-auto mb-4 h-12 w-auto"
           />
-          <h1 className="font-heading text-h2 font-semibold text-neutral-900">
+          <h1 className="font-heading text-h2 font-light text-neutral-800">
             Welcome Back
           </h1>
           <p className="mt-2 text-body-sm text-neutral-500">

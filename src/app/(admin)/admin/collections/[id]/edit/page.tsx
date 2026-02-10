@@ -39,7 +39,7 @@ export default function EditCollectionPage({
           </svg>
           Back to Collections
         </Link>
-        <h1 className="font-heading text-2xl font-bold text-brand-purple">
+        <h1 className="font-heading text-2xl font-light text-brand-purple/80">
           Edit: {collection.title}
         </h1>
       </div>

@@ -87,7 +87,7 @@ export function FilterSidebar({ className, hideCategory }: FilterSidebarProps) {
 
   return (
     <aside className={cn("w-full", className)}>
-      <h2 className="mb-2 font-heading text-h4 font-semibold text-neutral-900">
+      <h2 className="mb-2 font-heading text-h4 font-light text-neutral-800">
         Filters
       </h2>
 

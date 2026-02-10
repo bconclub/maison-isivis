@@ -76,7 +76,7 @@ export function HeroSlideshow() {
 
       {/* Text + CTA — bottom center */}
       <div className="relative z-10 pb-24 text-center sm:pb-28">
-        <h1 className="font-heading text-hero font-bold leading-none text-white">
+        <h1 className="font-heading text-hero font-light leading-none text-white">
           Turning Fantasy
           <br />
           Into Reality

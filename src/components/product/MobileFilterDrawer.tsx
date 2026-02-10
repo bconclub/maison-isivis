@@ -52,7 +52,7 @@ export function MobileFilterDrawer({
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
-              <h2 className="font-heading text-h4 font-semibold text-neutral-900">
+              <h2 className="font-heading text-h4 font-light text-neutral-800">
                 Filters
               </h2>
               <button

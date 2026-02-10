@@ -105,7 +105,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-neutral-300/50 to-neutral-400/50 transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-brand-purple/0 transition-colors duration-300 group-hover:bg-brand-purple/20" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h3 className="font-heading text-xl font-semibold text-white sm:text-h4">
+                  <h3 className="font-heading text-xl font-light text-white sm:text-h4">
                     {card.title}
                   </h3>
                   <p className="mt-1 text-body-sm text-white/80">
@@ -123,7 +123,7 @@ export default function HomePage() {
         <div className="container-luxury">
           <div className="mb-12 text-center">
             <p className="font-script text-lg text-brand-blue">Explore</p>
-            <h2 className="mt-2 font-heading text-h1 font-bold uppercase tracking-luxury text-brand-purple">
+            <h2 className="mt-2 font-heading text-h1 font-light uppercase tracking-luxury text-brand-purple/80">
               Find Your Fantasy
             </h2>
           </div>
@@ -149,7 +149,7 @@ export default function HomePage() {
                   )}
                   <div className="absolute inset-0 bg-brand-purple/0 transition-colors duration-300 group-hover:bg-brand-purple/15" />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 pt-12">
-                    <h3 className="font-heading text-lg font-semibold text-white sm:text-xl">
+                    <h3 className="font-heading text-lg font-light text-white sm:text-xl">
                       {collection.label}
                     </h3>
                   </div>
@@ -436,7 +436,7 @@ export default function HomePage() {
             {["Glamour", "Grazia"].map((pub) => (
               <span
                 key={pub}
-                className="font-heading text-h3 font-bold tracking-wide text-neutral-300"
+                className="font-heading text-h3 font-light tracking-wide text-neutral-300"
               >
                 {pub}
               </span>
@@ -490,7 +490,7 @@ export default function HomePage() {
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-8 lg:justify-start">
                 <div className="text-center">
-                  <p className="font-heading text-h3 font-bold text-brand-purple">
+                  <p className="font-heading text-h3 font-light text-brand-purple/80">
                     130+
                   </p>
                   <p className="mt-1 text-caption uppercase tracking-luxury text-neutral-500">
@@ -498,7 +498,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <p className="font-heading text-h3 font-bold text-brand-purple">
+                  <p className="font-heading text-h3 font-light text-brand-purple/80">
                     50K+
                   </p>
                   <p className="mt-1 text-caption uppercase tracking-luxury text-neutral-500">
@@ -506,7 +506,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <p className="font-heading text-h3 font-bold text-brand-purple">
+                  <p className="font-heading text-h3 font-light text-brand-purple/80">
                     London
                   </p>
                   <p className="mt-1 text-caption uppercase tracking-luxury text-neutral-500">

@@ -62,7 +62,7 @@ export function Footer() {
 
           {/* Column 2: Help */}
           <div>
-            <h3 className="mb-4 font-heading text-base font-semibold uppercase tracking-luxury-wide text-white">
+            <h3 className="mb-4 font-heading text-base font-light uppercase tracking-luxury-wide text-white">
               Help
             </h3>
             <ul className="space-y-2.5">
@@ -81,7 +81,7 @@ export function Footer() {
 
           {/* Column 3: Info */}
           <div>
-            <h3 className="mb-4 font-heading text-base font-semibold uppercase tracking-luxury-wide text-white">
+            <h3 className="mb-4 font-heading text-base font-light uppercase tracking-luxury-wide text-white">
               Info
             </h3>
             <ul className="space-y-2.5">
@@ -100,7 +100,7 @@ export function Footer() {
 
           {/* Column 4: Connect */}
           <div>
-            <h3 className="mb-4 font-heading text-base font-semibold uppercase tracking-luxury-wide text-white">
+            <h3 className="mb-4 font-heading text-base font-light uppercase tracking-luxury-wide text-white">
               Connect
             </h3>
             <div className="flex flex-wrap gap-3">

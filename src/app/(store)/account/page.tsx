@@ -26,7 +26,7 @@ export default function AccountProfilePage() {
 
   return (
     <div>
-      <h2 className="mb-6 font-heading text-h3 font-semibold text-neutral-900">
+      <h2 className="mb-6 font-heading text-h3 font-light text-neutral-800">
         Profile Information
       </h2>
 
@@ -62,7 +62,7 @@ export default function AccountProfilePage() {
 
       {/* Password Change Section */}
       <div className="mt-12 border-t border-neutral-100 pt-8">
-        <h2 className="mb-6 font-heading text-h3 font-semibold text-neutral-900">
+        <h2 className="mb-6 font-heading text-h3 font-light text-neutral-800">
           Change Password
         </h2>
         <form

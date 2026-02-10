@@ -16,7 +16,7 @@ export default function NewCategoryPage() {
           </svg>
           Back to Categories
         </Link>
-        <h1 className="font-heading text-2xl font-bold text-brand-purple">
+        <h1 className="font-heading text-2xl font-light text-brand-purple/80">
           Create New Category
         </h1>
       </div>

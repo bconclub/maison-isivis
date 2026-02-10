@@ -44,7 +44,7 @@ export default async function OrderDetailPage({ params }: Props) {
       {/* Header */}
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h2 className="font-heading text-h3 font-semibold text-neutral-900">
+          <h2 className="font-heading text-h3 font-light text-neutral-800">
             Order #{order.orderNumber}
           </h2>
           <p className="mt-1 text-body-sm text-neutral-500">

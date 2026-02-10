@@ -125,7 +125,7 @@ export default function FAQPage() {
       <Breadcrumbs items={[{ label: "FAQ" }]} className="mb-6" />
 
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-heading text-h1 font-bold text-neutral-900">
+        <h1 className="font-heading text-h1 font-light text-neutral-800">
           Frequently Asked Questions
         </h1>
         <p className="mt-4 text-body-sm leading-relaxed text-neutral-500">
@@ -139,7 +139,7 @@ export default function FAQPage() {
 
         {FAQ_SECTIONS.map((section) => (
           <section key={section.title} className="mt-10">
-            <h2 className="mb-2 font-heading text-h3 font-semibold text-neutral-900">
+            <h2 className="mb-2 font-heading text-h3 font-light text-neutral-800">
               {section.title}
             </h2>
             <div className="border-t border-neutral-100">

@@ -162,7 +162,7 @@ export default function AboutPage() {
               <p className="font-script text-lg text-white/70">
                 Every purchase empowers women
               </p>
-              <h2 className="mt-2 font-heading text-h1 font-bold text-white">
+              <h2 className="mt-2 font-heading text-h1 font-light text-white">
                 RehVamp Foundation
               </h2>
               <div className="mx-auto mt-4 max-w-md space-y-4 text-base leading-relaxed text-white/70 lg:mx-0">
@@ -179,7 +179,7 @@ export default function AboutPage() {
               </div>
               <div className="mt-8 flex flex-wrap justify-center gap-8 lg:justify-start">
                 <div className="text-center">
-                  <p className="font-heading text-h3 font-bold text-white">
+                  <p className="font-heading text-h3 font-light text-white">
                     Women&apos;s
                   </p>
                   <p className="mt-1 text-caption uppercase tracking-luxury text-white/50">
@@ -187,7 +187,7 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <p className="font-heading text-h3 font-bold text-white">
+                  <p className="font-heading text-h3 font-light text-white">
                     Education
                   </p>
                   <p className="mt-1 text-caption uppercase tracking-luxury text-white/50">
@@ -195,7 +195,7 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <p className="font-heading text-h3 font-bold text-white">
+                  <p className="font-heading text-h3 font-light text-white">
                     Sustainable
                   </p>
                   <p className="mt-1 text-caption uppercase tracking-luxury text-white/50">
@@ -229,7 +229,7 @@ export default function AboutPage() {
             {["Glamour", "Grazia"].map((pub) => (
               <span
                 key={pub}
-                className="font-heading text-h3 font-bold tracking-wide text-neutral-300"
+                className="font-heading text-h3 font-light tracking-wide text-neutral-300"
               >
                 {pub}
               </span>
@@ -267,7 +267,7 @@ export default function AboutPage() {
               },
             ].map((value) => (
               <div key={value.title} className="text-center">
-                <h3 className="font-heading text-h4 font-semibold text-brand-purple">
+                <h3 className="font-heading text-h4 font-light text-brand-purple/80">
                   {value.title}
                 </h3>
                 <p className="mt-3 text-body-sm leading-relaxed text-neutral-600">

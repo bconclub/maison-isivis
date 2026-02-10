@@ -77,7 +77,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
       )}
 
       {/* Name */}
-      <h1 className="font-heading text-h2 font-semibold text-neutral-900 sm:text-h1">
+      <h1 className="font-heading text-h2 font-light text-neutral-800 sm:text-h1">
         {product.name}
       </h1>
 

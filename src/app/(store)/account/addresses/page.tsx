@@ -24,7 +24,7 @@ export default function AddressesPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="font-heading text-h3 font-semibold text-neutral-900">
+        <h2 className="font-heading text-h3 font-light text-neutral-800">
           Saved Addresses
         </h2>
         {!showForm && (
@@ -43,7 +43,7 @@ export default function AddressesPage() {
       {/* Address Form */}
       {showForm && (
         <div className="mb-8 rounded-luxury-md border border-neutral-100 p-5">
-          <h3 className="mb-4 font-heading text-h4 font-semibold text-neutral-900">
+          <h3 className="mb-4 font-heading text-h4 font-light text-neutral-800">
             {editingAddress ? "Edit Address" : "New Address"}
           </h3>
           <AddressForm

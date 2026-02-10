@@ -44,7 +44,7 @@ export default function EditProductPage({
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-heading text-2xl font-bold text-brand-purple">
+            <h1 className="font-heading text-2xl font-light text-brand-purple/80">
               Edit: {product.name}
             </h1>
             <p className="mt-1 text-sm text-neutral-500">

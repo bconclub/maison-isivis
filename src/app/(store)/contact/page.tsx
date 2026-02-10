@@ -31,7 +31,7 @@ export default function ContactPage() {
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Info Side */}
         <div>
-          <h1 className="font-heading text-h1 font-bold text-neutral-900">
+          <h1 className="font-heading text-h1 font-light text-neutral-800">
             Get in Touch
           </h1>
           <p className="mt-4 max-w-lg text-body-sm leading-relaxed text-neutral-600">
@@ -86,7 +86,7 @@ export default function ContactPage() {
 
         {/* Form Side */}
         <div className="rounded-luxury-md border border-neutral-100 p-6 sm:p-8">
-          <h2 className="mb-6 font-heading text-h3 font-semibold text-neutral-900">
+          <h2 className="mb-6 font-heading text-h3 font-light text-neutral-800">
             Send Us a Message
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

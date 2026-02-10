@@ -14,7 +14,7 @@ export function RelatedProducts({
 
   return (
     <section className="py-12">
-      <h2 className="mb-8 text-center font-heading text-h3 font-semibold text-neutral-900">
+      <h2 className="mb-8 text-center font-heading text-h3 font-light text-neutral-800">
         {title}
       </h2>
       <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">

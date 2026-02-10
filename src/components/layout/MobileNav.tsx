@@ -47,7 +47,7 @@ export function MobileNav() {
           >
             {/* Header */}
             <div className="flex h-16 items-center justify-between bg-brand-purple px-6">
-              <span className="font-heading text-lg font-bold uppercase tracking-luxury-wide text-white">
+              <span className="font-heading text-lg font-light uppercase tracking-luxury-wide text-white">
                 Menu
               </span>
               <button

@@ -72,7 +72,7 @@ export default async function CollectionPage({ params }: Props) {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-purple/70 via-brand-purple/30 to-transparent" />
           <div className="absolute inset-0 flex items-end">
             <div className="container-luxury pb-8">
-              <h1 className="font-heading text-h1 font-bold text-white sm:text-display-sm">
+              <h1 className="font-heading text-h1 font-light text-white sm:text-display-sm">
                 {title}
               </h1>
             </div>

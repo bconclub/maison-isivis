@@ -84,7 +84,7 @@ export function Modal({
             {/* Header (sticky) */}
             <div className="flex shrink-0 items-center justify-between px-6 pt-6 pb-0">
               {title && (
-                <h2 className="font-heading text-h3 text-brand-purple">
+                <h2 className="font-heading text-h3 text-brand-purple/80">
                   {title}
                 </h2>
               )}

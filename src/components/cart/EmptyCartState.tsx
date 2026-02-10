@@ -29,7 +29,7 @@ export function EmptyCartState({ variant = "drawer" }: EmptyCartStateProps) {
         </svg>
       </div>
 
-      <h2 className={`mb-2 font-heading font-semibold text-neutral-900 ${isPage ? "text-h3" : "text-h4"}`}>
+      <h2 className={`mb-2 font-heading font-light text-neutral-800 ${isPage ? "text-h3" : "text-h4"}`}>
         Your Bag is Empty
       </h2>
       <p className="mb-6 max-w-xs text-body-sm text-neutral-500">

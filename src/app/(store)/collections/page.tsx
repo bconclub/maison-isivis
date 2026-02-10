@@ -22,7 +22,7 @@ export default function CollectionsPage() {
     <div className="container-luxury py-8 sm:py-12">
       <Breadcrumbs items={[{ label: "Collections" }]} className="mb-6" />
 
-      <h1 className="font-heading text-h1 font-bold text-neutral-900">
+      <h1 className="font-heading text-h1 font-light text-neutral-800">
         Collections
       </h1>
       <p className="mt-3 max-w-2xl text-body-sm leading-relaxed text-neutral-500">
@@ -32,7 +32,7 @@ export default function CollectionsPage() {
 
       {/* Shop By Category */}
       <section className="mt-12">
-        <h2 className="mb-6 font-heading text-h3 font-semibold text-neutral-900">
+        <h2 className="mb-6 font-heading text-h3 font-light text-neutral-800">
           Shop By Category
         </h2>
         <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
@@ -46,7 +46,7 @@ export default function CollectionsPage() {
               <div className="absolute inset-0 bg-gradient-to-b from-brand-purple/20 via-brand-purple/40 to-brand-purple/80 transition-all duration-500 group-hover:from-brand-purple/30 group-hover:via-brand-purple/50 group-hover:to-brand-purple/90" />
               <div className="absolute inset-0 flex items-end p-5">
                 <div>
-                  <h3 className="font-heading text-h4 font-semibold text-white sm:text-h3">
+                  <h3 className="font-heading text-h4 font-light text-white sm:text-h3">
                     {cat.label}
                   </h3>
                   <span className="mt-2 inline-flex items-center gap-1 text-caption font-medium uppercase tracking-luxury text-white/70 transition-colors group-hover:text-white">
@@ -73,7 +73,7 @@ export default function CollectionsPage() {
 
       {/* Style Collections */}
       <section className="mt-16">
-        <h2 className="mb-6 font-heading text-h3 font-semibold text-neutral-900">
+        <h2 className="mb-6 font-heading text-h3 font-light text-neutral-800">
           Style Edits
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -100,7 +100,7 @@ export default function CollectionsPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute inset-0 flex items-end p-6">
                   <div>
-                    <h3 className="font-heading text-h3 font-semibold text-white sm:text-h2">
+                    <h3 className="font-heading text-h3 font-light text-white sm:text-h2">
                       {col.label}
                     </h3>
                     <span className="mt-1 inline-flex items-center gap-1 text-body-sm text-white/70 transition-colors group-hover:text-white">

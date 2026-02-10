@@ -34,7 +34,7 @@ export function ReviewsSection({ reviews, className }: ReviewsSectionProps) {
   if (reviews.length === 0) {
     return (
       <section className={cn("py-12", className)}>
-        <h2 className="mb-6 font-heading text-h3 font-semibold text-neutral-900">
+        <h2 className="mb-6 font-heading text-h3 font-light text-neutral-800">
           Customer Reviews
         </h2>
         <div className="rounded-luxury-md border border-neutral-100 px-6 py-12 text-center">
@@ -52,14 +52,14 @@ export function ReviewsSection({ reviews, className }: ReviewsSectionProps) {
 
   return (
     <section className={cn("py-12", className)}>
-      <h2 className="mb-8 font-heading text-h3 font-semibold text-neutral-900">
+      <h2 className="mb-8 font-heading text-h3 font-light text-neutral-800">
         Customer Reviews
       </h2>
 
       {/* Summary */}
       <div className="mb-10 flex flex-col items-center gap-4 rounded-luxury-md border border-neutral-100 p-6 sm:flex-row sm:gap-8">
         <div className="text-center sm:text-left">
-          <p className="font-heading text-display-sm font-bold text-neutral-900">
+          <p className="font-heading text-display-sm font-light text-neutral-800">
             {avgRating.toFixed(1)}
           </p>
           <StarRating rating={Math.round(avgRating)} size="lg" />

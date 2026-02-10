@@ -34,7 +34,7 @@ export function CartPageClient() {
       <Breadcrumbs items={[{ label: "Your Bag" }]} className="mb-6" />
 
       <div className="mb-8 flex items-end justify-between">
-        <h1 className="font-heading text-h2 font-semibold text-neutral-900 sm:text-h1">
+        <h1 className="font-heading text-h2 font-light text-neutral-800 sm:text-h1">
           Your Bag
         </h1>
         {items.length > 0 && (
@@ -86,7 +86,7 @@ export function CartPageClient() {
           {/* Summary */}
           <div>
             <div className="sticky top-28 rounded-luxury-md border border-neutral-100 p-6">
-              <h2 className="mb-5 font-heading text-h4 font-semibold text-neutral-900">
+              <h2 className="mb-5 font-heading text-h4 font-light text-neutral-800">
                 Order Summary
               </h2>
 
