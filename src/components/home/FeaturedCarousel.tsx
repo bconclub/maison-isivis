@@ -123,7 +123,7 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
               <Link
                 key={product.id}
                 href={`/products/${product.slug}`}
-                className="group w-[48%] flex-shrink-0 sm:w-[31%] lg:w-[23%]"
+                className="group w-[85%] flex-shrink-0 sm:w-[31%] lg:w-[23%]"
               >
                 <div className="relative aspect-product overflow-hidden rounded-luxury-md bg-neutral-200 transition-shadow duration-300 group-hover:shadow-luxury-xl">
                   {/* Product Image */}
@@ -133,7 +133,7 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
                       alt={product.images[0].alt ?? product.name}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 48vw, (max-width: 1024px) 31vw, 23vw"
+                      sizes="(max-width: 640px) 85vw, (max-width: 1024px) 31vw, 23vw"
                     />
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-b from-neutral-300/30 to-neutral-400/50" />

@@ -169,14 +169,28 @@ export async function getFeaturedProducts(
   const products = await fetchAllProducts();
   const categories = await fetchAllCategories();
 
-  return products
+  // Prefer products explicitly marked as featured
+  let featured = products
     .filter((p) => p.featured)
-    .sort((a, b) => a.displayOrder - b.displayOrder)
-    .slice(0, limit)
-    .map((p) => {
-      const category = categories.find((c) => c.id === p.categoryId);
-      return category ? { ...p, category } : p;
-    });
+    .sort((a, b) => a.displayOrder - b.displayOrder);
+
+  // If not enough featured products, backfill with newest products
+  if (featured.length < limit) {
+    const featuredIds = new Set(featured.map((p) => p.id));
+    const backfill = products
+      .filter((p) => !featuredIds.has(p.id))
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+      .slice(0, limit - featured.length);
+    featured = [...featured, ...backfill];
+  }
+
+  return featured.slice(0, limit).map((p) => {
+    const category = categories.find((c) => c.id === p.categoryId);
+    return category ? { ...p, category } : p;
+  });
 }
 
 export async function getRelatedProducts(

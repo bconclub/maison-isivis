@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "bump": "node scripts/bump-build.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.74.0",
