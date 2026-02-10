@@ -35,12 +35,12 @@ export function HeroSlideshow() {
   }, [next]);
 
   return (
-    <section className="relative flex h-screen items-end justify-center overflow-hidden bg-black">
+    <section className="relative flex h-[85vh] items-end justify-center overflow-hidden bg-black sm:h-screen">
       {/* Hero Image — mobile (single, cover from top) */}
       <img
         src={MOBILE_SLIDE.src}
         alt={MOBILE_SLIDE.alt}
-        className="absolute inset-0 h-full w-full object-contain object-center sm:hidden"
+        className="absolute inset-0 h-full w-full object-cover object-top sm:hidden"
       />
 
       {/* Hero Images — desktop (crossfade, width-fitted from top) */}
