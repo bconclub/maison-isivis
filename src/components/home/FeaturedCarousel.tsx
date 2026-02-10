@@ -105,27 +105,27 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
           </div>
         </div>
 
-        {/* Carousel track */}
-        <div className="relative">
-          {/* Fade edges */}
+        {/* Carousel track — edge-to-edge on mobile */}
+        <div className="relative -mx-4 sm:mx-0">
+          {/* Fade edges — desktop only */}
           {canScrollLeft && (
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-12 bg-gradient-to-r from-white to-transparent sm:block" />
           )}
           {canScrollRight && (
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-12 bg-gradient-to-l from-white to-transparent sm:block" />
           )}
 
           <div
             ref={scrollRef}
-            className="scrollbar-hide -mx-1 flex gap-4 overflow-x-auto px-1 sm:gap-6"
+            className="scrollbar-hide flex gap-3 overflow-x-auto px-4 sm:gap-6 sm:px-0"
           >
             {products.map((product) => (
               <Link
                 key={product.id}
                 href={`/products/${product.slug}`}
-                className="group w-[85%] flex-shrink-0 sm:w-[31%] lg:w-[23%]"
+                className="group w-[75%] flex-shrink-0 sm:w-[31%] lg:w-[23%]"
               >
-                <div className="relative aspect-product overflow-hidden rounded-luxury-md bg-neutral-200">
+                <div className="relative aspect-product overflow-hidden rounded-lg bg-neutral-200 sm:rounded-luxury-md">
                   {/* Product Image */}
                   {product.images.length > 0 && product.images[0] ? (
                     <Image
