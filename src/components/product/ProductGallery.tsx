@@ -65,15 +65,15 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
         </div>
       )}
 
-      {/* Main image */}
-      <div className="group relative flex-1 overflow-hidden rounded-luxury-md bg-neutral-100">
+      {/* Main image — reduced: ~80% on mobile, ~50% max on desktop */}
+      <div className="group relative flex-1 overflow-hidden rounded-luxury-md bg-neutral-100 max-w-[80%] sm:max-w-full lg:max-w-[85%]">
         <div className="relative aspect-product w-full overflow-hidden">
           <Image
             src={activeImage?.url ?? ""}
             alt={activeImage?.alt ?? productName}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 80vw, 40vw"
             priority
           />
         </div>

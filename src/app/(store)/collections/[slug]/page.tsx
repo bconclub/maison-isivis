@@ -2,7 +2,11 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getCategoryBySlug, getCollectionBySlug } from "@/lib/mock-data";
+import {
+  getCategoryBySlug,
+  getCollectionBySlug,
+  getAllProducts,
+} from "@/lib/data";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { CollectionClient } from "./CollectionClient";
 
@@ -15,10 +19,13 @@ const HERO_IMAGES: Record<string, string> = {
   "old-money": "/images/collections/Old MOney.webp",
 };
 
+// Revalidate every 60 seconds
+export const revalidate = 60;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
-  const collection = !category ? getCollectionBySlug(slug) : null;
+  const category = await getCategoryBySlug(slug);
+  const collection = !category ? await getCollectionBySlug(slug) : null;
 
   const title = category?.name ?? collection?.title ?? "Collection";
   const desc =
@@ -34,12 +41,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CollectionPage({ params }: Props) {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
-  const collection = !category ? getCollectionBySlug(slug) : null;
+  const category = await getCategoryBySlug(slug);
+  const collection = !category ? await getCollectionBySlug(slug) : null;
 
   if (!category && !collection) {
     notFound();
   }
+
+  // Fetch all products from Supabase for client-side filtering
+  const allProducts = await getAllProducts();
 
   const title = category?.name ?? collection?.title ?? "Collection";
   const heroImage = HERO_IMAGES[slug] ?? collection?.heroImageUrl ?? category?.imageUrl;
@@ -81,6 +91,7 @@ export default async function CollectionPage({ params }: Props) {
             category={category ?? undefined}
             collection={collection ?? undefined}
             slug={slug}
+            allProducts={allProducts}
           />
         </Suspense>
       </div>

@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import {
   getProductBySlug,
   getRelatedProducts,
   getReviewsByProduct,
-} from "@/lib/mock-data";
+} from "@/lib/data";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductInfo } from "@/components/product/ProductInfo";
 import { ProductAccordion } from "@/components/product/ProductAccordion";
 import { ReviewsSection } from "@/components/product/ReviewsSection";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
-import { ProductDetailClient } from "./ProductDetailClient";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// Revalidate every 60 seconds so new products show up quickly
+export const revalidate = 60;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return { title: "Product | Maison ISIVIS" };
@@ -40,15 +43,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
-  // If product not in static mock data, fall back to client-side admin store lookup
   if (!product) {
-    return <ProductDetailClient params={params} />;
+    notFound();
   }
 
-  const reviews = getReviewsByProduct(product.id);
-  const relatedProducts = getRelatedProducts(product.id);
+  const reviews = await getReviewsByProduct(product.id);
+  const relatedProducts = await getRelatedProducts(product.id);
 
   // Build breadcrumb trail
   const breadcrumbItems = [];

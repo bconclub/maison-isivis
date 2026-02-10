@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ProductListingClient } from "./ProductListingClient";
+import { getAllProducts } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Shop All Products | Maison ISIVIS",
@@ -9,7 +10,12 @@ export const metadata: Metadata = {
     "Browse our curated collection of luxury fashion. Handcrafted dresses, tops, co-ords, outerwear and accessories from our London atelier.",
 };
 
-export default function ProductsPage() {
+// Revalidate every 60 seconds so new products show up quickly
+export const revalidate = 60;
+
+export default async function ProductsPage() {
+  const allProducts = await getAllProducts();
+
   return (
     <div className="container-luxury py-8 sm:py-12">
       <Breadcrumbs
@@ -18,7 +24,7 @@ export default function ProductsPage() {
       />
 
       <Suspense fallback={<ProductsLoadingSkeleton />}>
-        <ProductListingClient />
+        <ProductListingClient allProducts={allProducts} />
       </Suspense>
     </div>
   );

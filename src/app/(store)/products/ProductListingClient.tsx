@@ -2,15 +2,124 @@
 
 import { useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { getFilteredProducts } from "@/lib/mock-data";
-import type { ProductFilters } from "@/types/product";
+import type { Product, ProductFilters, PaginatedProducts } from "@/types/product";
 import { ProductCard } from "@/components/product/ProductCard";
 import { SortSelect } from "@/components/product/SortSelect";
 import { ActiveFilters } from "@/components/product/ActiveFilters";
 import { Pagination } from "@/components/product/Pagination";
 import { MobileFilterDrawer } from "@/components/product/MobileFilterDrawer";
 
-export function ProductListingClient() {
+interface ProductListingClientProps {
+  allProducts: Product[];
+}
+
+/** Client-side filter/sort/paginate from server-fetched products */
+function filterProducts(
+  allProducts: Product[],
+  filters: ProductFilters
+): PaginatedProducts {
+  let products = [...allProducts];
+
+  // Category filter — match by category slug on the joined category object
+  if (filters.categorySlug) {
+    products = products.filter(
+      (p) => p.category?.slug === filters.categorySlug
+    );
+  }
+
+  // Price range
+  if (filters.minPrice != null)
+    products = products.filter(
+      (p) => (p.salePrice ?? p.price) >= filters.minPrice!
+    );
+  if (filters.maxPrice != null)
+    products = products.filter(
+      (p) => (p.salePrice ?? p.price) <= filters.maxPrice!
+    );
+
+  // Size filter
+  if (filters.sizes?.length)
+    products = products.filter((p) =>
+      p.variants.some(
+        (v) => v.size && filters.sizes!.includes(v.size) && v.stock > 0
+      )
+    );
+
+  // Color filter
+  if (filters.colors?.length)
+    products = products.filter((p) =>
+      p.variants.some(
+        (v) => v.color && filters.colors!.includes(v.color) && v.stock > 0
+      )
+    );
+
+  if (filters.inStockOnly)
+    products = products.filter((p) => p.inStock && p.stockQuantity > 0);
+  if (filters.onSale)
+    products = products.filter((p) => p.salePrice != null);
+  if (filters.newArrivals)
+    products = products.filter((p) => p.newArrival);
+
+  // Search
+  if (filters.search) {
+    const q = filters.search.toLowerCase();
+    products = products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        (p.shortDescription ?? "").toLowerCase().includes(q) ||
+        (p.description ?? "").toLowerCase().includes(q) ||
+        p.sku.toLowerCase().includes(q)
+    );
+  }
+
+  // Sorting
+  const sortBy = filters.sortBy ?? "featured";
+  switch (sortBy) {
+    case "featured":
+      products.sort(
+        (a, b) =>
+          (b.featured ? 1 : 0) - (a.featured ? 1 : 0) ||
+          a.displayOrder - b.displayOrder
+      );
+      break;
+    case "newest":
+      products.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      break;
+    case "price-asc":
+      products.sort(
+        (a, b) => (a.salePrice ?? a.price) - (b.salePrice ?? b.price)
+      );
+      break;
+    case "price-desc":
+      products.sort(
+        (a, b) => (b.salePrice ?? b.price) - (a.salePrice ?? a.price)
+      );
+      break;
+    case "bestseller":
+      products.sort(
+        (a, b) => (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0)
+      );
+      break;
+    case "name-asc":
+      products.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+  }
+
+  // Pagination
+  const page = filters.page ?? 1;
+  const limit = filters.limit ?? 12;
+  const total = products.length;
+  const totalPages = Math.ceil(total / limit);
+  const start = (page - 1) * limit;
+  const paginated = products.slice(start, start + limit);
+
+  return { products: paginated, total, page, limit, totalPages };
+}
+
+export function ProductListingClient({ allProducts }: ProductListingClientProps) {
   const searchParams = useSearchParams();
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
@@ -56,7 +165,7 @@ export function ProductListingClient() {
     return f;
   }, [searchParams]);
 
-  const result = getFilteredProducts(filters);
+  const result = filterProducts(allProducts, filters);
 
   // Determine page title
   let pageTitle = "All Products";
