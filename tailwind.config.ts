@@ -47,9 +47,9 @@ const config: Config = {
         info: "#3B82F6",
       },
       fontFamily: {
-        heading: ["var(--font-cormorant)", "serif"],
+        heading: ["var(--font-italiana)", "serif"],
         body: ["var(--font-inter)", "sans-serif"],
-        script: ["var(--font-italiana)", "cursive"],
+        script: ["var(--font-cormorant)", "cursive"],
       },
       fontSize: {
         hero: [
