@@ -9,11 +9,11 @@ interface AdminTopBarProps {
 
 export function AdminTopBar({ onToggleSidebar, sidebarOpen }: AdminTopBarProps) {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-neutral-200 bg-white px-4 lg:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-brand-purple-10 bg-white px-4 lg:px-6">
       {/* Mobile hamburger */}
       <button
         onClick={onToggleSidebar}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 lg:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-purple/60 transition-colors hover:bg-brand-purple/5 hover:text-brand-purple lg:hidden"
         aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
       >
         <svg
@@ -45,11 +45,11 @@ export function AdminTopBar({ onToggleSidebar, sidebarOpen }: AdminTopBarProps) 
 
       {/* Right section */}
       <div className="flex items-center gap-3">
-        <span className="hidden text-sm text-neutral-500 sm:block">
-          Admin Panel
+        <span className="hidden text-sm font-medium text-brand-purple/50 sm:block">
+          Maison ISIVIS Admin
         </span>
         <div className={cn(
-          "flex h-8 w-8 items-center justify-center rounded-full bg-brand-purple text-xs font-bold text-white"
+          "flex h-9 w-9 items-center justify-center rounded-full bg-brand-purple text-xs font-bold text-white shadow-sm"
         )}>
           A
         </div>

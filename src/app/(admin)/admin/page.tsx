@@ -16,8 +16,8 @@ export default function AdminDashboardPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-900">Dashboard</h1>
-      <p className="mt-2 text-sm text-neutral-500">
+      <h1 className="font-heading text-2xl font-bold text-brand-purple">Dashboard</h1>
+      <p className="mt-2 text-sm text-brand-purple/50">
         Welcome to the Maison ISIVIS admin panel. Here&apos;s an overview of your store.
       </p>
 

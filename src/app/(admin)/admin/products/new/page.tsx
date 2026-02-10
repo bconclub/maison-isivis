@@ -16,7 +16,7 @@ export default function NewProductPage() {
           </svg>
           Back to Products
         </Link>
-        <h1 className="text-2xl font-bold text-neutral-900">
+        <h1 className="font-heading text-2xl font-bold text-brand-purple">
           Create New Product
         </h1>
         <p className="mt-1 text-sm text-neutral-500">

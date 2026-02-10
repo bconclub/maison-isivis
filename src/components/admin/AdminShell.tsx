@@ -22,17 +22,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   if (!ready) {
     return (
-      <div className="flex h-screen items-center justify-center bg-neutral-50">
+      <div className="flex h-screen items-center justify-center bg-brand-purple">
         <div className="text-center">
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-neutral-300 border-t-brand-purple" />
-          <p className="mt-3 text-sm text-neutral-500">Loading admin panel...</p>
+          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+          <p className="mt-4 font-heading text-sm font-medium tracking-wide text-white/60">Loading Maison ISIVIS Admin...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-neutral-50">
+    <div className="flex h-screen overflow-hidden bg-brand-purple-10/30">
       {/* Desktop Sidebar */}
       <AdminSidebar className="hidden lg:flex" />
 

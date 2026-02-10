@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -80,17 +81,21 @@ export function AdminSidebar({ className }: { className?: string }) {
   return (
     <aside
       className={cn(
-        "flex h-full w-64 flex-col border-r border-neutral-200 bg-white",
+        "flex h-full w-64 flex-col bg-brand-purple",
         className
       )}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center border-b border-neutral-200 px-6">
-        <Link href="/admin" className="flex items-center gap-2">
-          <span className="font-heading text-lg font-bold text-brand-purple">
-            ISIVIS
-          </span>
-          <span className="rounded bg-brand-purple/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-purple">
+      <div className="flex h-16 items-center border-b border-white/10 px-6">
+        <Link href="/admin" className="flex items-center gap-3">
+          <Image
+            src="/images/logo/Maison-ISIVIS.png"
+            alt="Maison ISIVIS"
+            width={120}
+            height={40}
+            className="h-8 w-auto brightness-0 invert"
+          />
+          <span className="rounded bg-white/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/70">
             Admin
           </span>
         </Link>
@@ -110,13 +115,13 @@ export function AdminSidebar({ className }: { className?: string }) {
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                     isActive
-                      ? "bg-brand-purple/10 text-brand-purple"
-                      : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+                      ? "bg-white/15 text-white shadow-sm"
+                      : "text-white/60 hover:bg-white/10 hover:text-white"
                   )}
                 >
-                  <span className={cn(isActive ? "text-brand-purple" : "text-neutral-400")}>
+                  <span className={cn(isActive ? "text-white" : "text-white/50")}>
                     {item.icon}
                   </span>
                   {item.label}
@@ -128,10 +133,10 @@ export function AdminSidebar({ className }: { className?: string }) {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-neutral-200 p-4">
+      <div className="border-t border-white/10 p-4">
         <Link
           href="/"
-          className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-500 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
+          className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-white/50 transition-colors hover:bg-white/10 hover:text-white"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />

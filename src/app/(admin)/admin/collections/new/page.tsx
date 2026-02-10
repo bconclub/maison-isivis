@@ -16,7 +16,7 @@ export default function NewCollectionPage() {
           </svg>
           Back to Collections
         </Link>
-        <h1 className="text-2xl font-bold text-neutral-900">
+        <h1 className="font-heading text-2xl font-bold text-brand-purple">
           Create New Collection
         </h1>
       </div>
