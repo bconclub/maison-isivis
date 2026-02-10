@@ -43,13 +43,14 @@ interface StatusData {
 /* ── Feature catalog ── */
 const FEATURES = {
   ready: [
+    // Storefront — fully functional
     { module: "Storefront", feature: "Homepage with hero slideshow", route: "/" },
     { module: "Storefront", feature: "Featured products carousel", route: "/" },
     { module: "Storefront", feature: "Find Your Fantasy collections grid", route: "/" },
     { module: "Storefront", feature: "Product listing with filters, sort & pagination", route: "/products" },
     { module: "Storefront", feature: "Product detail page (gallery, variants, accordion)", route: "/products/[slug]" },
     { module: "Storefront", feature: "Collection & category pages", route: "/collections/[slug]" },
-    { module: "Storefront", feature: "Shopping cart (add, remove, quantity, promo code UI)", route: "/cart" },
+    { module: "Storefront", feature: "Shopping cart (add, remove, quantity)", route: "/cart" },
     { module: "Storefront", feature: "Wishlist (add/remove, persist to localStorage)", route: "/wishlist" },
     { module: "Storefront", feature: "Cart drawer (mini cart side panel)", route: "Global" },
     { module: "Storefront", feature: "Announcement bar carousel", route: "Global" },
@@ -59,50 +60,63 @@ const FEATURES = {
     { module: "Storefront", feature: "Breadcrumb navigation", route: "Global" },
     { module: "Storefront", feature: "Loading states & skeleton screens", route: "Global" },
     { module: "Storefront", feature: "Toast notifications", route: "Global" },
-    { module: "Admin", feature: "Dashboard with KPI metrics", route: "/admin" },
-    { module: "Admin", feature: "Products CRUD (create, edit, delete)", route: "/admin/products" },
+    // Admin — connected to DB via API routes
+    { module: "Admin", feature: "Products CRUD (API + Supabase)", route: "/admin/products" },
     { module: "Admin", feature: "Product image upload to Supabase Storage", route: "/admin/products/new" },
     { module: "Admin", feature: "Product variant manager (size, color, price, stock)", route: "/admin/products/new" },
     { module: "Admin", feature: "Product measurements editor", route: "/admin/products/new" },
     { module: "Admin", feature: "AI product copy generation (Claude)", route: "/admin/products/new" },
-    { module: "Admin", feature: "Categories CRUD", route: "/admin/categories" },
+    { module: "Admin", feature: "Categories CRUD (API + Supabase)", route: "/admin/categories" },
     { module: "Admin", feature: "Collections CRUD with product picker", route: "/admin/collections" },
-    { module: "Admin", feature: "Orders table with status filters", route: "/admin/orders" },
-    { module: "Admin", feature: "Order detail & status/tracking updates", route: "/admin/orders/[id]" },
-    { module: "Admin", feature: "Reviews moderation (approve, feature, delete)", route: "/admin/reviews" },
     { module: "Admin", feature: "Database seeding endpoint", route: "/api/admin/seed" },
     { module: "Admin", feature: "Build status page", route: "/admin/status" },
+    // Database — schema & infra
     { module: "Database", feature: "Full PostgreSQL schema (13 tables, RLS, triggers)", route: "Supabase" },
     { module: "Database", feature: "Row Level Security policies", route: "Supabase" },
-    { module: "Database", feature: "Auto-generated TypeScript types", route: "src/types" },
+    { module: "Database", feature: "TypeScript type definitions", route: "src/types" },
     { module: "Database", feature: "Mock data fallback when DB unavailable", route: "src/lib" },
-    { module: "Integrations", feature: "Supabase (DB + Auth + Storage)", route: ".env" },
+    // Integrations — connected
+    { module: "Integrations", feature: "Supabase (DB + Storage)", route: ".env" },
     { module: "Integrations", feature: "Anthropic Claude API (AI generation)", route: ".env" },
   ],
   pending: [
+    // Admin — UI exists but uses mock data only, no API/DB persistence
+    { module: "Admin", feature: "Dashboard KPIs from real DB (currently mock)", route: "/admin", priority: "High" },
+    { module: "Admin", feature: "Orders API route + DB persistence", route: "/admin/orders", priority: "High" },
+    { module: "Admin", feature: "Order status/tracking updates to DB", route: "/admin/orders/[id]", priority: "High" },
+    { module: "Admin", feature: "Reviews API route + DB persistence", route: "/admin/reviews", priority: "High" },
+    { module: "Admin", feature: "Reviews moderation write to DB", route: "/admin/reviews", priority: "High" },
+    // Auth
     { module: "Auth", feature: "User login (Supabase Auth)", route: "/login", priority: "High" },
     { module: "Auth", feature: "User registration", route: "/register", priority: "High" },
     { module: "Auth", feature: "Protected admin routes (auth guard)", route: "/admin/*", priority: "High" },
     { module: "Auth", feature: "Password reset flow", route: "/forgot-password", priority: "Medium" },
+    // Checkout & Payment
     { module: "Checkout", feature: "Checkout page & flow", route: "/checkout", priority: "High" },
     { module: "Checkout", feature: "Stripe payment integration", route: "/checkout", priority: "High" },
     { module: "Checkout", feature: "Razorpay payment integration", route: "/checkout", priority: "Medium" },
     { module: "Checkout", feature: "Cash on Delivery option", route: "/checkout", priority: "Low" },
     { module: "Checkout", feature: "Order confirmation page & email", route: "/order/[id]", priority: "High" },
     { module: "Checkout", feature: "Promo code validation (backend)", route: "/api", priority: "Medium" },
+    // Account
     { module: "Account", feature: "User profile management", route: "/account", priority: "Medium" },
     { module: "Account", feature: "Address book (CRUD)", route: "/account/addresses", priority: "Medium" },
-    { module: "Account", feature: "Order history", route: "/account/orders", priority: "Medium" },
+    { module: "Account", feature: "Order history (real user orders from DB)", route: "/account/orders", priority: "Medium" },
     { module: "Account", feature: "Wishlist sync to database", route: "/wishlist", priority: "Low" },
+    // Reviews
     { module: "Reviews", feature: "Customer review submission form", route: "/products/[slug]", priority: "Medium" },
+    // Search
     { module: "Search", feature: "Full-text product search", route: "/search", priority: "Medium" },
+    // Email
     { module: "Email", feature: "Transactional emails (order, shipping)", route: "Backend", priority: "High" },
     { module: "Email", feature: "Newsletter subscription (backend)", route: "/api", priority: "Low" },
     { module: "Email", feature: "Contact form submission", route: "/contact", priority: "Medium" },
+    // Content
     { module: "Content", feature: "About page (real images)", route: "/about", priority: "Low" },
     { module: "Content", feature: "Blog system", route: "/blogs", priority: "Low" },
     { module: "Content", feature: "FAQ content", route: "/faq", priority: "Low" },
     { module: "Content", feature: "Shipping / Returns / Privacy / Terms policies", route: "Various", priority: "Low" },
+    // Analytics & Integrations
     { module: "Analytics", feature: "Analytics integration (GA / Mixpanel)", route: "Global", priority: "Low" },
     { module: "Integrations", feature: "Instagram feed embed", route: "/", priority: "Low" },
     { module: "Integrations", feature: "Cloudinary image optimization pipeline", route: "Backend", priority: "Medium" },
