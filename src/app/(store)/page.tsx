@@ -6,6 +6,9 @@ import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
 import { getFeaturedProducts } from "@/lib/data";
 
+// Always fetch fresh data so newly featured products appear immediately
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Maison ISIVIS | Turning Fantasy Into Reality",
   description:

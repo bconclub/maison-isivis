@@ -11,6 +11,7 @@ export function ProductsTable() {
   const products = useAdminStore((s) => s.products);
   const categories = useAdminStore((s) => s.categories);
   const deleteProduct = useAdminStore((s) => s.deleteProduct);
+  const updateProduct = useAdminStore((s) => s.updateProduct);
 
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
@@ -152,13 +153,14 @@ export function ProductsTable() {
                 Stock {sortBy === "stock" && (sortDir === "asc" ? "↑" : "↓")}
               </th>
               <th className="px-5 py-3 font-medium text-neutral-500">Status</th>
+              <th className="px-5 py-3 text-center font-medium text-neutral-500">Featured</th>
               <th className="px-5 py-3 font-medium text-neutral-500">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-5 py-12 text-center text-neutral-400">
+                <td colSpan={9} className="px-5 py-12 text-center text-neutral-400">
                   No products found.
                 </td>
               </tr>
@@ -230,6 +232,35 @@ export function ProductsTable() {
                     >
                       {product.published ? "Published" : "Draft"}
                     </span>
+                  </td>
+                  <td className="px-5 py-3 text-center">
+                    <button
+                      onClick={() =>
+                        updateProduct(product.id, {
+                          featured: !product.featured,
+                        })
+                      }
+                      className={cn(
+                        "inline-flex items-center justify-center rounded-full p-1 transition-colors",
+                        product.featured
+                          ? "text-amber-500 hover:text-amber-600"
+                          : "text-neutral-300 hover:text-amber-400"
+                      )}
+                      title={product.featured ? "Remove from featured" : "Add to featured"}
+                    >
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill={product.featured ? "currentColor" : "none"}
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    </button>
                   </td>
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-1">
