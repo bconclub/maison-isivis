@@ -16,7 +16,10 @@ interface Props {
 
 // Hero image map for categories and collections
 const HERO_IMAGES: Record<string, string> = {
-  "old-money": "/images/collections/Old MOney.webp",
+  "old-money": "/images/collections/Old Money.webp",
+  "fierce": "/images/collections/Feirce.webp",
+  "ethereal": "/images/collections/Ethereal.webp",
+  "contemporary": "/images/collections/Contemporary.webp",
 };
 
 // Revalidate every 60 seconds

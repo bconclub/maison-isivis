@@ -11,7 +11,10 @@ export const metadata: Metadata = {
 };
 
 const COLLECTION_IMAGES: Record<string, string> = {
-  "old-money": "/images/collections/Old MOney.webp",
+  "old-money": "/images/collections/Old Money.webp",
+  "fierce": "/images/collections/Feirce.webp",
+  "ethereal": "/images/collections/Ethereal.webp",
+  "contemporary": "/images/collections/Contemporary.webp",
 };
 
 export default function CollectionsPage() {

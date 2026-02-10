@@ -22,9 +22,9 @@ export const CATEGORIES = [
 
 // Style collections (the vibe/aesthetic)
 export const STYLE_COLLECTIONS = [
-  { label: "Best Sellers", slug: "best-sellers", href: "/collections/best-sellers" },
   { label: "Old Money", slug: "old-money", href: "/collections/old-money" },
   { label: "Fierce", slug: "fierce", href: "/collections/fierce" },
+  { label: "Ethereal", slug: "ethereal", href: "/collections/ethereal" },
   { label: "Contemporary", slug: "contemporary", href: "/collections/contemporary" },
 ] as const;
 
@@ -61,9 +61,9 @@ export const NAV_LINKS = [
     label: "Collections",
     href: "/collections",
     children: [
-      { label: "Best Sellers", href: "/collections/best-sellers" },
       { label: "Old Money", href: "/collections/old-money" },
       { label: "Fierce", href: "/collections/fierce" },
+      { label: "Ethereal", href: "/collections/ethereal" },
       { label: "Contemporary", href: "/collections/contemporary" },
     ],
   },
@@ -86,9 +86,9 @@ export const MOBILE_NAV_CATEGORIES = [
 ] as const;
 
 export const MOBILE_NAV_COLLECTIONS = [
-  { label: "Best Sellers", href: "/collections/best-sellers" },
   { label: "Old Money", href: "/collections/old-money" },
   { label: "Fierce", href: "/collections/fierce" },
+  { label: "Ethereal", href: "/collections/ethereal" },
   { label: "Contemporary", href: "/collections/contemporary" },
 ] as const;
 

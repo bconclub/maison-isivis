@@ -37,10 +37,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const activeImage = images[activeIndex] ?? images[0];
 
   return (
-    <div className="flex flex-col-reverse gap-4 sm:flex-row">
-      {/* Thumbnail strip */}
+    <div className="flex flex-col gap-4 sm:flex-row">
+      {/* Thumbnail strip — horizontal on mobile, vertical on desktop */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto sm:flex-col sm:overflow-y-auto">
+        <div className="order-2 flex gap-2 overflow-x-auto sm:order-1 sm:flex-col sm:overflow-y-auto">
           {images.map((img, i) => (
             <button
               key={i}
@@ -65,15 +65,15 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
         </div>
       )}
 
-      {/* Main image — reduced: ~80% on mobile, ~50% max on desktop */}
-      <div className="group relative mx-auto flex-1 overflow-hidden rounded-luxury-md bg-neutral-100 max-w-[80%] sm:mx-0 sm:max-w-full lg:max-w-[85%]">
-        <div className="relative aspect-product w-full overflow-hidden">
+      {/* Main image — full width on mobile */}
+      <div className="group relative order-1 flex-1 overflow-hidden rounded-luxury-md bg-neutral-100 sm:order-2">
+        <div className="relative aspect-[3/4] w-full overflow-hidden">
           <Image
             src={activeImage?.url ?? ""}
             alt={activeImage?.alt ?? productName}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
-            sizes="(max-width: 768px) 80vw, 40vw"
+            sizes="(max-width: 768px) 100vw, 50vw"
             priority
           />
         </div>

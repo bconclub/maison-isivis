@@ -37,12 +37,12 @@ const COLLECTION_DESCRIPTIONS: Record<string, string> = {
   contemporary: "Modern luxury meets classic sophistication",
 };
 
-// Collection cover images — add paths here as you drop images into public/images/collections/
+// Collection cover images
 const COLLECTION_IMAGES: Record<string, string> = {
-  "old-money": "/images/collections/Old MOney.webp",
-  // "fierce": "/images/collections/fierce.webp",
-  // "contemporary": "/images/collections/contemporary.webp",
-  // "best-sellers": "/images/collections/best-sellers.webp",
+  "old-money": "/images/collections/Old Money.webp",
+  "fierce": "/images/collections/Feirce.webp",
+  "ethereal": "/images/collections/Ethereal.webp",
+  "contemporary": "/images/collections/Contemporary.webp",
 };
 
 const SHOWCASE_SECTIONS = [

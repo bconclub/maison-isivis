@@ -238,7 +238,7 @@ export const MOCK_COLLECTIONS: Collection[] = [
     title: "Old Money",
     slug: "old-money",
     description: "Timeless elegance reimagined. Classic silhouettes with modern luxury.",
-    heroImageUrl: "/images/collections/Old MOney.webp",
+    heroImageUrl: "/images/collections/Old Money.webp",
     heroVideoUrl: null,
     collectionType: "style",
     featured: true,
