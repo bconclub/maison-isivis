@@ -132,12 +132,22 @@ export const TAX_RATE = 0.2; // 20% UK VAT
 
 export const SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
 export const COLORS = [
+  "Black",
   "White",
   "Ivory",
   "Beige",
   "Red",
-  "Black",
   "Diamond",
+  "Navy",
+  "Blush",
+  "Dusty Rose",
+  "Cream",
+  "Sage",
+  "Burgundy",
+  "Gold",
+  "Emerald",
+  "Lavender",
+  "Camel",
 ] as const;
 
 export const ANNOUNCEMENT_MESSAGES = [
