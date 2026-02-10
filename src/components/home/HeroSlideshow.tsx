@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const DESKTOP_SLIDES = [
   {
-    src: "/images/hero/desktop/001 Desktop.png",
-    alt: "Maison ISIVIS — Luxury fashion, embellished black dress with crystal brooches",
+    src: "/images/hero/desktop/003 Desktop.webp",
+    alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance from our London atelier",
   },
   {
     src: "/images/hero/desktop/002 Desktop.webp",
@@ -16,8 +16,8 @@ const DESKTOP_SLIDES = [
 ];
 
 const MOBILE_SLIDE = {
-  src: "/images/hero/mobile/001.webp",
-  alt: "Maison ISIVIS — Luxury fashion, model in green lace corset dress",
+  src: "/images/hero/mobile/001 MObile.webp",
+  alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance",
 };
 
 const INTERVAL = 5000; // 5 seconds per slide
