@@ -11,7 +11,7 @@ import { useCartStore } from "@/lib/stores/cart-store";
 import { toast } from "@/components/ui/Toast";
 import { Badge } from "@/components/ui/Badge";
 import { isLowStock, cn } from "@/lib/utils";
-import { SIZES } from "@/lib/constants";
+import { SIZES as ALL_SIZES } from "@/lib/constants";
 
 interface ProductInfoProps {
   product: Product;
@@ -25,15 +25,13 @@ export function ProductInfo({ product }: ProductInfoProps) {
   const addItem = useCartStore((s) => s.addItem);
   const openCart = useCartStore((s) => s.openCart);
 
-  // Only show sizes and colors if the product has variants with them
-  const availableSizes = product.hasVariants
+  // Only show sizes that exist on this product's variants (in standard order)
+  const productSizes = product.hasVariants
     ? [...new Set(product.variants.map((v) => v.size).filter(Boolean) as string[])]
     : [];
-  const unavailableSizes = product.hasVariants
-    ? SIZES.filter(
-        (s) =>
-          !product.variants.some((v) => v.size === s && v.stock > 0)
-      )
+  const orderedSizes = ALL_SIZES.filter((s) => productSizes.includes(s));
+  const inStockSizes = product.hasVariants
+    ? [...new Set(product.variants.filter((v) => v.size && v.stock > 0).map((v) => v.size) as string[])]
     : [];
 
   const availableColors = product.hasVariants
@@ -43,7 +41,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
   const lowStock = isLowStock(product.stockQuantity, product.lowStockThreshold);
 
   function handleAddToCart() {
-    if (availableSizes.length > 0 && !selectedSize) {
+    if (orderedSizes.length > 0 && !selectedSize) {
       toast("Please select a size", "error");
       return;
     }
@@ -106,13 +104,13 @@ export function ProductInfo({ product }: ProductInfoProps) {
         </p>
       )}
 
-      {/* Size Selector */}
-      {availableSizes.length > 0 && (
+      {/* Size Selector — only shows sizes added to this product */}
+      {orderedSizes.length > 0 && (
         <SizeSelector
-          sizes={[...SIZES]}
+          sizes={orderedSizes}
           selectedSize={selectedSize}
           onSelect={setSelectedSize}
-          availableSizes={availableSizes}
+          availableSizes={inStockSizes}
         />
       )}
 
