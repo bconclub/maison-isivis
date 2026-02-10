@@ -125,7 +125,7 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
                 href={`/products/${product.slug}`}
                 className="group w-[85%] flex-shrink-0 sm:w-[31%] lg:w-[23%]"
               >
-                <div className="relative aspect-product overflow-hidden rounded-luxury-md bg-neutral-200 transition-shadow duration-300 group-hover:shadow-luxury-xl">
+                <div className="relative aspect-product overflow-hidden rounded-luxury-md bg-neutral-200">
                   {/* Product Image */}
                   {product.images.length > 0 && product.images[0] ? (
                     <Image
