@@ -6,17 +6,17 @@ import Link from "next/link";
 
 const DESKTOP_SLIDES = [
   {
-    src: "/images/hero/desktop/003 Desktop.webp",
+    src: "/images/hero/desktop/003-desktop.webp",
     alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance from our London atelier",
   },
   {
-    src: "/images/hero/desktop/002 Desktop.webp",
+    src: "/images/hero/desktop/002-desktop.webp",
     alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance from our London atelier",
   },
 ];
 
 const MOBILE_SLIDE = {
-  src: "/images/hero/mobile/Mobile hero black.png",
+  src: "/images/hero/mobile/mobile-hero-black.png",
   alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance",
 };
 
@@ -58,7 +58,7 @@ export function HeroSlideshow() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
 
-      {/* Slide indicators */}
+      {/* Slide indicators — desktop */}
       <div className="absolute bottom-44 left-1/2 z-10 hidden -translate-x-1/2 gap-2 sm:flex">
         {DESKTOP_SLIDES.map((_, i) => (
           <button

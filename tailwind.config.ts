@@ -103,7 +103,7 @@ const config: Config = {
         "luxury-widest": "4px",
       },
       aspectRatio: {
-        product: "3 / 4",
+        product: "2 / 3",
       },
       keyframes: {
         "fade-in": {
