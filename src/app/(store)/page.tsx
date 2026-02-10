@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { STYLE_COLLECTIONS } from "@/lib/constants";
+import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 
 export const metadata: Metadata = {
   title: "Maison ISIVIS | Turning Fantasy Into Reality",
@@ -89,52 +90,7 @@ export default function HomePage() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <section className="relative flex min-h-[100svh] items-end justify-center overflow-hidden bg-neutral-100 lg:min-h-screen">
-        {/* Hero Image — mobile */}
-        <Image
-          src="/images/hero/mobile/001.webp"
-          alt="Maison ISIVIS — Luxury fashion, model in green lace corset dress"
-          fill
-          priority
-          className="object-cover object-top sm:hidden"
-          sizes="100vw"
-        />
-        {/* Hero Image — desktop */}
-        <Image
-          src="/images/hero/desktop/001 Desktop.png"
-          alt="Maison ISIVIS — Luxury fashion, model in navy tweed ensemble with signature packaging"
-          fill
-          priority
-          className="hidden object-cover object-top sm:block"
-          sizes="100vw"
-        />
-
-        {/* Overlay — subtle bottom gradient so text is legible over image */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
-
-        {/* CTA — bottom center */}
-        <div className="relative z-10 pb-24 text-center sm:pb-28">
-          <Link
-            href="/products"
-            className="group inline-flex items-center justify-center gap-2 rounded-luxury bg-white/90 px-10 py-4 text-base font-medium uppercase tracking-luxury text-brand-purple shadow-luxury backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-luxury-lg"
-          >
-            Explore
-            <svg
-              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M5 12h14m-7-7 7 7-7 7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
-        </div>
-      </section>
+      <HeroSlideshow />
 
       {/* ===== CATEGORY CARDS ROW ===== */}
       <section className="py-16 sm:py-20">
