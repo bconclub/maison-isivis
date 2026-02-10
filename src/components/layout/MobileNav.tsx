@@ -40,13 +40,13 @@ export function MobileNav() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-y-0 left-0 z-50 w-full max-w-sm bg-white shadow-luxury-xl lg:hidden"
+            className="fixed inset-y-0 left-0 z-50 flex w-full max-w-sm flex-col bg-white shadow-luxury-xl lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
           >
             {/* Header */}
-            <div className="flex h-16 items-center justify-between bg-brand-purple px-6">
+            <div className="flex h-16 shrink-0 items-center justify-between bg-brand-purple px-6">
               <span className="font-heading text-lg font-light uppercase tracking-luxury-wide text-white">
                 Menu
               </span>
@@ -71,7 +71,7 @@ export function MobileNav() {
             </div>
 
             {/* Navigation Links */}
-            <div className="overflow-y-auto px-6 py-6">
+            <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-6">
               {/* New Arrivals */}
               <div className="mb-4">
                 <Link

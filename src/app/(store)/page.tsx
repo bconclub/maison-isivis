@@ -3,31 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { STYLE_COLLECTIONS } from "@/lib/constants";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
+import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
+import { getFeaturedProducts } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Maison ISIVIS | Turning Fantasy Into Reality",
   description:
     "Handcrafted luxury fashion from our London atelier. Prêt-à-couture for the modern woman. Discover signature pieces, curated collections, and timeless elegance.",
 };
-
-// Placeholder data — will be replaced with real DB queries
-const CATEGORY_CARDS = [
-  {
-    title: "Dresses",
-    subtitle: "Elegance in Every Stitch",
-    href: "/collections/dresses",
-  },
-  {
-    title: "Co-ords",
-    subtitle: "Matching Sets To Slay",
-    href: "/collections/co-ords",
-  },
-  {
-    title: "Tops",
-    subtitle: "Statement Pieces",
-    href: "/collections/tops",
-  },
-];
 
 const COLLECTION_DESCRIPTIONS: Record<string, string> = {
   "best-sellers":
@@ -86,37 +69,16 @@ const BESTSELLERS = [
   { name: "Ivy", price: 120, badge: "Best Seller" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const featuredProducts = await getFeaturedProducts();
+
   return (
     <>
       {/* ===== HERO SECTION ===== */}
       <HeroSlideshow />
 
-      {/* ===== CATEGORY CARDS ROW ===== */}
-      <section className="py-16 sm:py-20">
-        <div className="container-luxury">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {CATEGORY_CARDS.map((card) => (
-              <Link
-                key={card.title}
-                href={card.href}
-                className="group relative aspect-[4/5] overflow-hidden rounded-luxury-md bg-neutral-200"
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-neutral-300/50 to-neutral-400/50 transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-brand-purple/0 transition-colors duration-300 group-hover:bg-brand-purple/20" />
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h3 className="font-heading text-xl font-light text-white sm:text-h4">
-                    {card.title}
-                  </h3>
-                  <p className="mt-1 text-body-sm text-white/80">
-                    {card.subtitle}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ===== FEATURED PRODUCTS CAROUSEL ===== */}
+      <FeaturedCarousel products={featuredProducts} />
 
       {/* ===== FIND YOUR FANTASY — STYLE COLLECTIONS ===== */}
       <section className="bg-neutral-50 section-spacing">

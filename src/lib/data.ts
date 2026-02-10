@@ -163,6 +163,22 @@ export async function getCollectionBySlug(
   return MOCK_COLLECTIONS.find((c) => c.slug === slug);
 }
 
+export async function getFeaturedProducts(
+  limit = 12
+): Promise<Product[]> {
+  const products = await fetchAllProducts();
+  const categories = await fetchAllCategories();
+
+  return products
+    .filter((p) => p.featured)
+    .sort((a, b) => a.displayOrder - b.displayOrder)
+    .slice(0, limit)
+    .map((p) => {
+      const category = categories.find((c) => c.id === p.categoryId);
+      return category ? { ...p, category } : p;
+    });
+}
+
 export async function getRelatedProducts(
   productId: string,
   limit = 4
