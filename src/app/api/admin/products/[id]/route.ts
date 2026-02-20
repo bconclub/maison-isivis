@@ -111,7 +111,7 @@ export async function PUT(
     const product = dbToProduct(data);
 
     // Sync to Google Sheets in background
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://isivis.vercel.app";
+    const siteUrl = "https://isivis.vercel.app";
     const variants = product.variants ?? [];
     const images = product.images ?? [];
     updateProductInSheet(product.name, {
