@@ -110,6 +110,17 @@ export async function PUT(
 
     const product = dbToProduct(data);
 
+    // Look up category name for sheet sync
+    let categoryName = "";
+    if (product.categoryId) {
+      const { data: cat } = await supabase
+        .from("categories")
+        .select("name")
+        .eq("id", product.categoryId)
+        .single();
+      categoryName = cat?.name ?? "";
+    }
+
     // Sync to Google Sheets in background
     const siteUrl = "https://isivis.vercel.app";
     const variants = product.variants ?? [];
@@ -122,6 +133,7 @@ export async function PUT(
       colours: [...new Set(variants.map((v) => v.color).filter(Boolean))].join(", "),
       photos: images[0]?.url ?? "",
       live: product.published,
+      category: categoryName,
     }).catch(() => {});
 
     return NextResponse.json({ product });

@@ -7,11 +7,12 @@ import { google } from "googleapis";
  * Columns:
  *   A: Product Name
  *   B: Link         (product URL on live site)
- *   C: SKU
- *   D: Variations   (sizes, e.g. "XS, S, M, L")
- *   E: Colours
- *   F: Photos       (first image URL)
- *   G: Live         (Yes / empty)
+ *   C: Category     (category name)
+ *   D: SKU
+ *   E: Variations   (sizes, e.g. "XS, S, M, L")
+ *   F: Colours
+ *   G: Photos       (first image URL)
+ *   H: Live         (Yes / empty)
  */
 
 const SHEET_TAB = "Old Site Products";
@@ -51,6 +52,7 @@ export interface SheetProduct {
   colours: string;      // comma-separated colours
   photos: string;       // first image URL
   live: boolean;
+  category: string;     // category name
 }
 
 // ─── Append a product row ───────────────────────────────────
@@ -64,6 +66,7 @@ export async function appendProductToSheet(product: SheetProduct) {
     const row = [
       product.name,
       product.link,
+      product.category,
       product.sku,
       product.variations,
       product.colours,
@@ -73,7 +76,7 @@ export async function appendProductToSheet(product: SheetProduct) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: `'${SHEET_TAB}'!A:G`,
+      range: `'${SHEET_TAB}'!A:H`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: [row] },
     });
@@ -115,7 +118,7 @@ export async function updateProductInSheet(
     // Fetch current row to merge
     const currentRes = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: `'${SHEET_TAB}'!A${rowIndex + 1}:G${rowIndex + 1}`,
+      range: `'${SHEET_TAB}'!A${rowIndex + 1}:H${rowIndex + 1}`,
     });
 
     const current = currentRes.data.values?.[0] ?? [];
@@ -123,16 +126,17 @@ export async function updateProductInSheet(
     const updatedRow = [
       updates.name ?? current[0] ?? "",
       updates.link ?? current[1] ?? "",
-      updates.sku ?? current[2] ?? "",
-      updates.variations ?? current[3] ?? "",
-      updates.colours ?? current[4] ?? "",
-      updates.photos ?? current[5] ?? "",
-      updates.live !== undefined ? (updates.live ? "Yes" : "") : current[6] ?? "",
+      updates.category ?? current[2] ?? "",
+      updates.sku ?? current[3] ?? "",
+      updates.variations ?? current[4] ?? "",
+      updates.colours ?? current[5] ?? "",
+      updates.photos ?? current[6] ?? "",
+      updates.live !== undefined ? (updates.live ? "Yes" : "") : current[7] ?? "",
     ];
 
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${SHEET_TAB}'!A${rowIndex + 1}:G${rowIndex + 1}`,
+      range: `'${SHEET_TAB}'!A${rowIndex + 1}:H${rowIndex + 1}`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: [updatedRow] },
     });
