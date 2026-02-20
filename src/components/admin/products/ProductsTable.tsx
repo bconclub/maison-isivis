@@ -222,16 +222,37 @@ export function ProductsTable() {
                     </span>
                   </td>
                   <td className="px-5 py-3">
-                    <span
-                      className={cn(
-                        "inline-flex rounded-full px-2 py-0.5 text-xs font-medium",
-                        product.published
-                          ? "bg-green-50 text-green-700"
-                          : "bg-neutral-100 text-neutral-500"
-                      )}
+                    <button
+                      onClick={() =>
+                        updateProduct(product.id, {
+                          published: !product.published,
+                        })
+                      }
+                      className="group flex items-center gap-2"
+                      title={product.published ? "Switch to Draft" : "Publish product"}
                     >
-                      {product.published ? "Published" : "Draft"}
-                    </span>
+                      <div
+                        className={cn(
+                          "relative h-5 w-9 rounded-full transition-colors duration-200",
+                          product.published ? "bg-green-500" : "bg-neutral-300"
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            "absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200",
+                            product.published ? "translate-x-4" : "translate-x-0.5"
+                          )}
+                        />
+                      </div>
+                      <span
+                        className={cn(
+                          "text-xs font-medium",
+                          product.published ? "text-green-700" : "text-neutral-400"
+                        )}
+                      >
+                        {product.published ? "Live" : "Off"}
+                      </span>
+                    </button>
                   </td>
                   <td className="px-5 py-3 text-center">
                     <button
