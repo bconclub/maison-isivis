@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { appendProductToSheet } from "@/lib/google-sheets";
 import type { Product, ProductImage, ProductVariant } from "@/types/product";
 
 // ─── Helpers: convert between camelCase (app) and snake_case (DB) ───
@@ -120,7 +121,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ product: dbToProduct(data) }, { status: 201 });
+    const product = dbToProduct(data);
+
+    // Sync to Google Sheets in background (don't block response)
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://isivis.vercel.app";
+    const images = product.images ?? [];
+    const variants = product.variants ?? [];
+    appendProductToSheet({
+      name: product.name,
+      link: `${siteUrl}/products/${product.slug}`,
+      sku: product.sku,
+      variations: [...new Set(variants.map((v) => v.size).filter(Boolean))].join(", "),
+      colours: [...new Set(variants.map((v) => v.color).filter(Boolean))].join(", "),
+      photos: images[0]?.url ?? "",
+      live: product.published,
+    }).catch(() => {}); // fire-and-forget
+
+    return NextResponse.json({ product }, { status: 201 });
   } catch (err) {
     console.error("[Admin Products POST]", err);
     return NextResponse.json(

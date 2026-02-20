@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { updateProductInSheet, deleteProductFromSheet } from "@/lib/google-sheets";
 import type { Product, ProductImage, ProductVariant } from "@/types/product";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -99,7 +100,23 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ product: dbToProduct(data) });
+    const product = dbToProduct(data);
+
+    // Sync to Google Sheets in background
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://isivis.vercel.app";
+    const variants = product.variants ?? [];
+    const images = product.images ?? [];
+    updateProductInSheet(product.name, {
+      name: product.name,
+      link: `${siteUrl}/products/${product.slug}`,
+      sku: product.sku,
+      variations: [...new Set(variants.map((v) => v.size).filter(Boolean))].join(", "),
+      colours: [...new Set(variants.map((v) => v.color).filter(Boolean))].join(", "),
+      photos: images[0]?.url ?? "",
+      live: product.published,
+    }).catch(() => {});
+
+    return NextResponse.json({ product });
   } catch (err) {
     console.error("[Admin Products PUT]", err);
     return NextResponse.json(
@@ -118,6 +135,13 @@ export async function DELETE(
     const { id } = await params;
     const supabase = createAdminClient();
 
+    // Fetch product name before deleting (for sheet sync)
+    const { data: existing } = await supabase
+      .from("products")
+      .select("name")
+      .eq("id", id)
+      .single();
+
     const { error } = await supabase
       .from("products")
       .delete()
@@ -126,6 +150,11 @@ export async function DELETE(
     if (error) {
       console.error("[Admin Products DELETE]", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    // Sync delete to Google Sheets in background
+    if (existing?.name) {
+      deleteProductFromSheet(existing.name).catch(() => {});
     }
 
     return NextResponse.json({ success: true });
