@@ -102,11 +102,19 @@ export async function GET() {
   }
 }
 
+// UUID v4 regex for validation
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 // ─── POST: Create a new product ─────────────────────────────
 export async function POST(request: NextRequest) {
   try {
     const supabase = createAdminClient();
     const body = await request.json();
+
+    // Sanitize categoryId — reject mock IDs like "cat-2"
+    if (body.categoryId && !UUID_RE.test(body.categoryId)) {
+      body.categoryId = null;
+    }
 
     const dbData = productToDb(body);
 

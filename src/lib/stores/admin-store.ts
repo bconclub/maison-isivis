@@ -118,11 +118,12 @@ export const useAdminStore = create<AdminState>()(
           ]);
           if (catRes.ok) {
             const { categories } = await catRes.json();
-            if (categories?.length) set({ categories });
+            // Always replace — even if empty — so mock IDs don't leak
+            if (categories) set({ categories });
           }
           if (prodRes.ok) {
             const { products } = await prodRes.json();
-            if (products?.length) set({ products });
+            if (products) set({ products });
           }
         } catch {
           // Supabase unavailable, keep persisted/mock data
