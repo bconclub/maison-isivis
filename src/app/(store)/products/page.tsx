@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     "Browse our curated collection of luxury fashion. Handcrafted dresses, tops, co-ords, outerwear and accessories from our London atelier.",
 };
 
-// Revalidate every 60 seconds so new products show up quickly
-export const revalidate = 60;
+// Always fetch fresh data so new products show up immediately
+export const dynamic = "force-dynamic";
 
 export default async function ProductsPage() {
   const allProducts = await getAllProducts();

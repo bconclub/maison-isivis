@@ -16,8 +16,8 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-// Revalidate every 60 seconds so new products show up quickly
-export const revalidate = 60;
+// Always fetch fresh data so new products show up immediately
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

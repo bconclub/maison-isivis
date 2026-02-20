@@ -22,8 +22,8 @@ const HERO_IMAGES: Record<string, string> = {
   "contemporary": "/images/collections/Contemporary.webp",
 };
 
-// Revalidate every 60 seconds
-export const revalidate = 60;
+// Always fetch fresh data so new products show up immediately
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
