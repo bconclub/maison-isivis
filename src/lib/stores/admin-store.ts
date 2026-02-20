@@ -129,12 +129,9 @@ export const useAdminStore = create<AdminState>()(
         }
       },
 
-      // ── Product CRUD (Supabase-synced) ──
+      // ── Product CRUD (Supabase-first) ──
       addProduct: async (product) => {
-        // Add to local state immediately
-        set((s) => ({ products: [...s.products, product] }));
-
-        // Sync to Supabase in background
+        // Save to Supabase FIRST — don't add to local state until confirmed
         try {
           const res = await fetch("/api/admin/products", {
             method: "POST",
@@ -143,21 +140,17 @@ export const useAdminStore = create<AdminState>()(
           });
           const data = await res.json();
           if (!res.ok) {
-            console.error("[Supabase sync] addProduct:", data.error);
-          } else {
-            // Replace local product with the Supabase version (has DB-assigned UUID)
-            const saved = data.product as Product;
-            set((s) => ({
-              products: s.products.map((p) =>
-                p.id === product.id ? saved : p
-              ),
-            }));
-            return saved;
+            console.error("[Supabase] addProduct failed:", data.error);
+            throw new Error(data.error || "Failed to save product");
           }
+          // Add the Supabase-confirmed product (with real UUID) to local state
+          const saved = data.product as Product;
+          set((s) => ({ products: [saved, ...s.products] }));
+          return saved;
         } catch (err) {
-          console.warn("[Supabase sync] addProduct failed (local-only):", err);
+          console.error("[Supabase] addProduct error:", err);
+          throw err; // Let the form handle the error
         }
-        return product;
       },
 
       updateProduct: async (id, updates) => {
@@ -177,14 +170,23 @@ export const useAdminStore = create<AdminState>()(
           });
           if (!res.ok) {
             const data = await res.json().catch(() => ({}));
-            console.error("[Supabase sync] updateProduct:", data.error);
+            console.error("[Supabase] updateProduct failed:", data.error);
+            // Revert optimistic update on failure
+            const revertRes = await fetch(`/api/admin/products`);
+            if (revertRes.ok) {
+              const { products } = await revertRes.json();
+              if (products?.length) set({ products });
+            }
           }
         } catch (err) {
-          console.warn("[Supabase sync] updateProduct failed:", err);
+          console.warn("[Supabase] updateProduct error:", err);
         }
       },
 
       deleteProduct: async (id) => {
+        // Save current state for revert
+        const prevProducts = get().products;
+
         // Optimistic local delete
         set((s) => ({
           products: s.products.filter((p) => p.id !== id),
@@ -203,10 +205,12 @@ export const useAdminStore = create<AdminState>()(
           });
           if (!res.ok) {
             const data = await res.json().catch(() => ({}));
-            console.error("[Supabase sync] deleteProduct:", data.error);
+            console.error("[Supabase] deleteProduct failed:", data.error);
+            set({ products: prevProducts }); // Revert on failure
           }
         } catch (err) {
-          console.warn("[Supabase sync] deleteProduct failed:", err);
+          console.warn("[Supabase] deleteProduct error:", err);
+          set({ products: prevProducts }); // Revert on failure
         }
       },
 

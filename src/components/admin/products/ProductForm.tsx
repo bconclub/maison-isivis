@@ -122,7 +122,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
 
     if (mode === "create") {
       const newProduct: Product = {
-        id: `prod-${Date.now()}`,
+        id: `temp-${Date.now()}`,
         name: data.name,
         slug: data.slug,
         sku: data.sku,
@@ -155,8 +155,13 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         createdAt: now,
         updatedAt: now,
       };
-      await addProduct(newProduct);
-      toast("Product created successfully!", "success");
+      try {
+        await addProduct(newProduct);
+        toast("Product created successfully!", "success");
+      } catch {
+        toast("Failed to save product. Please try again.", "error");
+        return; // Don't redirect on failure
+      }
     } else if (product) {
       await updateProduct(product.id, {
         name: data.name,
