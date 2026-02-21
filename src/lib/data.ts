@@ -180,6 +180,22 @@ export async function getFeaturedProducts(
     });
 }
 
+export async function getBestsellerProducts(
+  limit = 8
+): Promise<Product[]> {
+  const products = await fetchAllProducts();
+  const categories = await fetchAllCategories();
+
+  return products
+    .filter((p) => p.bestseller)
+    .sort((a, b) => a.displayOrder - b.displayOrder)
+    .slice(0, limit)
+    .map((p) => {
+      const category = categories.find((c) => c.id === p.categoryId);
+      return category ? { ...p, category } : p;
+    });
+}
+
 export async function getRelatedProducts(
   productId: string,
   limit = 4

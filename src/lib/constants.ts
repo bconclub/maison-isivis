@@ -114,11 +114,11 @@ export const FOOTER_LINKS = {
 } as const;
 
 export const SOCIAL_LINKS = {
-  instagram: "https://instagram.com/isivislondon",
-  facebook: "https://facebook.com/isivislondon",
-  twitter: "https://twitter.com/isivislondon",
+  instagram: "https://instagram.com/maisonisivis",
+  facebook: "https://facebook.com/maisonisivis",
+  twitter: "https://twitter.com/maisonisivis",
   youtube: "",
-  tiktok: "https://tiktok.com/@isivislondon",
+  tiktok: "https://tiktok.com/@maisonisivis",
 } as const;
 
 export const CURRENCY = "GBP";

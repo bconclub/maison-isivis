@@ -4,7 +4,8 @@ import Link from "next/link";
 import { STYLE_COLLECTIONS } from "@/lib/constants";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
-import { getFeaturedProducts } from "@/lib/data";
+import { getFeaturedProducts, getBestsellerProducts } from "@/lib/data";
+import { ProductCard } from "@/components/product/ProductCard";
 
 // Always fetch fresh data so newly featured products appear immediately
 export const dynamic = "force-dynamic";
@@ -23,19 +24,16 @@ const COLLECTION_IMAGES: Record<string, string> = {
   "contemporary": "/images/collections/Contemporary.webp",
 };
 
-const BESTSELLERS = [
-  { name: "Selene", price: 198.99, badge: "Best Seller" },
-  { name: "Victoria", price: 100, badge: null },
-  { name: "Aurora", price: 166.95, badge: "New" },
-  { name: "Celestial", price: 648.89, badge: "Best Seller" },
-  { name: "Aria", price: 120, badge: null },
-  { name: "Mia", price: 189, badge: "New" },
-  { name: "Irena", price: 126, badge: null },
-  { name: "Ivy", price: 120, badge: "Best Seller" },
-];
+// Override default collection links (slug → custom href)
+const COLLECTION_LINK_OVERRIDES: Record<string, string> = {
+  contemporary: "/products/aria-embellished-set",
+};
 
 export default async function HomePage() {
-  const featuredProducts = await getFeaturedProducts();
+  const [featuredProducts, bestsellerProducts] = await Promise.all([
+    getFeaturedProducts(),
+    getBestsellerProducts(8),
+  ]);
 
   return (
     <>
@@ -59,7 +57,7 @@ export default async function HomePage() {
             {STYLE_COLLECTIONS.map((collection) => (
               <Link
                 key={collection.slug}
-                href={collection.href}
+                href={COLLECTION_LINK_OVERRIDES[collection.slug] ?? collection.href}
                 className="group"
               >
                 <div className="relative aspect-[2/3] overflow-hidden rounded-luxury-md bg-neutral-200 transition-shadow duration-300 group-hover:shadow-luxury-xl">
@@ -88,70 +86,35 @@ export default async function HomePage() {
       </section>
 
       {/* ===== CUSTOMER FAVOURITES (BEST SELLERS) ===== */}
-      <section className="section-spacing bg-white">
-        <div className="container-luxury">
-          <div className="mb-12 text-center">
-            <p className="font-script text-lg text-brand-blue">
-              The pieces you love most
-            </p>
-            <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-              Customer Favourites
-            </h2>
-          </div>
+      {bestsellerProducts.length > 0 && (
+        <section className="section-spacing bg-white">
+          <div className="container-luxury">
+            <div className="mb-12 text-center">
+              <p className="font-script text-lg text-brand-blue">
+                The pieces you love most
+              </p>
+              <h2 className="mt-2 font-heading text-h2 text-brand-purple">
+                Customer Favourites
+              </h2>
+            </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-            {BESTSELLERS.map((product) => (
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+              {bestsellerProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
               <Link
-                key={product.name}
-                href={`/products/${product.name.toLowerCase()}`}
-                className="group"
+                href="/collections/best-sellers"
+                className="inline-flex items-center gap-2 rounded-luxury border-[1.5px] border-brand-purple px-8 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-brand-purple transition-all duration-300 hover:bg-brand-purple hover:text-white"
               >
-                <div className="relative aspect-product overflow-hidden rounded-luxury-md bg-neutral-200 transition-shadow duration-300 group-hover:shadow-luxury-xl">
-                  <div className="absolute inset-0 bg-gradient-to-b from-neutral-300/30 to-neutral-400/40 transition-transform duration-500 group-hover:scale-105" />
-                  {product.badge && (
-                    <span className="absolute left-3 top-3 rounded-luxury bg-brand-purple px-2.5 py-1 text-[11px] font-medium uppercase tracking-luxury text-white">
-                      {product.badge}
-                    </span>
-                  )}
-                  <div
-                    className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-neutral-500 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100"
-                    aria-hidden="true"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="mt-3 px-0.5">
-                  <h3 className="font-heading text-base font-medium text-neutral-900 sm:text-lg">
-                    {product.name}
-                  </h3>
-                  <p className="mt-0.5 text-body-sm font-medium text-brand-purple">
-                    &pound;{product.price.toFixed(2)}
-                  </p>
-                </div>
+                View All Best Sellers
               </Link>
-            ))}
+            </div>
           </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              href="/collections/best-sellers"
-              className="inline-flex items-center gap-2 rounded-luxury border-[1.5px] border-brand-purple px-8 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-brand-purple transition-all duration-300 hover:bg-brand-purple hover:text-white"
-            >
-              View All Best Sellers
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ===== AS SEEN IN ===== */}
       <section className="section-spacing bg-white">
@@ -179,7 +142,7 @@ export default async function HomePage() {
             ISIVIS Community
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-neutral-600">
-            Tag us @isivislondon and flaunt away turning everyone&apos;s fantasy
+            Tag us @maisonisivis and flaunt away turning everyone&apos;s fantasy
             into your reality
           </p>
           <p className="mt-4 font-heading text-xl font-medium tracking-wide text-brand-purple">
