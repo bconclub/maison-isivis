@@ -251,11 +251,15 @@ export async function getFilteredProducts(
     }
   }
 
-  // Collection filter (still uses mock mapping)
+  // Collection filter
   if (filters.collectionSlug) {
-    const productIds = COLLECTION_PRODUCT_MAP[filters.collectionSlug];
-    if (productIds) {
-      products = products.filter((p) => productIds.includes(p.id));
+    if (filters.collectionSlug === "best-sellers") {
+      products = products.filter((p) => p.bestseller);
+    } else {
+      const productIds = COLLECTION_PRODUCT_MAP[filters.collectionSlug];
+      if (productIds) {
+        products = products.filter((p) => productIds.includes(p.id));
+      }
     }
   }
 

@@ -36,8 +36,13 @@ function filterProducts(
 
   // Collection filter
   if (filters.collectionSlug) {
-    const ids = COLLECTION_PRODUCT_MAP[filters.collectionSlug];
-    if (ids) products = products.filter((p) => ids.includes(p.id));
+    if (filters.collectionSlug === "best-sellers") {
+      // Dynamic: show products marked as bestseller
+      products = products.filter((p) => p.bestseller);
+    } else {
+      const ids = COLLECTION_PRODUCT_MAP[filters.collectionSlug];
+      if (ids) products = products.filter((p) => ids.includes(p.id));
+    }
   }
 
   // Price range
