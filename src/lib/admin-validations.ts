@@ -16,7 +16,7 @@ export const productSchema = z.object({
   lowStockThreshold: z.number().int().min(0),
   allowBackorder: z.boolean(),
   videoUrl: z.string().url().optional().nullable().or(z.literal("")),
-  categoryId: z.string().optional().nullable(),
+  categoryIds: z.array(z.string()),
   hasVariants: z.boolean(),
   fabric: z.string().optional().nullable(),
   careInstructions: z.string().optional().nullable(),

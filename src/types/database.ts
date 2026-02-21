@@ -417,6 +417,20 @@ export interface Database {
           Database["public"]["Tables"]["newsletter_subscribers"]["Insert"]
         >;
       };
+      product_categories: {
+        Row: {
+          product_id: string;
+          category_id: string;
+          created_at: string;
+        };
+        Insert: {
+          product_id: string;
+          category_id: string;
+        };
+        Update: Partial<
+          Database["public"]["Tables"]["product_categories"]["Insert"]
+        >;
+      };
       product_collections: {
         Row: {
           product_id: string;

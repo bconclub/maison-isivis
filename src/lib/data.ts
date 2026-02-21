@@ -42,6 +42,7 @@ function dbToProduct(row: any): Product {
       : row.images ?? []) as ProductImage[],
     videoUrl: row.video_url,
     categoryId: row.category_id,
+    categoryIds: [],
     hasVariants: row.has_variants,
     variants: (typeof row.variants === "string"
       ? JSON.parse(row.variants)
@@ -62,6 +63,7 @@ function dbToProduct(row: any): Product {
     keywords: row.keywords,
     displayOrder: row.display_order,
     published: row.published,
+    categories: [],
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -90,15 +92,30 @@ function dbToCategory(row: any): Category {
 async function fetchAllProducts(): Promise<Product[]> {
   try {
     const supabase = createAdminClient();
-    const { data, error } = await supabase
-      .from("products")
-      .select("*")
-      .eq("published", true)
-      .order("created_at", { ascending: false });
+    const [productsRes, pcRes] = await Promise.all([
+      supabase
+        .from("products")
+        .select("*")
+        .eq("published", true)
+        .order("created_at", { ascending: false }),
+      supabase.from("product_categories").select("product_id, category_id"),
+    ]);
 
-    if (error) throw error;
-    if (data && data.length > 0) {
-      return data.map(dbToProduct);
+    if (productsRes.error) throw productsRes.error;
+    if (productsRes.data && productsRes.data.length > 0) {
+      // Build product → categoryIds map from junction table
+      const catMap = new Map<string, string[]>();
+      (pcRes.data ?? []).forEach((pc) => {
+        const arr = catMap.get(pc.product_id) ?? [];
+        arr.push(pc.category_id);
+        catMap.set(pc.product_id, arr);
+      });
+
+      return productsRes.data.map((row) => {
+        const p = dbToProduct(row);
+        p.categoryIds = catMap.get(p.id) ?? (p.categoryId ? [p.categoryId] : []);
+        return p;
+      });
     }
   } catch (err) {
     console.warn("[data] Supabase products fetch failed, using mock:", err);
@@ -126,15 +143,17 @@ async function fetchAllCategories(): Promise<Category[]> {
 
 // ─── Public query functions ─────────────────────────────────
 
+// Helper: join categories onto a product using categoryIds
+function joinCategories(p: Product, allCategories: Category[]): Product {
+  const cats = allCategories.filter((c) => p.categoryIds.includes(c.id));
+  return { ...p, categories: cats, category: cats[0] };
+}
+
 export async function getAllProducts(): Promise<Product[]> {
   const products = await fetchAllProducts();
   const categories = await fetchAllCategories();
 
-  // Join category objects onto products
-  return products.map((p) => {
-    const category = categories.find((c) => c.id === p.categoryId);
-    return category ? { ...p, category } : p;
-  });
+  return products.map((p) => joinCategories(p, categories));
 }
 
 export async function getProductBySlug(
@@ -145,8 +164,7 @@ export async function getProductBySlug(
   if (!product) return undefined;
 
   const categories = await fetchAllCategories();
-  const category = categories.find((c) => c.id === product.categoryId);
-  return category ? { ...product, category } : product;
+  return joinCategories(product, categories);
 }
 
 export async function getCategoryBySlug(
@@ -174,10 +192,7 @@ export async function getFeaturedProducts(
     .filter((p) => p.featured)
     .sort((a, b) => a.displayOrder - b.displayOrder)
     .slice(0, limit)
-    .map((p) => {
-      const category = categories.find((c) => c.id === p.categoryId);
-      return category ? { ...p, category } : p;
-    });
+    .map((p) => joinCategories(p, categories));
 }
 
 export async function getBestsellerProducts(
@@ -190,10 +205,7 @@ export async function getBestsellerProducts(
     .filter((p) => p.bestseller)
     .sort((a, b) => a.displayOrder - b.displayOrder)
     .slice(0, limit)
-    .map((p) => {
-      const category = categories.find((c) => c.id === p.categoryId);
-      return category ? { ...p, category } : p;
-    });
+    .map((p) => joinCategories(p, categories));
 }
 
 export async function getRelatedProducts(
@@ -202,9 +214,13 @@ export async function getRelatedProducts(
 ): Promise<Product[]> {
   const products = await fetchAllProducts();
   const product = products.find((p) => p.id === productId);
-  if (!product) return [];
+  if (!product || product.categoryIds.length === 0) return [];
   return products
-    .filter((p) => p.id !== productId && p.categoryId === product.categoryId)
+    .filter(
+      (p) =>
+        p.id !== productId &&
+        p.categoryIds.some((cid) => product.categoryIds.includes(cid))
+    )
     .slice(0, limit);
 }
 
@@ -231,7 +247,7 @@ export async function getFilteredProducts(
       (c) => c.slug === filters.categorySlug
     );
     if (category) {
-      products = products.filter((p) => p.categoryId === category.id);
+      products = products.filter((p) => p.categoryIds.includes(category.id));
     }
   }
 

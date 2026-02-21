@@ -20,10 +20,12 @@ function filterProducts(
 ): PaginatedProducts {
   let products = [...allProducts];
 
-  // Category filter — match by category slug on the joined category object
+  // Category filter — match by any category slug on the joined categories array
   if (filters.categorySlug) {
     products = products.filter(
-      (p) => p.category?.slug === filters.categorySlug
+      (p) =>
+        p.categories?.some((c) => c.slug === filters.categorySlug) ||
+        p.category?.slug === filters.categorySlug
     );
   }
 

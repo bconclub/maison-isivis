@@ -301,6 +301,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("selene-silk-midi-dress"),
     videoUrl: null,
     categoryId: "cat-2",
+    categoryIds: ["cat-2"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Black"], ["XS", "S", "M", "L", "XL"], 298),
     fabric: "100% Mulberry Silk",
@@ -335,6 +337,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("aurora-crystal-gown", 4),
     videoUrl: null,
     categoryId: "cat-2",
+    categoryIds: ["cat-2"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Diamond", "Black"], ["XS", "S", "M", "L"], 648),
     fabric: "Tulle overlay, Silk lining, Swarovski crystals",
@@ -369,6 +373,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("celeste-lace-corset-dress"),
     videoUrl: null,
     categoryId: "cat-2",
+    categoryIds: ["cat-2"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Red"], ["XS", "S", "M", "L", "XL"], 398),
     fabric: "French Chantilly Lace, Silk lining, Steel boning",
@@ -403,6 +409,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("valentina-velvet-wrap-dress"),
     videoUrl: null,
     categoryId: "cat-2",
+    categoryIds: ["cat-2"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black", "Red"], ["XS", "S", "M", "L", "XL", "XXL"], 268),
     fabric: "Italian Silk Velvet",
@@ -439,6 +447,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("aria-crystal-corset"),
     videoUrl: null,
     categoryId: "cat-3",
+    categoryIds: ["cat-3"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Diamond", "Black", "Ivory"], ["XS", "S", "M", "L"], 248),
     fabric: "Duchess Satin, Steel boning, Crystal embellishments",
@@ -473,6 +483,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("luna-silk-camisole"),
     videoUrl: null,
     categoryId: "cat-3",
+    categoryIds: ["cat-3"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Black", "Beige"], ["XS", "S", "M", "L", "XL"], 128),
     fabric: "100% Mulberry Silk, French lace trim",
@@ -507,6 +519,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("mia-pearl-blouse"),
     videoUrl: null,
     categoryId: "cat-3",
+    categoryIds: ["cat-3"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["White", "Ivory"], ["XS", "S", "M", "L"], 189),
     fabric: "Italian Organza, Freshwater pearls",
@@ -541,6 +555,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("ivy-draped-bodysuit"),
     videoUrl: null,
     categoryId: "cat-3",
+    categoryIds: ["cat-3"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black", "White", "Beige"], ["XS", "S", "M", "L", "XL"], 120),
     fabric: "Premium Italian Jersey",
@@ -577,6 +593,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("serena-tailored-trousers"),
     videoUrl: null,
     categoryId: "cat-4",
+    categoryIds: ["cat-4"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black", "Ivory", "Beige"], ["XS", "S", "M", "L", "XL", "XXL"], 198),
     fabric: "Italian Wool-blend Crepe",
@@ -611,6 +629,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("elara-silk-midi-skirt"),
     videoUrl: null,
     categoryId: "cat-4",
+    categoryIds: ["cat-4"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Black", "Beige"], ["XS", "S", "M", "L"], 168),
     fabric: "100% Charmeuse Silk",
@@ -645,6 +665,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("victoria-pleated-palazzo"),
     videoUrl: null,
     categoryId: "cat-4",
+    categoryIds: ["cat-4"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black", "Beige", "White"], ["S", "M", "L", "XL"], 158),
     fabric: "Premium Polyester-blend, Permanent pleat finish",
@@ -679,6 +701,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("dahlia-pencil-skirt"),
     videoUrl: null,
     categoryId: "cat-4",
+    categoryIds: ["cat-4"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black", "Red"], ["XS", "S", "M", "L", "XL"], 148),
     fabric: "Italian Stretch Wool",
@@ -715,6 +739,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("celestial-silk-co-ord", 4),
     videoUrl: null,
     categoryId: "cat-6",
+    categoryIds: ["cat-6"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Black"], ["XS", "S", "M", "L"], 448),
     fabric: "100% Silk, Crystal embellishments",
@@ -749,6 +775,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("irena-tweed-co-ord", 4),
     videoUrl: null,
     categoryId: "cat-6",
+    categoryIds: ["cat-6"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Beige"], ["XS", "S", "M", "L", "XL"], 398),
     fabric: "Italian Bouclé Tweed, Silk lining",
@@ -783,6 +811,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("nova-knit-loungewear-set"),
     videoUrl: null,
     categoryId: "cat-6",
+    categoryIds: ["cat-6"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Beige", "Ivory"], ["S", "M", "L"], 348),
     fabric: "70% Cashmere, 30% Wool",
@@ -817,6 +847,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("rosalie-satin-co-ord"),
     videoUrl: null,
     categoryId: "cat-6",
+    categoryIds: ["cat-6"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black", "Ivory", "Red"], ["XS", "S", "M", "L"], 328),
     fabric: "Premium Duchess Satin",
@@ -853,6 +885,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("empress-vegan-fur-cape"),
     videoUrl: null,
     categoryId: "cat-7",
+    categoryIds: ["cat-7"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Black"], ["S/M", "L/XL"], 498),
     fabric: "Premium Vegan Fur, Silk lining",
@@ -887,6 +921,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("athena-structured-blazer"),
     videoUrl: null,
     categoryId: "cat-7",
+    categoryIds: ["cat-7"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black", "Ivory", "Beige"], ["XS", "S", "M", "L", "XL"], 348),
     fabric: "Italian Virgin Wool, Silk lining",
@@ -921,6 +957,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("ophelia-organza-duster"),
     videoUrl: null,
     categoryId: "cat-7",
+    categoryIds: ["cat-7"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["White", "Ivory"], ["S", "M", "L"], 278),
     fabric: "Italian Organza, Embroidery thread",
@@ -955,6 +993,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("raven-leather-jacket"),
     videoUrl: null,
     categoryId: "cat-7",
+    categoryIds: ["cat-7"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Black"], ["XS", "S", "M", "L", "XL"], 548),
     fabric: "Italian Lambskin Leather, Cotton lining",
@@ -991,6 +1031,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("solstice-crystal-belt"),
     videoUrl: null,
     categoryId: "cat-11",
+    categoryIds: ["cat-11"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Diamond", "Black"], ["S", "M", "L"], 128),
     fabric: "Satin, Crystal embellishments, Metal hardware",
@@ -1025,6 +1067,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("cashmere-evening-wrap"),
     videoUrl: null,
     categoryId: "cat-11",
+    categoryIds: ["cat-11"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Ivory", "Black", "Beige"], ["One Size"], 198),
     fabric: "100% Mongolian Cashmere",
@@ -1059,6 +1103,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("pearl-drop-hair-comb"),
     videoUrl: null,
     categoryId: "cat-11",
+    categoryIds: ["cat-11"],
+    categories: [],
     hasVariants: true,
     variants: makeVariants(["Diamond"], ["One Size"], 89),
     fabric: "Gold-plated metal, Freshwater pearls, Swarovski crystals",
@@ -1093,6 +1139,8 @@ export const MOCK_PRODUCTS: Product[] = [
     images: makeImages("silk-pocket-square-set"),
     videoUrl: null,
     categoryId: "cat-11",
+    categoryIds: ["cat-11"],
+    categories: [],
     hasVariants: false,
     variants: [],
     fabric: "100% Mulberry Silk",
@@ -1262,17 +1310,17 @@ export const MOCK_ADDRESSES: Address[] = [
 export function getProductBySlug(slug: string): Product | undefined {
   const product = MOCK_PRODUCTS.find((p) => p.slug === slug && p.published);
   if (!product) return undefined;
-  // Join category object
-  const category = MOCK_CATEGORIES.find((c) => c.id === product.categoryId);
-  return category ? { ...product, category } : product;
+  // Join categories (multi-category aware)
+  const cats = MOCK_CATEGORIES.filter((c) => (product.categoryIds ?? []).includes(c.id) || c.id === product.categoryId);
+  return { ...product, categories: cats, category: cats[0] };
 }
 
 export function getProductById(id: string): Product | undefined {
   const product = MOCK_PRODUCTS.find((p) => p.id === id && p.published);
   if (!product) return undefined;
-  // Join category object
-  const category = MOCK_CATEGORIES.find((c) => c.id === product.categoryId);
-  return category ? { ...product, category } : product;
+  // Join categories (multi-category aware)
+  const cats = MOCK_CATEGORIES.filter((c) => (product.categoryIds ?? []).includes(c.id) || c.id === product.categoryId);
+  return { ...product, categories: cats, category: cats[0] };
 }
 
 export function getCategoryBySlug(slug: string): Category | undefined {
@@ -1286,7 +1334,7 @@ export function getCollectionBySlug(slug: string): Collection | undefined {
 export function getProductsByCategory(categorySlug: string): Product[] {
   const category = getCategoryBySlug(categorySlug);
   if (!category) return [];
-  return MOCK_PRODUCTS.filter((p) => p.categoryId === category.id && p.published);
+  return MOCK_PRODUCTS.filter((p) => ((p.categoryIds ?? []).includes(category.id) || p.categoryId === category.id) && p.published);
 }
 
 export function getProductsByCollection(collectionSlug: string): Product[] {
@@ -1298,8 +1346,10 @@ export function getProductsByCollection(collectionSlug: string): Product[] {
 export function getRelatedProducts(productId: string, limit = 4): Product[] {
   const product = getProductById(productId);
   if (!product) return [];
+  const productCatIds = product.categoryIds?.length ? product.categoryIds : (product.categoryId ? [product.categoryId] : []);
+  if (productCatIds.length === 0) return [];
   return MOCK_PRODUCTS.filter(
-    (p) => p.id !== productId && p.categoryId === product.categoryId && p.published
+    (p) => p.id !== productId && p.published && (p.categoryIds ?? []).some((cid) => productCatIds.includes(cid))
   ).slice(0, limit);
 }
 
@@ -1314,7 +1364,7 @@ export function getFilteredProducts(filters: ProductFilters = {}): PaginatedProd
   if (filters.categorySlug) {
     const category = getCategoryBySlug(filters.categorySlug);
     if (category) {
-      products = products.filter((p) => p.categoryId === category.id);
+      products = products.filter((p) => (p.categoryIds ?? []).includes(category.id) || p.categoryId === category.id);
     }
   }
 

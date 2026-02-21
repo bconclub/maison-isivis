@@ -40,16 +40,21 @@ export function ProductDetailClient({
     );
   }
 
-  // Join category
-  const category = categories.find((c) => c.id === product.categoryId);
-  const productWithCategory = category ? { ...product, category } : product;
+  // Join categories
+  const productCategories = categories.filter((c) =>
+    (product.categoryIds ?? []).includes(c.id) || c.id === product.categoryId
+  );
+  const primaryCategory = productCategories[0];
+  const productWithCategory = primaryCategory
+    ? { ...product, category: primaryCategory, categories: productCategories }
+    : product;
 
-  // Breadcrumbs
+  // Breadcrumbs — use primary (first) category
   const breadcrumbItems = [];
-  if (productWithCategory.category) {
+  if (primaryCategory) {
     breadcrumbItems.push({
-      label: productWithCategory.category.name,
-      href: `/collections/${productWithCategory.category.slug}`,
+      label: primaryCategory.name,
+      href: `/collections/${primaryCategory.slug}`,
     });
   }
   breadcrumbItems.push({ label: productWithCategory.name });

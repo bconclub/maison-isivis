@@ -13,7 +13,7 @@ export function CategoriesTable() {
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
 
   function getProductCount(categoryId: string) {
-    return products.filter((p) => p.categoryId === categoryId).length;
+    return products.filter((p) => (p.categoryIds ?? []).includes(categoryId) || p.categoryId === categoryId).length;
   }
 
   return (

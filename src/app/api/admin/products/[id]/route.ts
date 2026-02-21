@@ -22,6 +22,7 @@ function dbToProduct(row: any): Product {
     images: (typeof row.images === "string" ? JSON.parse(row.images) : row.images ?? []) as ProductImage[],
     videoUrl: row.video_url,
     categoryId: row.category_id,
+    categoryIds: [],
     hasVariants: row.has_variants,
     variants: (typeof row.variants === "string" ? JSON.parse(row.variants) : row.variants ?? []) as ProductVariant[],
     fabric: row.fabric,
@@ -36,6 +37,7 @@ function dbToProduct(row: any): Product {
     keywords: row.keywords,
     displayOrder: row.display_order,
     published: row.published,
+    categories: [],
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -89,10 +91,12 @@ export async function PUT(
     const supabase = createAdminClient();
     const body = await request.json();
 
-    // Sanitize categoryId — reject mock IDs like "cat-2"
-    if (body.categoryId && !UUID_RE.test(body.categoryId)) {
-      body.categoryId = null;
-    }
+    // Extract categoryIds from body, sanitize
+    const categoryIds: string[] = (body.categoryIds ?? []).filter(
+      (cid: string) => UUID_RE.test(cid)
+    );
+    body.categoryId = categoryIds[0] ?? null;
+    delete body.categoryIds;
 
     const dbData = productToDb(body);
 
@@ -108,17 +112,28 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const product = dbToProduct(data);
+    // Replace junction table rows (delete old, insert new)
+    await supabase.from("product_categories").delete().eq("product_id", id);
+    if (categoryIds.length > 0) {
+      await supabase.from("product_categories").insert(
+        categoryIds.map((catId) => ({
+          product_id: id,
+          category_id: catId,
+        }))
+      );
+    }
 
-    // Look up category name for sheet sync
+    const product = dbToProduct(data);
+    product.categoryIds = categoryIds;
+
+    // Look up category names for sheet sync
     let categoryName = "";
-    if (product.categoryId) {
-      const { data: cat } = await supabase
+    if (categoryIds.length > 0) {
+      const { data: cats } = await supabase
         .from("categories")
         .select("name")
-        .eq("id", product.categoryId)
-        .single();
-      categoryName = cat?.name ?? "";
+        .in("id", categoryIds);
+      categoryName = (cats ?? []).map((c) => c.name).join(", ");
     }
 
     // Sync to Google Sheets in background

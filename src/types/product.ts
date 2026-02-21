@@ -29,6 +29,7 @@ export interface Product {
   images: ProductImage[];
   videoUrl: string | null;
   categoryId: string | null;
+  categoryIds: string[];
   hasVariants: boolean;
   variants: ProductVariant[];
   fabric: string | null;
@@ -46,6 +47,7 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
   category?: Category;
+  categories: Category[];
 }
 
 export interface Category {

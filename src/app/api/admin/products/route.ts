@@ -22,6 +22,7 @@ function productToDb(p: Partial<Product>): Record<string, any> {
   if (p.allowBackorder !== undefined) row.allow_backorder = p.allowBackorder;
   if (p.images !== undefined) row.images = JSON.stringify(p.images);
   if (p.videoUrl !== undefined) row.video_url = p.videoUrl;
+  // categoryId kept for backward compat — junction table is source of truth
   if (p.categoryId !== undefined) row.category_id = p.categoryId;
   if (p.hasVariants !== undefined) row.has_variants = p.hasVariants;
   if (p.variants !== undefined) row.variants = JSON.stringify(p.variants);
@@ -59,6 +60,7 @@ function dbToProduct(row: any): Product {
     images: (typeof row.images === "string" ? JSON.parse(row.images) : row.images ?? []) as ProductImage[],
     videoUrl: row.video_url,
     categoryId: row.category_id,
+    categoryIds: [],
     hasVariants: row.has_variants,
     variants: (typeof row.variants === "string" ? JSON.parse(row.variants) : row.variants ?? []) as ProductVariant[],
     fabric: row.fabric,
@@ -73,6 +75,7 @@ function dbToProduct(row: any): Product {
     keywords: row.keywords,
     displayOrder: row.display_order,
     published: row.published,
+    categories: [],
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -82,16 +85,31 @@ function dbToProduct(row: any): Product {
 export async function GET() {
   try {
     const supabase = createAdminClient();
-    const { data, error } = await supabase
-      .from("products")
-      .select("*")
-      .order("created_at", { ascending: false });
+    const [productsRes, pcRes] = await Promise.all([
+      supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false }),
+      supabase.from("product_categories").select("product_id, category_id"),
+    ]);
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    if (productsRes.error) {
+      return NextResponse.json({ error: productsRes.error.message }, { status: 500 });
     }
 
-    const products = (data ?? []).map(dbToProduct);
+    // Build product → categoryIds map
+    const catMap = new Map<string, string[]>();
+    (pcRes.data ?? []).forEach((pc) => {
+      const arr = catMap.get(pc.product_id) ?? [];
+      arr.push(pc.category_id);
+      catMap.set(pc.product_id, arr);
+    });
+
+    const products = (productsRes.data ?? []).map((row) => {
+      const p = dbToProduct(row);
+      p.categoryIds = catMap.get(p.id) ?? (p.categoryId ? [p.categoryId] : []);
+      return p;
+    });
     return NextResponse.json({ products });
   } catch (err) {
     console.error("[Admin Products GET]", err);
@@ -111,10 +129,13 @@ export async function POST(request: NextRequest) {
     const supabase = createAdminClient();
     const body = await request.json();
 
-    // Sanitize categoryId — reject mock IDs like "cat-2"
-    if (body.categoryId && !UUID_RE.test(body.categoryId)) {
-      body.categoryId = null;
-    }
+    // Extract categoryIds from body, sanitize
+    const categoryIds: string[] = (body.categoryIds ?? []).filter(
+      (id: string) => UUID_RE.test(id)
+    );
+    // Set backward-compat categoryId to first category
+    body.categoryId = categoryIds[0] ?? null;
+    delete body.categoryIds;
 
     const dbData = productToDb(body);
 
@@ -129,17 +150,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const product = dbToProduct(data);
+    // Insert junction table rows
+    if (categoryIds.length > 0) {
+      await supabase.from("product_categories").insert(
+        categoryIds.map((catId) => ({
+          product_id: data.id,
+          category_id: catId,
+        }))
+      );
+    }
 
-    // Look up category name for sheet sync
+    const product = dbToProduct(data);
+    product.categoryIds = categoryIds;
+
+    // Look up category names for sheet sync
     let categoryName = "";
-    if (product.categoryId) {
-      const { data: cat } = await supabase
+    if (categoryIds.length > 0) {
+      const { data: cats } = await supabase
         .from("categories")
         .select("name")
-        .eq("id", product.categoryId)
-        .single();
-      categoryName = cat?.name ?? "";
+        .in("id", categoryIds);
+      categoryName = (cats ?? []).map((c) => c.name).join(", ");
     }
 
     // Sync to Google Sheets in background (don't block response)

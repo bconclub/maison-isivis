@@ -160,7 +160,7 @@ export function SearchModal() {
                                 {product.name}
                               </p>
                               <p className="text-caption text-neutral-500">
-                                {product.category?.name}
+                                {product.categories?.map((c) => c.name).join(", ") ?? product.category?.name}
                               </p>
                             </div>
                             <span className="text-body-sm font-medium text-brand-purple">

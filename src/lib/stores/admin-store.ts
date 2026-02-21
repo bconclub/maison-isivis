@@ -231,9 +231,12 @@ export const useAdminStore = create<AdminState>()(
       deleteCategory: (id) => {
         set((s) => ({
           categories: s.categories.filter((c) => c.id !== id),
-          products: s.products.map((p) =>
-            p.categoryId === id ? { ...p, categoryId: null } : p
-          ),
+          products: s.products.map((p) => ({
+            ...p,
+            categoryId: p.categoryId === id ? null : p.categoryId,
+            categoryIds: (p.categoryIds ?? []).filter((cid) => cid !== id),
+            categories: (p.categories ?? []).filter((c) => c.id !== id),
+          })),
         }));
       },
 
@@ -324,7 +327,7 @@ export const useAdminStore = create<AdminState>()(
     }),
     {
       name: "maison-isivis-admin",
-      version: 3,
+      version: 4,
       migrate: () => ({
         products: [],
         categories: [],

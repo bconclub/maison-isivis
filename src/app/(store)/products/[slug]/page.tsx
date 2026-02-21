@@ -52,12 +52,13 @@ export default async function ProductDetailPage({ params }: Props) {
   const reviews = await getReviewsByProduct(product.id);
   const relatedProducts = await getRelatedProducts(product.id);
 
-  // Build breadcrumb trail
+  // Build breadcrumb trail — use primary (first) category
   const breadcrumbItems = [];
-  if (product.category) {
+  const primaryCategory = product.categories?.[0] ?? product.category;
+  if (primaryCategory) {
     breadcrumbItems.push({
-      label: product.category.name,
-      href: `/collections/${product.category.slug}`,
+      label: primaryCategory.name,
+      href: `/collections/${primaryCategory.slug}`,
     });
   }
   breadcrumbItems.push({ label: product.name });

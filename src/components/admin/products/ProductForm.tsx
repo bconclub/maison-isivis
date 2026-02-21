@@ -75,7 +75,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           lowStockThreshold: product.lowStockThreshold,
           allowBackorder: product.allowBackorder,
           videoUrl: product.videoUrl,
-          categoryId: product.categoryId,
+          categoryIds: product.categoryIds ?? (product.categoryId ? [product.categoryId] : []),
           hasVariants: product.hasVariants,
           fabric: product.fabric,
           careInstructions: product.careInstructions,
@@ -94,6 +94,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           stockQuantity: 0,
           lowStockThreshold: 5,
           allowBackorder: false,
+          categoryIds: [],
           hasVariants: false,
           featured: false,
           newArrival: false,
@@ -137,7 +138,9 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         allowBackorder: data.allowBackorder,
         images,
         videoUrl: data.videoUrl || null,
-        categoryId: data.categoryId || null,
+        categoryId: data.categoryIds?.[0] ?? null,
+        categoryIds: data.categoryIds ?? [],
+        categories: [],
         hasVariants: data.hasVariants,
         variants,
         fabric: data.fabric ?? null,
@@ -178,7 +181,9 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         allowBackorder: data.allowBackorder,
         images,
         videoUrl: data.videoUrl || null,
-        categoryId: data.categoryId || null,
+        categoryId: data.categoryIds?.[0] ?? null,
+        categoryIds: data.categoryIds ?? [],
+        categories: [],
         hasVariants: data.hasVariants,
         variants,
         fabric: data.fabric ?? null,
@@ -201,8 +206,8 @@ export function ProductForm({ product, mode }: ProductFormProps) {
   }
 
   // Get category name for AI modal defaults
-  const selectedCategoryId = watch("categoryId");
-  const selectedCategoryName = categories.find((c) => c.id === selectedCategoryId)?.name;
+  const selectedCategoryIds = watch("categoryIds") ?? [];
+  const selectedCategoryName = categories.find((c) => c.id === selectedCategoryIds[0])?.name;
 
   function generateSKU(categoryId: string | null): string {
     // Resolve category code from the category name
@@ -229,11 +234,11 @@ export function ProductForm({ product, mode }: ProductFormProps) {
 
     // ── Category ──
     if (content.categoryId) {
-      setValue("categoryId", content.categoryId);
+      setValue("categoryIds", [content.categoryId]);
     }
 
     // ── SKU (auto-generated from category) ──
-    const skuCategoryId = content.categoryId ?? watch("categoryId") ?? null;
+    const skuCategoryId = content.categoryId ?? (watch("categoryIds") ?? [])[0] ?? null;
     setValue("sku", generateSKU(skuCategoryId));
 
     // ── Price ──
@@ -369,19 +374,68 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           />
           <div>
             <label className="mb-1.5 block text-sm font-medium text-neutral-700">
-              Category
+              Categories
             </label>
-            <select
-              {...register("categoryId")}
-              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm text-neutral-900 focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple/20"
-            >
-              <option value="">No Category</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+            {/* Selected category tags */}
+            {selectedCategoryIds.length > 0 && (
+              <div className="mb-2 flex flex-wrap gap-1.5">
+                {selectedCategoryIds.map((cid) => {
+                  const cat = categories.find((c) => c.id === cid);
+                  if (!cat) return null;
+                  return (
+                    <span
+                      key={cid}
+                      className="inline-flex items-center gap-1 rounded-full bg-brand-purple/10 px-2.5 py-1 text-xs font-medium text-brand-purple"
+                    >
+                      {cat.name}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setValue(
+                            "categoryIds",
+                            selectedCategoryIds.filter((id) => id !== cid)
+                          )
+                        }
+                        className="ml-0.5 rounded-full p-0.5 hover:bg-brand-purple/20"
+                      >
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                      </button>
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+            {/* Category checkbox list */}
+            <div className="max-h-40 overflow-y-auto rounded-lg border border-neutral-200 bg-white p-2">
+              {categories.length === 0 ? (
+                <p className="px-2 py-1.5 text-xs text-neutral-400">No categories found</p>
+              ) : (
+                categories.map((cat) => (
+                  <label
+                    key={cat.id}
+                    className="flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedCategoryIds.includes(cat.id)}
+                      onChange={(e) => {
+                        const current = selectedCategoryIds;
+                        if (e.target.checked) {
+                          setValue("categoryIds", [...current, cat.id]);
+                        } else {
+                          setValue(
+                            "categoryIds",
+                            current.filter((id) => id !== cat.id)
+                          );
+                        }
+                      }}
+                      className="rounded border-neutral-300 text-brand-purple focus:ring-brand-purple/20"
+                    />
+                    {cat.name}
+                  </label>
+                ))
+              )}
+            </div>
           </div>
         </div>
         <div className="mt-4 space-y-4">
