@@ -122,14 +122,19 @@ export default async function HomePage() {
           <p className="text-caption font-medium uppercase tracking-luxury-wide text-neutral-400">
             Featured in leading fashion publications
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-12">
-            {["Glamour", "Grazia"].map((pub) => (
-              <span
-                key={pub}
-                className="font-heading text-h3 font-light tracking-wide text-neutral-300"
-              >
-                {pub}
-              </span>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-16">
+            {[
+              { name: "Glamour", src: "/images/press/Glamour-1.svg" },
+              { name: "Grazia", src: "/images/press/Grazia-Logo.svg" },
+            ].map((pub) => (
+              <Image
+                key={pub.name}
+                src={pub.src}
+                alt={`Featured in ${pub.name}`}
+                width={140}
+                height={40}
+                className="h-8 w-auto opacity-40 grayscale transition-opacity duration-300 hover:opacity-70 sm:h-10"
+              />
             ))}
           </div>
         </div>
