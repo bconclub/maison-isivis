@@ -27,6 +27,9 @@ const COLLECTION_IMAGES: Record<string, string> = {
 
 // Override default collection links (slug → custom href)
 const COLLECTION_LINK_OVERRIDES: Record<string, string> = {
+  "old-money": "/products/victoria",
+  fierce: "/products/celestia",
+  ethereal: "/products/celestia-pearl-dress",
   contemporary: "/products/aria-embellished-set",
 };
 
