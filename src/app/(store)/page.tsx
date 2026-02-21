@@ -181,35 +181,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ===== NEWSLETTER ===== */}
-      <section className="relative overflow-hidden bg-brand-purple-10">
-        <div className="container-luxury section-spacing text-center">
-          <p className="font-script text-lg text-brand-blue">
-            Exclusive access to new arrivals, VIP sales, and styling tips
-          </p>
-          <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-            Join The ISIVIS Family
-          </h2>
-          <form className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 rounded-luxury-md border border-neutral-200 bg-white px-4 py-3.5 text-base placeholder:text-neutral-400 focus:border-brand-blue focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10"
-              required
-            />
-            <button
-              type="submit"
-              className="rounded-luxury bg-brand-gradient px-8 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-white shadow-luxury-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-luxury-lg"
-            >
-              Subscribe
-            </button>
-          </form>
-          <p className="mt-4 text-caption text-neutral-400">
-            By subscribing, you agree to receive marketing emails. Unsubscribe
-            anytime.
-          </p>
-        </div>
-      </section>
     </>
   );
 }
