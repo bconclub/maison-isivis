@@ -3,10 +3,52 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Our Story | Maison ISIVIS",
+  title: "About Us | Maison ISIVIS",
   description:
-    "Established in 2021, Maison ISIVIS has emerged as a beacon of luxury fashion. Handcrafted prêt-à-couture from our London atelier.",
+    "Founded in London in 2021, Maison ISIVIS is a luxury fashion house built for the modern woman. Prêt-à-couture pieces that blend Golden Age elegance with contemporary sensuality.",
 };
+
+const PRINCIPLES = [
+  {
+    title: "Empowering Women",
+    description:
+      "Every purchase supports women\u2019s causes through our foundation, RehVamp.",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Uncompromised Quality",
+    description:
+      "Each piece is handcrafted with meticulous attention to detail.",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Sustainability First",
+    description:
+      "Eco-friendly materials and production practices to reduce our footprint.",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" />
+        <path d="M7 12a5 5 0 0 1 5-5" />
+        <path d="M12 17a5 5 0 0 0 5-5" />
+        <line x1="12" y1="2" x2="12" y2="22" />
+      </svg>
+    ),
+  },
+];
+
+const STATS = [
+  { value: "2021", label: "Founded" },
+  { value: "30+", label: "Global Associates" },
+  { value: "50,000+", label: "Customers Worldwide" },
+];
 
 export default function AboutPage() {
   return (
@@ -17,261 +59,136 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.05)_0%,transparent_60%)]" />
         <div className="container-luxury relative z-10 text-center">
           <p className="font-script text-lg text-white/70">Our Story</p>
-          <Image
-            src="/images/logo/Maison-ISIVIS.png"
-            alt="Maison ISIVIS"
-            width={240}
-            height={80}
-            className="mx-auto mt-4 h-16 w-auto sm:h-20"
-            priority
-          />
-          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-white/70 sm:text-body-lg">
+          <h1 className="mt-4 font-heading text-h1 font-light uppercase tracking-luxury text-white">
+            About Us
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/70 sm:text-body-lg">
             Where Golden Age glamour meets modern sensuality
           </p>
         </div>
       </section>
 
-      {/* ===== BRAND STORY ===== */}
+      {/* ===== BRAND INTRO ===== */}
       <section className="section-spacing bg-white">
         <div className="container-luxury">
-          <div className="mx-auto max-w-3xl">
-            <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-16">
-              {/* Image placeholder */}
-              <div className="w-full shrink-0 lg:w-2/5">
-                <div className="aspect-[3/4] overflow-hidden rounded-luxury-md bg-neutral-200">
-                  <div className="flex h-full items-center justify-center">
-                    <p className="text-body-sm text-neutral-400">
-                      Founder Image
-                    </p>
-                  </div>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="font-script text-lg text-brand-blue">
+              Turning Fantasy Into Reality
+            </p>
+            <h2 className="mt-2 font-heading text-h2 text-brand-purple">
+              Maison ISIVIS
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-neutral-600">
+              Founded in London in 2021, Maison ISIVIS is a luxury fashion house
+              built for the modern woman. We design pr&ecirc;t-&agrave;-couture
+              pieces that blend Golden Age elegance with contemporary sensuality,
+              handcrafted in our London atelier using premium
+              materials: silk, cashmere, organic cotton, wool, and luxurious
+              vegan fur.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== MISSION & VISION ===== */}
+      <section className="section-spacing bg-neutral-50">
+        <div className="container-luxury">
+          <div className="mx-auto grid max-w-4xl gap-12 sm:grid-cols-2">
+            {/* Mission */}
+            <div className="text-center sm:text-left">
+              <p className="font-script text-lg text-brand-blue">
+                What drives us
+              </p>
+              <h2 className="mt-2 font-heading text-h3 text-brand-purple">
+                Our Mission
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-neutral-600">
+                To empower women through fashion, one piece at a time. Every
+                design is crafted to make women feel confident, beautiful, and
+                unstoppable.
+              </p>
+            </div>
+
+            {/* Vision */}
+            <div className="text-center sm:text-left">
+              <p className="font-script text-lg text-brand-blue">
+                Where we&apos;re headed
+              </p>
+              <h2 className="mt-2 font-heading text-h3 text-brand-purple">
+                Our Vision
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-neutral-600">
+                To build a global community of women who embrace individuality,
+                uplift each other, and express their strength through style.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FOUNDER ===== */}
+      <section className="section-spacing bg-white">
+        <div className="container-luxury">
+          <div className="mx-auto flex max-w-4xl flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-16">
+            {/* Founder image */}
+            <div className="w-full shrink-0 lg:w-2/5">
+              <div className="aspect-[3/4] overflow-hidden rounded-luxury-md bg-neutral-200">
+                <div className="flex h-full items-center justify-center">
+                  <p className="text-body-sm text-neutral-400">
+                    Ishita Gupta
+                  </p>
                 </div>
               </div>
+            </div>
 
-              {/* Text */}
-              <div>
-                <p className="font-script text-lg text-brand-blue">
-                  Founded in 2021
+            {/* Text */}
+            <div className="text-center lg:text-left">
+              <p className="font-script text-lg text-brand-blue">
+                The woman behind the brand
+              </p>
+              <h2 className="mt-2 font-heading text-h2 text-brand-purple">
+                Our Founder
+              </h2>
+              <div className="mx-auto mt-6 max-w-lg space-y-4 text-base leading-relaxed text-neutral-600 lg:mx-0">
+                <p>
+                  Ishita Gupta, born in India, educated across Delhi, Kolkata,
+                  Dubai, and London. A model, actress, and entrepreneur who
+                  launched Maison ISIVIS while studying at LAMDA.
                 </p>
-                <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-                  The Beginning
-                </h2>
-                <div className="mt-6 space-y-4 text-base leading-relaxed text-neutral-600">
-                  <p>
-                    Established in 2021, Maison ISIVIS has emerged as a beacon
-                    of luxury fashion. Under founder Ishita Gupta&apos;s vision,
-                    each piece is handcrafted in our London atelier using premium
-                    natural materials&mdash;silk, cashmere, organic cotton,
-                    luxurious vegan fur.
-                  </p>
-                  <p>
-                    We celebrate femininity, strength, and individuality. Our
-                    pr&ecirc;t-&agrave;-couture designs are for the woman who
-                    demands quality, embraces confidence, and turns heads.
-                  </p>
-                </div>
+                <p>
+                  Her bold vision has made ISIVIS a staple for women across the
+                  Middle East and Britain&mdash;a brand that celebrates
+                  confidence, individuality, and the power of feminine strength.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== THE ATELIER ===== */}
+      {/* ===== OUR PRINCIPLES ===== */}
       <section className="section-spacing bg-neutral-50">
         <div className="container-luxury">
           <div className="mx-auto max-w-3xl text-center">
             <p className="font-script text-lg text-brand-blue">
-              Handcrafted in London
+              What we believe
             </p>
             <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-              The Atelier
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-neutral-600">
-              Every piece bearing the ISIVIS name is meticulously crafted in our
-              London atelier. From initial sketch to final stitch, our artisans
-              bring decades of couture expertise to each garment, ensuring
-              uncompromising quality and attention to detail.
-            </p>
-          </div>
-
-          {/* Image grid placeholder */}
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3">
-            {["Sketching", "Cutting", "Stitching"].map((step) => (
-              <div
-                key={step}
-                className="aspect-square overflow-hidden rounded-luxury-md bg-neutral-200"
-              >
-                <div className="flex h-full items-center justify-center">
-                  <p className="text-body-sm text-neutral-400">{step}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== MATERIALS & SUSTAINABILITY ===== */}
-      <section className="section-spacing bg-white">
-        <div className="container-luxury">
-          <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-20">
-            {/* Content */}
-            <div className="w-full text-center lg:w-1/2 lg:text-left">
-              <p className="font-script text-lg text-brand-blue">
-                Premium natural materials
-              </p>
-              <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-                Sustainability
-              </h2>
-              <div className="mx-auto mt-6 max-w-md space-y-4 text-base leading-relaxed text-neutral-600 lg:mx-0">
-                <p>
-                  We source only the finest natural materials&mdash;silk,
-                  cashmere, organic cotton, and luxurious vegan fur. Each fabric
-                  is carefully selected for its quality, feel, and
-                  sustainability.
-                </p>
-                <p>
-                  Our commitment to responsible fashion means choosing materials
-                  that are kind to the planet without compromising on the luxury
-                  our clients expect.
-                </p>
-              </div>
-            </div>
-
-            {/* Image */}
-            <div className="w-full lg:w-1/2">
-              <div className="aspect-[4/3] overflow-hidden rounded-luxury-md bg-neutral-200">
-                <div className="flex h-full items-center justify-center">
-                  <p className="text-body-sm text-neutral-400">
-                    Materials Image
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== EMPOWERMENT — REHVAMP FOUNDATION ===== */}
-      <section
-        id="rehvamp"
-        className="relative overflow-hidden"
-      >
-        <div className="bg-brand-hero">
-          <div className="container-luxury flex flex-col items-center gap-8 py-20 text-center sm:py-28 lg:flex-row lg:gap-16 lg:text-left">
-            {/* Text */}
-            <div className="lg:w-1/2">
-              <p className="font-script text-lg text-white/70">
-                Every purchase empowers women
-              </p>
-              <h2 className="mt-2 font-heading text-h1 font-light text-white">
-                RehVamp Foundation
-              </h2>
-              <div className="mx-auto mt-4 max-w-md space-y-4 text-base leading-relaxed text-white/70 lg:mx-0">
-                <p>
-                  A portion of every sale supports RehVamp Foundation&mdash;our
-                  UK charity dedicated to women&apos;s empowerment, education,
-                  and sustainable development.
-                </p>
-                <p>
-                  We believe fashion can be a force for good. Through RehVamp, we
-                  fund programmes that give women the skills, resources, and
-                  confidence to build their own futures.
-                </p>
-              </div>
-              <div className="mt-8 flex flex-wrap justify-center gap-8 lg:justify-start">
-                <div className="text-center">
-                  <p className="font-heading text-h3 font-light text-white">
-                    Women&apos;s
-                  </p>
-                  <p className="mt-1 text-caption uppercase tracking-luxury text-white/50">
-                    Empowerment
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="font-heading text-h3 font-light text-white">
-                    Education
-                  </p>
-                  <p className="mt-1 text-caption uppercase tracking-luxury text-white/50">
-                    Access
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="font-heading text-h3 font-light text-white">
-                    Sustainable
-                  </p>
-                  <p className="mt-1 text-caption uppercase tracking-luxury text-white/50">
-                    Development
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Image */}
-            <div className="lg:w-1/2">
-              <div className="mx-auto aspect-[3/4] max-w-sm overflow-hidden rounded-luxury-md bg-white/10 lg:max-w-none">
-                <div className="flex h-full items-center justify-center">
-                  <p className="text-body-sm text-white/40">
-                    Foundation Image
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== AS SEEN IN ===== */}
-      <section className="section-spacing bg-white">
-        <div className="container-luxury text-center">
-          <p className="text-caption font-medium uppercase tracking-luxury-wide text-neutral-400">
-            Featured in leading fashion publications
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-12">
-            {["Glamour", "Grazia"].map((pub) => (
-              <span
-                key={pub}
-                className="font-heading text-h3 font-light tracking-wide text-neutral-300"
-              >
-                {pub}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== VALUES ===== */}
-      <section className="section-spacing bg-neutral-50">
-        <div className="container-luxury">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="font-script text-lg text-brand-blue">Our Promise</p>
-            <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-              What We Stand For
+              Our Principles
             </h2>
           </div>
 
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-3">
-            {[
-              {
-                title: "Luxury",
-                description:
-                  "Premium materials, handcrafted details, signature packaging. Every touchpoint reflects our commitment to excellence.",
-              },
-              {
-                title: "Empowerment",
-                description:
-                  "We celebrate femininity, strength, and individuality. Fashion that makes you feel powerful.",
-              },
-              {
-                title: "Purpose",
-                description:
-                  "Every purchase supports women's empowerment through the RehVamp Foundation. Fashion with meaning.",
-              },
-            ].map((value) => (
-              <div key={value.title} className="text-center">
-                <h3 className="font-heading text-h4 font-light text-brand-purple/80">
-                  {value.title}
+          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-10 sm:grid-cols-3">
+            {PRINCIPLES.map((principle) => (
+              <div key={principle.title} className="text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-purple/5 text-brand-purple">
+                  {principle.icon}
+                </div>
+                <h3 className="mt-4 font-heading text-h4 font-light text-brand-purple/80">
+                  {principle.title}
                 </h3>
                 <p className="mt-3 text-body-sm leading-relaxed text-neutral-600">
-                  {value.description}
+                  {principle.description}
                 </p>
               </div>
             ))}
@@ -279,25 +196,52 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
+      {/* ===== OUR IMPACT ===== */}
+      <section className="relative overflow-hidden">
+        <div className="bg-brand-hero">
+          <div className="container-luxury py-20 text-center sm:py-28">
+            <p className="font-script text-lg text-white/70">
+              A growing force in luxury fashion
+            </p>
+            <h2 className="mt-2 font-heading text-h1 font-light text-white">
+              Our Impact
+            </h2>
+
+            <div className="mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-12 sm:gap-16">
+              {STATS.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="font-heading text-h2 font-light text-white">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-caption uppercase tracking-luxury text-white/50">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== COLLABORATE WITH US ===== */}
       <section className="section-spacing bg-white">
         <div className="container-luxury text-center">
           <p className="font-script text-lg text-brand-blue">
-            Pr&ecirc;t-&agrave;-couture
+            Let&apos;s create together
           </p>
           <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-            Discover Our Collections
+            Collaborate With Us
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-neutral-600">
-            Explore our handcrafted pieces, each designed to celebrate the
-            extraordinary woman you are.
+          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-neutral-600">
+            DM us on social, apply as an affiliate, or get in touch directly.
+            We&apos;d love to hear from you.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link
-              href="/products"
+            <a
+              href="mailto:info@isivislondon.com"
               className="group inline-flex items-center gap-2 rounded-luxury bg-brand-gradient px-8 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-white shadow-luxury-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-luxury-lg"
             >
-              Shop Now
+              Email Us
               <svg
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
                 fill="none"
@@ -311,12 +255,12 @@ export default function AboutPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </Link>
+            </a>
             <Link
-              href="/collections"
+              href="/products"
               className="inline-flex items-center gap-2 rounded-luxury border-[1.5px] border-brand-purple px-8 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-brand-purple transition-all duration-300 hover:bg-brand-purple hover:text-white"
             >
-              View Collections
+              Shop Now
             </Link>
           </div>
         </div>
