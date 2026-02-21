@@ -3,10 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types/product";
-import { Badge } from "@/components/ui/Badge";
 import { PriceDisplay } from "./PriceDisplay";
 import { WishlistButton } from "./WishlistButton";
-import { getDiscountPercentage } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -15,11 +13,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, className }: ProductCardProps) {
-  const discountPct =
-    product.salePrice && product.compareAtPrice
-      ? getDiscountPercentage(product.compareAtPrice, product.salePrice)
-      : 0;
-
   return (
     <div className={cn("group", className)}>
       <Link href={`/products/${product.slug}`}>
@@ -40,19 +33,14 @@ export function ProductCard({ product, className }: ProductCardProps) {
           {/* Hover overlay */}
           <div className="absolute inset-0 bg-brand-purple/0 transition-colors duration-300 group-hover:bg-brand-purple/10" />
 
-          {/* Badges — bottom left, subtle */}
-          <div className="absolute bottom-2.5 left-2.5 flex flex-col gap-1.5">
-            {product.badge && (
+          {/* Badge — bottom left, subtle */}
+          {product.badge && (
+            <div className="absolute bottom-2.5 left-2.5">
               <span className="rounded bg-white/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-neutral-800 backdrop-blur-sm">
                 {product.badge}
               </span>
-            )}
-            {discountPct > 0 && !product.badge?.includes("Sale") && (
-              <span className="rounded bg-red-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
-                -{discountPct}%
-              </span>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Wishlist — top right */}
           <div className="absolute right-2.5 top-2.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
