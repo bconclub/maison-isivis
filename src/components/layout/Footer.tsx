@@ -177,7 +177,7 @@ export function Footer() {
                 Join 50,000+ women worldwide
               </p>
               <p className="mt-1 text-body-sm font-medium text-white/70">
-                #IsivisLondon
+                #maisonisivis
               </p>
             </div>
           </div>
