@@ -5,7 +5,8 @@ import { STYLE_COLLECTIONS } from "@/lib/constants";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
 import { getFeaturedProducts, getBestsellerProducts } from "@/lib/data";
-import { ProductCard } from "@/components/product/ProductCard";
+import { CommunityCarousel } from "@/components/home/CommunityCarousel";
+import { BestsellerCarousel } from "@/components/home/BestsellerCarousel";
 
 // Always fetch fresh data so newly featured products appear immediately
 export const dynamic = "force-dynamic";
@@ -86,35 +87,7 @@ export default async function HomePage() {
       </section>
 
       {/* ===== CUSTOMER FAVOURITES (BEST SELLERS) ===== */}
-      {bestsellerProducts.length > 0 && (
-        <section className="section-spacing bg-white">
-          <div className="container-luxury">
-            <div className="mb-12 text-center">
-              <p className="font-script text-lg text-brand-blue">
-                The pieces you love most
-              </p>
-              <h2 className="mt-2 font-heading text-h2 text-brand-purple">
-                Customer Favourites
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-              {bestsellerProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-
-            <div className="mt-12 text-center">
-              <Link
-                href="/collections/best-sellers"
-                className="inline-flex items-center gap-2 rounded-luxury border-[1.5px] border-brand-purple px-8 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-brand-purple transition-all duration-300 hover:bg-brand-purple hover:text-white"
-              >
-                View All Best Sellers
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+      <BestsellerCarousel products={bestsellerProducts} />
 
       {/* ===== AS SEEN IN ===== */}
       <section className="section-spacing bg-white">
@@ -141,45 +114,7 @@ export default async function HomePage() {
       </section>
 
       {/* ===== ISIVIS COMMUNITY ===== */}
-      <section className="section-spacing bg-brand-purple-10">
-        <div className="container-luxury text-center">
-          <h2 className="font-heading text-h1 font-light uppercase tracking-luxury text-brand-purple">
-            ISIVIS Community
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-neutral-600">
-            Tag us @maisonisivis and flaunt away turning everyone&apos;s fantasy
-            into your reality
-          </p>
-          <p className="mt-4 font-heading text-xl font-medium tracking-wide text-brand-purple">
-            #maisonisivis
-          </p>
-
-          {/* Community Photos */}
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {[
-              { src: "/images/community/Commnity-1.webp", alt: "ISIVIS community look 1" },
-              { src: "/images/community/Commnity-2.webp", alt: "ISIVIS community look 2" },
-              { src: "/images/community/Commnity-3.webp", alt: "ISIVIS community look 3" },
-              { src: "/images/community/Commnity-4.webp", alt: "ISIVIS community look 4" },
-              { src: "/images/community/Commnity-5.webp", alt: "ISIVIS community look 5" },
-              { src: "/images/community/Commnity-6.webp", alt: "ISIVIS community look 6" },
-            ].map((photo) => (
-              <div
-                key={photo.src}
-                className="group relative aspect-[3/4] overflow-hidden rounded-luxury-md bg-neutral-200"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 50vw, 25vw"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CommunityCarousel />
 
     </>
   );
