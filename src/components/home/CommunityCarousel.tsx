@@ -69,10 +69,6 @@ export function CommunityCarousel() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Fade edges */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-brand-purple-10 to-transparent sm:w-16" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-brand-purple-10 to-transparent sm:w-16" />
-
           <div
             ref={scrollRef}
             className="scrollbar-hide flex gap-3 overflow-x-hidden sm:gap-4"
