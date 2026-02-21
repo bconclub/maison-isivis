@@ -53,10 +53,10 @@ export function SunKissedCarousel({ products }: SunKissedCarouselProps) {
         {/* Header */}
         <div className="mb-10 flex items-end justify-between">
           <div>
-            <p className="font-script text-lg text-brand-blue">
+            <p className="font-script text-xl sm:text-lg text-brand-blue">
               Resort-ready luxury
             </p>
-            <h2 className="mt-2 font-heading text-h2 text-brand-purple">
+            <h2 className="mt-2 font-heading text-2xl sm:text-h2 text-brand-purple">
               Sun-Kissed Collection
             </h2>
           </div>

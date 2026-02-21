@@ -54,10 +54,10 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
         {/* Header */}
         <div className="mb-10 flex items-end justify-between">
           <div>
-            <p className="font-script text-lg text-brand-blue">
+            <p className="font-script text-xl sm:text-lg text-brand-blue">
               Curated for you
             </p>
-            <h2 className="mt-2 font-heading text-h2 text-brand-purple">
+            <h2 className="mt-2 font-heading text-2xl sm:text-h2 text-brand-purple">
               Featured Pieces
             </h2>
           </div>
