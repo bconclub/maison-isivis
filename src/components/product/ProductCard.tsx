@@ -71,7 +71,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
         {/* Product info */}
         <div className="mt-3 px-0.5">
-          <h3 className="font-heading text-lg font-normal text-neutral-900 transition-colors group-hover:text-brand-purple sm:text-xl">
+          <h3 className="font-heading text-lg font-medium text-neutral-900 transition-colors group-hover:text-brand-purple sm:text-xl">
             {product.name}
           </h3>
           <PriceDisplay
