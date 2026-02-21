@@ -208,6 +208,21 @@ export async function getBestsellerProducts(
     .map((p) => joinCategories(p, categories));
 }
 
+export async function getProductsByCategorySlug(
+  slug: string,
+  limit = 12
+): Promise<Product[]> {
+  const products = await fetchAllProducts();
+  const categories = await fetchAllCategories();
+  const category = categories.find((c) => c.slug === slug);
+  if (!category) return [];
+
+  return products
+    .filter((p) => p.categoryIds.includes(category.id))
+    .slice(0, limit)
+    .map((p) => joinCategories(p, categories));
+}
+
 export async function getRelatedProducts(
   productId: string,
   limit = 4

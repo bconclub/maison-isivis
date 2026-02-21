@@ -4,9 +4,10 @@ import Link from "next/link";
 import { STYLE_COLLECTIONS } from "@/lib/constants";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
-import { getFeaturedProducts, getBestsellerProducts } from "@/lib/data";
+import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug } from "@/lib/data";
 import { CommunityCarousel } from "@/components/home/CommunityCarousel";
 import { BestsellerCarousel } from "@/components/home/BestsellerCarousel";
+import { SunKissedCarousel } from "@/components/home/SunKissedCarousel";
 
 // Always fetch fresh data so newly featured products appear immediately
 export const dynamic = "force-dynamic";
@@ -34,9 +35,10 @@ const COLLECTION_LINK_OVERRIDES: Record<string, string> = {
 };
 
 export default async function HomePage() {
-  const [featuredProducts, bestsellerProducts] = await Promise.all([
+  const [featuredProducts, bestsellerProducts, swimwearProducts] = await Promise.all([
     getFeaturedProducts(),
     getBestsellerProducts(8),
+    getProductsByCategorySlug("swimwear", 12),
   ]);
 
   return (
@@ -91,6 +93,9 @@ export default async function HomePage() {
 
       {/* ===== CUSTOMER FAVOURITES (BEST SELLERS) ===== */}
       <BestsellerCarousel products={bestsellerProducts} />
+
+      {/* ===== SUN-KISSED COLLECTION (SWIMWEAR) ===== */}
+      <SunKissedCarousel products={swimwearProducts} />
 
       {/* ===== AS SEEN IN ===== */}
       <section className="section-spacing bg-white">
