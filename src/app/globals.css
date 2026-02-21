@@ -91,4 +91,22 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Subtle ambient drift on product images — gentle Ken Burns effect */
+  .animate-ambient {
+    animation: ambient-drift 8s ease-in-out infinite alternate;
+  }
+  .animate-ambient:nth-child(odd),
+  [data-ambient-odd] .animate-ambient {
+    animation-delay: -4s;
+  }
+}
+
+@keyframes ambient-drift {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.03) translate(-0.5%, -0.3%);
+  }
 }
