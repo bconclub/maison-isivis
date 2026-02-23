@@ -7,7 +7,7 @@ import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
 import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug } from "@/lib/data";
 import { CommunityCarousel } from "@/components/home/CommunityCarousel";
 import { BestsellerCarousel } from "@/components/home/BestsellerCarousel";
-import { SunKissedCarousel } from "@/components/home/SunKissedCarousel";
+import { CategoryCarousel } from "@/components/home/CategoryCarousel";
 
 // Always fetch fresh data so newly featured products appear immediately
 export const dynamic = "force-dynamic";
@@ -35,9 +35,10 @@ const COLLECTION_LINK_OVERRIDES: Record<string, string> = {
 };
 
 export default async function HomePage() {
-  const [featuredProducts, bestsellerProducts, swimwearProducts] = await Promise.all([
+  const [featuredProducts, bestsellerProducts, jewelleryProducts, swimwearProducts] = await Promise.all([
     getFeaturedProducts(),
     getBestsellerProducts(8),
+    getProductsByCategorySlug("jewellery", 12),
     getProductsByCategorySlug("swimwear", 12),
   ]);
 
@@ -94,8 +95,24 @@ export default async function HomePage() {
       {/* ===== CUSTOMER FAVOURITES (BEST SELLERS) ===== */}
       <BestsellerCarousel products={bestsellerProducts} />
 
+      {/* ===== JEWELLERY COLLECTION ===== */}
+      <CategoryCarousel
+        products={jewelleryProducts}
+        eyebrow="Adorn yourself"
+        title="Jewellery Collection"
+        ctaLabel="See Collection"
+        ctaHref="/collections/jewellery"
+        bg="bg-neutral-50"
+      />
+
       {/* ===== SUN-KISSED COLLECTION (SWIMWEAR) ===== */}
-      <SunKissedCarousel products={swimwearProducts} />
+      <CategoryCarousel
+        products={swimwearProducts}
+        eyebrow="Resort-ready luxury"
+        title="Sun-Kissed Collection"
+        ctaLabel="See Collection"
+        ctaHref="/collections/swimwear"
+      />
 
       {/* ===== AS SEEN IN ===== */}
       <section className="section-spacing bg-white">
