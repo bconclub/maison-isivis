@@ -12,8 +12,7 @@ export function Footer() {
             Turning Fantasy Into Reality
           </p>
           <p className="text-caption text-neutral-500">
-            Proud supporter of RehVamp Foundation &mdash; Every purchase
-            empowers women
+            Explore our philanthropic work at RehVamp Foundation
           </p>
         </div>
       </div>
