@@ -13,6 +13,7 @@ function dbToOrder(row: any): Order {
     id: row.id,
     orderNumber: row.order_number,
     userId: row.user_id,
+    email: row.email ?? null,
     shippingAddress: {
       fullName: shipping.fullName ?? "",
       phone: shipping.phone ?? "",

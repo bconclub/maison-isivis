@@ -43,7 +43,8 @@ export function OrdersTable() {
       result = result.filter(
         (o) =>
           o.orderNumber.toLowerCase().includes(q) ||
-          o.shippingAddress.fullName.toLowerCase().includes(q)
+          o.shippingAddress.fullName.toLowerCase().includes(q) ||
+          (o.email ?? "").toLowerCase().includes(q)
       );
     }
 
@@ -134,8 +135,11 @@ export function OrdersTable() {
                       {order.orderNumber}
                     </Link>
                   </td>
-                  <td className="px-5 py-3 text-neutral-600">
-                    {order.shippingAddress.fullName}
+                  <td className="px-5 py-3">
+                    <span className="text-neutral-600">{order.shippingAddress.fullName}</span>
+                    {order.email && (
+                      <span className="block text-xs text-neutral-400">{order.email}</span>
+                    )}
                   </td>
                   <td className="px-5 py-3 text-neutral-500">
                     {formatDate(order.createdAt)}

@@ -26,6 +26,7 @@ export interface Order {
   id: string;
   orderNumber: string;
   userId: string | null;
+  email: string | null;
   shippingAddress: ShippingAddress;
   subtotal: number;
   shippingCost: number;
