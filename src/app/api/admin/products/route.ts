@@ -41,6 +41,7 @@ function productToDb(p: Partial<Product>): Record<string, any> {
   if (p.keywords !== undefined) row.keywords = p.keywords;
   if (p.displayOrder !== undefined) row.display_order = p.displayOrder;
   if (p.published !== undefined) row.published = p.published;
+  if (p.hiddenFromListings !== undefined) row.hidden_from_listings = p.hiddenFromListings;
   return row;
 }
 
@@ -81,6 +82,7 @@ function dbToProduct(row: any): Product {
     keywords: row.keywords,
     displayOrder: row.display_order,
     published: row.published,
+    hiddenFromListings: row.hidden_from_listings ?? false,
     categories: [],
     createdAt: row.created_at,
     updatedAt: row.updated_at,

@@ -47,6 +47,7 @@ export interface Product {
   keywords: string[] | null;
   displayOrder: number;
   published: boolean;
+  hiddenFromListings: boolean;
   createdAt: string;
   updatedAt: string;
   category?: Category;

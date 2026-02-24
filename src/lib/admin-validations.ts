@@ -32,6 +32,7 @@ export const productSchema = z.object({
   keywords: z.string().optional().nullable(), // comma-separated, parsed later
   displayOrder: z.number().int().min(0),
   published: z.boolean(),
+  hiddenFromListings: z.boolean(),
 });
 
 export type ProductFormData = z.infer<typeof productSchema>;

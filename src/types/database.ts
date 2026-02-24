@@ -139,6 +139,7 @@ export interface Database {
           keywords: string[] | null;
           display_order: number;
           published: boolean;
+          hidden_from_listings: boolean;
           created_at: string;
           updated_at: string;
         };
@@ -175,6 +176,7 @@ export interface Database {
           keywords?: string[] | null;
           display_order?: number;
           published?: boolean;
+          hidden_from_listings?: boolean;
         };
         Update: {
           name?: string;
@@ -209,6 +211,7 @@ export interface Database {
           keywords?: string[] | null;
           display_order?: number;
           published?: boolean;
+          hidden_from_listings?: boolean;
         };
       };
       orders: {

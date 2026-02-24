@@ -66,6 +66,7 @@ function dbToProduct(row: any): Product {
     keywords: row.keywords,
     displayOrder: row.display_order,
     published: row.published,
+    hiddenFromListings: row.hidden_from_listings ?? false,
     categories: [],
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -156,7 +157,10 @@ export async function getAllProducts(): Promise<Product[]> {
   const products = await fetchAllProducts();
   const categories = await fetchAllCategories();
 
-  return products.map((p) => joinCategories(p, categories));
+  // Hide products marked as hidden from listings (e.g. gift cards)
+  return products
+    .filter((p) => !p.hiddenFromListings)
+    .map((p) => joinCategories(p, categories));
 }
 
 export async function getProductBySlug(
@@ -190,9 +194,9 @@ export async function getFeaturedProducts(
   const products = await fetchAllProducts();
   const categories = await fetchAllCategories();
 
-  // Only return products explicitly marked as featured
+  // Only return products explicitly marked as featured (exclude hidden)
   return products
-    .filter((p) => p.featured)
+    .filter((p) => p.featured && !p.hiddenFromListings)
     .sort((a, b) => a.displayOrder - b.displayOrder)
     .slice(0, limit)
     .map((p) => joinCategories(p, categories));
@@ -205,7 +209,7 @@ export async function getBestsellerProducts(
   const categories = await fetchAllCategories();
 
   return products
-    .filter((p) => p.bestseller)
+    .filter((p) => p.bestseller && !p.hiddenFromListings)
     .sort((a, b) => a.displayOrder - b.displayOrder)
     .slice(0, limit)
     .map((p) => joinCategories(p, categories));
@@ -221,7 +225,7 @@ export async function getProductsByCategorySlug(
   if (!category) return [];
 
   return products
-    .filter((p) => p.categoryIds.includes(category.id))
+    .filter((p) => p.categoryIds.includes(category.id) && !p.hiddenFromListings)
     .slice(0, limit)
     .map((p) => joinCategories(p, categories));
 }
@@ -269,7 +273,8 @@ export async function getFilteredProducts(
   const allProducts = await fetchAllProducts();
   const allCategories = await fetchAllCategories();
 
-  let products = [...allProducts];
+  // Exclude hidden products from all listing queries
+  let products = allProducts.filter((p) => !p.hiddenFromListings);
 
   // Category filter
   if (filters.categorySlug) {

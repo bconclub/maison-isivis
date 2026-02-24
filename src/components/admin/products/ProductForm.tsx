@@ -91,6 +91,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           keywords: product.keywords?.join(", ") ?? "",
           displayOrder: product.displayOrder,
           published: product.published,
+          hiddenFromListings: product.hiddenFromListings,
         }
       : {
           inStock: true,
@@ -107,6 +108,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           vatEnabled: true,
           displayOrder: 0,
           published: true,
+          hiddenFromListings: false,
         },
   });
 
@@ -164,6 +166,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         keywords: keywordsArray,
         displayOrder: data.displayOrder,
         published: data.published,
+        hiddenFromListings: data.hiddenFromListings,
         createdAt: now,
         updatedAt: now,
       };
@@ -210,6 +213,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         keywords: keywordsArray,
         displayOrder: data.displayOrder,
         published: data.published,
+        hiddenFromListings: data.hiddenFromListings,
       });
       toast("Product updated successfully!", "success");
     }
@@ -626,6 +630,10 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           <label className="flex items-center gap-2 text-sm text-neutral-700">
             <input type="checkbox" {...register("trending")} className="rounded border-neutral-300" />
             Trending
+          </label>
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
+            <input type="checkbox" {...register("hiddenFromListings")} className="rounded border-neutral-300" />
+            Hidden from Listings
           </label>
         </div>
       </div>
