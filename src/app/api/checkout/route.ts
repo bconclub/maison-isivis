@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
     const { data: products, error: dbError } = await supabase
       .from("products")
-      .select("id, name, slug, price, sale_price, images, in_stock")
+      .select("id, name, slug, price, sale_price, images, in_stock, shipping_enabled, vat_enabled")
       .in("id", productIds);
 
     if (dbError || !products) {
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
       };
     });
 
-    // Calculate subtotal for shipping logic
+    // Calculate subtotal and per-product shipping/VAT eligibility
     const subtotal = items.reduce((sum, item) => {
       const product = productMap.get(item.productId)!;
       const unitPrice = product.sale_price
@@ -116,7 +116,24 @@ export async function POST(req: NextRequest) {
       return sum + unitPrice * item.quantity;
     }, 0);
 
+    // Only charge VAT on items that have VAT enabled
+    const vatSubtotal = items.reduce((sum, item) => {
+      const product = productMap.get(item.productId)!;
+      if (product.vat_enabled === false) return sum;
+      const unitPrice = product.sale_price
+        ? parseFloat(product.sale_price)
+        : parseFloat(product.price);
+      return sum + unitPrice * item.quantity;
+    }, 0);
+
+    // Check if any item in the cart requires shipping
+    const hasShippableItems = items.some((item) => {
+      const product = productMap.get(item.productId)!;
+      return product.shipping_enabled !== false;
+    });
+
     const shippingCost =
+      !hasShippableItems ? 0 :
       subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
 
     // Check if user is logged in (optional — guest checkout still works)
@@ -166,7 +183,7 @@ export async function POST(req: NextRequest) {
             price_data: {
               currency: CURRENCY.toLowerCase(),
               product_data: { name: "VAT (20%)" },
-              unit_amount: Math.round(subtotal * TAX_RATE * 100),
+              unit_amount: Math.round(vatSubtotal * TAX_RATE * 100),
             },
             quantity: 1,
           },

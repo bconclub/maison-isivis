@@ -107,8 +107,19 @@ export const useCartStore = create<CartState>()(
             sum + (item.product.salePrice ?? item.product.price) * item.quantity,
           0
         );
-        const tax = subtotal * TAX_RATE;
+        // Only charge VAT on items with vatEnabled
+        const vatSubtotal = items.reduce(
+          (sum, item) => {
+            if (item.product.vatEnabled === false) return sum;
+            return sum + (item.product.salePrice ?? item.product.price) * item.quantity;
+          },
+          0
+        );
+        const tax = vatSubtotal * TAX_RATE;
+        // Only charge shipping if any item requires shipping
+        const hasShippableItems = items.some((item) => item.product.shippingEnabled !== false);
         const shipping =
+          !hasShippableItems ? 0 :
           subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
         const discount = 0;
         const total = subtotal + tax + shipping - discount;

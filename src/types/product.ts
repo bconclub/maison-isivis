@@ -39,6 +39,8 @@ export interface Product {
   newArrival: boolean;
   bestseller: boolean;
   trending: boolean;
+  shippingEnabled: boolean;
+  vatEnabled: boolean;
   badge: string | null;
   metaTitle: string | null;
   metaDescription: string | null;

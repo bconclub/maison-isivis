@@ -33,6 +33,8 @@ function productToDb(p: Partial<Product>): Record<string, any> {
   if (p.newArrival !== undefined) row.new_arrival = p.newArrival;
   if (p.bestseller !== undefined) row.bestseller = p.bestseller;
   if (p.trending !== undefined) row.trending = p.trending;
+  if (p.shippingEnabled !== undefined) row.shipping_enabled = p.shippingEnabled;
+  if (p.vatEnabled !== undefined) row.vat_enabled = p.vatEnabled;
   if (p.badge !== undefined) row.badge = p.badge;
   if (p.metaTitle !== undefined) row.meta_title = p.metaTitle;
   if (p.metaDescription !== undefined) row.meta_description = p.metaDescription;
@@ -71,6 +73,8 @@ function dbToProduct(row: any): Product {
     newArrival: row.new_arrival,
     bestseller: row.bestseller,
     trending: row.trending ?? false,
+    shippingEnabled: row.shipping_enabled ?? true,
+    vatEnabled: row.vat_enabled ?? true,
     badge: row.badge,
     metaTitle: row.meta_title,
     metaDescription: row.meta_description,

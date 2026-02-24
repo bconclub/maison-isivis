@@ -131,6 +131,8 @@ export interface Database {
           new_arrival: boolean;
           bestseller: boolean;
           trending: boolean;
+          shipping_enabled: boolean;
+          vat_enabled: boolean;
           badge: string | null;
           meta_title: string | null;
           meta_description: string | null;
@@ -165,6 +167,8 @@ export interface Database {
           new_arrival?: boolean;
           bestseller?: boolean;
           trending?: boolean;
+          shipping_enabled?: boolean;
+          vat_enabled?: boolean;
           badge?: string | null;
           meta_title?: string | null;
           meta_description?: string | null;
@@ -197,6 +201,8 @@ export interface Database {
           new_arrival?: boolean;
           bestseller?: boolean;
           trending?: boolean;
+          shipping_enabled?: boolean;
+          vat_enabled?: boolean;
           badge?: string | null;
           meta_title?: string | null;
           meta_description?: string | null;

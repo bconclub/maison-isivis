@@ -83,6 +83,8 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           newArrival: product.newArrival,
           bestseller: product.bestseller,
           trending: product.trending,
+          shippingEnabled: product.shippingEnabled,
+          vatEnabled: product.vatEnabled,
           badge: product.badge,
           metaTitle: product.metaTitle,
           metaDescription: product.metaDescription,
@@ -101,6 +103,8 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           newArrival: false,
           bestseller: false,
           trending: false,
+          shippingEnabled: true,
+          vatEnabled: true,
           displayOrder: 0,
           published: true,
         },
@@ -152,6 +156,8 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         newArrival: data.newArrival,
         bestseller: data.bestseller,
         trending: data.trending ?? false,
+        shippingEnabled: data.shippingEnabled,
+        vatEnabled: data.vatEnabled,
         badge: data.badge ?? null,
         metaTitle: data.metaTitle ?? null,
         metaDescription: data.metaDescription ?? null,
@@ -196,6 +202,8 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         newArrival: data.newArrival,
         bestseller: data.bestseller,
         trending: data.trending ?? false,
+        shippingEnabled: data.shippingEnabled,
+        vatEnabled: data.vatEnabled,
         badge: data.badge ?? null,
         metaTitle: data.metaTitle ?? null,
         metaDescription: data.metaDescription ?? null,
@@ -532,6 +540,14 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           <label className="flex items-center gap-2 text-sm text-neutral-700">
             <input type="checkbox" {...register("allowBackorder")} className="rounded border-neutral-300" />
             Allow Backorder
+          </label>
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
+            <input type="checkbox" {...register("shippingEnabled")} className="rounded border-neutral-300" />
+            Shipping Enabled
+          </label>
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
+            <input type="checkbox" {...register("vatEnabled")} className="rounded border-neutral-300" />
+            VAT Enabled
           </label>
         </div>
       </div>

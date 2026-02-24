@@ -58,6 +58,8 @@ function dbToProduct(row: any): Product {
     newArrival: row.new_arrival,
     bestseller: row.bestseller,
     trending: row.trending ?? false,
+    shippingEnabled: row.shipping_enabled ?? true,
+    vatEnabled: row.vat_enabled ?? true,
     badge: row.badge,
     metaTitle: row.meta_title,
     metaDescription: row.meta_description,
