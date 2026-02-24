@@ -35,9 +35,9 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="mt-4 max-w-lg text-body-sm leading-relaxed text-neutral-600">
-            We&apos;d love to hear from you. Whether you have a question about
-            our collections, sizing, orders, or anything else, our team is here
-            to help.
+            Looking to connect with our customer service squad? Got a question
+            about your order? Drop your deets in the form or email us and
+            we&apos;ll hit you back pronto.
           </p>
 
           <div className="mt-10 space-y-6">
