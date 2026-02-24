@@ -11,33 +11,53 @@ const DESKTOP_SLIDES = [
   },
 ];
 
-const MOBILE_SLIDE = {
-  src: "/images/ISivis Mobile header.jpeg",
-  alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance",
-};
+const MOBILE_SLIDES = [
+  {
+    src: "/images/hero/mobile/cover image 001.webp",
+    alt: "Maison ISIVIS — Luxury fashion collection",
+  },
+  {
+    src: "/images/hero/mobile/ISivis Mobile header.jpeg",
+    alt: "Maison ISIVIS — Handcrafted elegance",
+  },
+];
 
 const INTERVAL = 5000; // 5 seconds per slide
 
 export function HeroSlideshow() {
-  const [active, setActive] = useState(0);
+  const [activeDesktop, setActiveDesktop] = useState(0);
+  const [activeMobile, setActiveMobile] = useState(0);
 
-  const next = useCallback(() => {
-    setActive((i) => (i + 1) % DESKTOP_SLIDES.length);
+  const nextDesktop = useCallback(() => {
+    setActiveDesktop((i) => (i + 1) % DESKTOP_SLIDES.length);
+  }, []);
+
+  const nextMobile = useCallback(() => {
+    setActiveMobile((i) => (i + 1) % MOBILE_SLIDES.length);
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(next, INTERVAL);
-    return () => clearInterval(timer);
-  }, [next]);
+    const desktopTimer = setInterval(nextDesktop, INTERVAL);
+    const mobileTimer = setInterval(nextMobile, INTERVAL);
+    return () => {
+      clearInterval(desktopTimer);
+      clearInterval(mobileTimer);
+    };
+  }, [nextDesktop, nextMobile]);
 
   return (
     <section className="relative flex h-[85vh] items-end justify-center overflow-hidden bg-black sm:h-screen">
-      {/* Hero Image — mobile (single, cover from top) */}
-      <img
-        src={MOBILE_SLIDE.src}
-        alt={MOBILE_SLIDE.alt}
-        className="absolute inset-0 h-full w-full object-cover object-top sm:hidden"
-      />
+      {/* Hero Images — mobile (crossfade slider) */}
+      {MOBILE_SLIDES.map((slide, i) => (
+        <img
+          key={slide.src}
+          src={slide.src}
+          alt={slide.alt}
+          className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-1000 ease-in-out sm:hidden ${
+            i === activeMobile ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
 
       {/* Hero Images — desktop (crossfade, width-fitted from top) */}
       {DESKTOP_SLIDES.map((slide, i) => (
@@ -46,7 +66,7 @@ export function HeroSlideshow() {
           src={slide.src}
           alt={slide.alt}
           className={`absolute left-0 top-0 hidden w-full transition-opacity duration-1000 ease-in-out sm:block ${
-            i === active ? "opacity-100" : "opacity-0"
+            i === activeDesktop ? "opacity-100" : "opacity-0"
           }`}
         />
       ))}
@@ -54,21 +74,41 @@ export function HeroSlideshow() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
 
+      {/* Slide indicators — mobile */}
+      {MOBILE_SLIDES.length > 1 && (
+        <div className="absolute bottom-44 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:hidden">
+          {MOBILE_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveMobile(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeMobile
+                  ? "w-8 bg-white"
+                  : "w-4 bg-white/40 hover:bg-white/60"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Slide indicators — desktop */}
-      <div className="absolute bottom-44 left-1/2 z-10 hidden -translate-x-1/2 gap-2 sm:flex">
-        {DESKTOP_SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === active
-                ? "w-8 bg-white"
-                : "w-4 bg-white/40 hover:bg-white/60"
-            }`}
-          />
-        ))}
-      </div>
+      {DESKTOP_SLIDES.length > 1 && (
+        <div className="absolute bottom-44 left-1/2 z-10 hidden -translate-x-1/2 gap-2 sm:flex">
+          {DESKTOP_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveDesktop(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeDesktop
+                  ? "w-8 bg-white"
+                  : "w-4 bg-white/40 hover:bg-white/60"
+              }`}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Text + CTA — bottom center */}
       <div className="relative z-10 pb-24 text-center sm:pb-28">
