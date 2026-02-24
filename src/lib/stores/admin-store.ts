@@ -103,7 +103,7 @@ export const useAdminStore = create<AdminState>()(
             products: [...MOCK_PRODUCTS],
             categories: [...MOCK_CATEGORIES],
             collections: [...MOCK_COLLECTIONS],
-            orders: [...MOCK_ORDERS],
+            orders: [],
             reviews: [...MOCK_REVIEWS],
             collectionProducts: { ...DEFAULT_COLLECTION_PRODUCTS },
             initialized: true,
@@ -327,7 +327,7 @@ export const useAdminStore = create<AdminState>()(
     }),
     {
       name: "maison-isivis-admin",
-      version: 4,
+      version: 5,
       migrate: () => ({
         products: [],
         categories: [],

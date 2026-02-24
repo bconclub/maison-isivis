@@ -4,14 +4,14 @@ import { SITE_NAME, FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="bg-neutral-900 text-neutral-400">
+    <footer className="bg-[#200052] text-white/60">
       {/* Brand tagline banner */}
-      <div className="border-b border-neutral-800">
+      <div className="border-b border-white/10">
         <div className="container-luxury flex flex-col items-center justify-between gap-4 py-5 sm:flex-row">
           <p className="font-script text-lg text-white/60">
             Turning Fantasy Into Reality
           </p>
-          <p className="text-caption text-neutral-500">
+          <p className="text-caption text-white/40">
             Explore our philanthropic work at RehVamp Foundation
           </p>
         </div>
@@ -42,7 +42,7 @@ export function Footer() {
                 <input
                   type="email"
                   placeholder="Your email address"
-                  className="flex-1 rounded-luxury border border-neutral-700 bg-neutral-800 px-3.5 py-2.5 text-body-sm text-white placeholder:text-neutral-500 focus:border-brand-blue focus:outline-none focus:ring-[2px] focus:ring-brand-blue/20"
+                  className="flex-1 rounded-luxury border border-white/15 bg-white/10 px-3.5 py-2.5 text-body-sm text-white placeholder:text-white/40 focus:border-brand-blue focus:outline-none focus:ring-[2px] focus:ring-brand-blue/20"
                   required
                 />
                 <button
@@ -52,7 +52,7 @@ export function Footer() {
                   Subscribe
                 </button>
               </div>
-              <p className="mt-2 text-[11px] leading-relaxed text-neutral-600">
+              <p className="mt-2 text-[11px] leading-relaxed text-white/30">
                 By signing up you agree to our Terms &amp; Conditions. You can
                 unsubscribe at anytime you wish.
               </p>
@@ -108,7 +108,7 @@ export function Footer() {
                   href={SOCIAL_LINKS.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 transition-all hover:bg-neutral-700 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/50 transition-all hover:bg-white/20 hover:text-white"
                   aria-label="Instagram"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -121,7 +121,7 @@ export function Footer() {
                   href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 transition-all hover:bg-neutral-700 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/50 transition-all hover:bg-white/20 hover:text-white"
                   aria-label="Facebook"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -134,7 +134,7 @@ export function Footer() {
                   href={SOCIAL_LINKS.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 transition-all hover:bg-neutral-700 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/50 transition-all hover:bg-white/20 hover:text-white"
                   aria-label="Twitter"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -147,7 +147,7 @@ export function Footer() {
                   href={SOCIAL_LINKS.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 transition-all hover:bg-neutral-700 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/50 transition-all hover:bg-white/20 hover:text-white"
                   aria-label="YouTube"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -160,7 +160,7 @@ export function Footer() {
                   href={SOCIAL_LINKS.tiktok}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 transition-all hover:bg-neutral-700 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/50 transition-all hover:bg-white/20 hover:text-white"
                   aria-label="TikTok"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -172,7 +172,7 @@ export function Footer() {
 
             {/* Community CTA */}
             <div className="mt-6">
-              <p className="text-body-sm text-neutral-500">
+              <p className="text-body-sm text-white/40">
                 Join 50,000+ women worldwide
               </p>
               <p className="mt-1 text-body-sm font-medium text-white/70">
@@ -184,10 +184,10 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-neutral-800">
+      <div className="border-t border-white/10">
         <div className="container-luxury flex flex-col items-center justify-between gap-4 py-6 md:flex-row">
           {/* Left: Copyright */}
-          <p className="text-caption text-neutral-500">
+          <p className="text-caption text-white/40">
             &copy; 2021&ndash;{new Date().getFullYear()} {SITE_NAME}.
             Handcrafted in London.
           </p>
@@ -198,7 +198,7 @@ export function Footer() {
               (name) => (
                 <span
                   key={name}
-                  className="rounded border border-neutral-700 bg-neutral-800 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-neutral-500"
+                  className="rounded border border-white/15 bg-white/10 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-white/40"
                 >
                   {name}
                 </span>
@@ -207,7 +207,7 @@ export function Footer() {
           </div>
 
           {/* Right: Tagline */}
-          <p className="text-caption text-neutral-500">
+          <p className="text-caption text-white/40">
             Empowering women through fashion
           </p>
         </div>
