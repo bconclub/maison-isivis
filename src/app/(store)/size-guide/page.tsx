@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function FitGuidePage() {
   return (
+    <div className="min-h-screen" style={{ backgroundColor: "#D6C6E2" }}>
     <div className="container-luxury py-8 sm:py-12">
       <Breadcrumbs items={[{ label: "Fit Guide" }]} className="mb-6" />
 
@@ -102,6 +103,7 @@ export default function FitGuidePage() {
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 }
