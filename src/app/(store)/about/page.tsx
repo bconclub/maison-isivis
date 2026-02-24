@@ -134,7 +134,7 @@ export default function AboutPage() {
             <div className="w-full shrink-0 lg:w-2/5">
               <div className="relative aspect-[3/4] overflow-hidden rounded-luxury-md bg-neutral-200">
                 <Image
-                  src="/images/Ishita.webp"
+                  src="/images/Ishita.jpeg"
                   alt="Ishita Gupta — Founder of Maison ISIVIS"
                   fill
                   className="object-cover"
