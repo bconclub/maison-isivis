@@ -111,10 +111,10 @@ export function CartDrawer() {
 
                   <div className="mt-4 space-y-2.5">
                     <button
-                      onClick={closeCart}
-                      className="flex w-full items-center justify-center rounded-luxury-md bg-brand-purple px-6 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-white transition-all duration-300 hover:bg-brand-purple-light hover:shadow-luxury"
+                      disabled
+                      className="flex w-full cursor-not-allowed items-center justify-center rounded-luxury-md bg-neutral-300 px-6 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-neutral-500"
                     >
-                      Checkout
+                      Checkout Coming Soon
                     </button>
                     <Link
                       href="/cart"

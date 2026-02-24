@@ -96,12 +96,15 @@ export function CartPageClient() {
                 <PromoCodeInput />
               </div>
 
-              <button className="mt-6 flex w-full items-center justify-center rounded-luxury-md bg-brand-purple px-6 py-4 text-body-sm font-medium uppercase tracking-luxury text-white transition-all duration-300 hover:bg-brand-purple-light hover:shadow-luxury">
-                Proceed to Checkout
+              <button
+                disabled
+                className="mt-6 flex w-full cursor-not-allowed items-center justify-center rounded-luxury-md bg-neutral-300 px-6 py-4 text-body-sm font-medium uppercase tracking-luxury text-neutral-500"
+              >
+                Checkout Coming Soon
               </button>
 
               <p className="mt-4 text-center text-caption text-neutral-400">
-                Secure checkout powered by Stripe
+                Checkout is not available yet. Stay tuned!
               </p>
             </div>
           </div>

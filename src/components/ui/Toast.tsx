@@ -100,7 +100,7 @@ function ToastItemComponent({ item }: { item: ToastItem }) {
       )}
       role="alert"
     >
-      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-current/10 text-xs font-bold">
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold">
         {variantIcons[item.variant]}
       </span>
       <p className="flex-1 text-body-sm font-medium text-neutral-800">
@@ -135,7 +135,7 @@ export function ToastProvider() {
   if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed right-4 top-4 z-[100] flex w-full max-w-sm flex-col gap-2">
+    <div className="fixed right-4 top-20 z-[100] flex w-full max-w-sm flex-col gap-2">
       <AnimatePresence mode="popLayout">
         {toasts.map((item) => (
           <ToastItemComponent key={item.id} item={item} />
