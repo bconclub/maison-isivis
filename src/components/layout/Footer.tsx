@@ -27,7 +27,7 @@ export function Footer() {
 
       {/* Main Footer */}
       <div className="container-luxury py-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-14">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-20">
           {/* Column 1: Logo + Newsletter */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block">
