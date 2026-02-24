@@ -100,7 +100,7 @@ export function CartDrawer() {
                 <div className="flex-1 overflow-y-auto px-5 py-4">
                   <div className="space-y-5">
                     {items.map((item) => (
-                      <CartItem key={item.id} item={item} compact />
+                      <CartItem key={item.id} item={item} />
                     ))}
                   </div>
                 </div>
