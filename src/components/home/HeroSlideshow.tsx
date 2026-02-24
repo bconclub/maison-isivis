@@ -7,7 +7,7 @@ export function HeroSlideshow() {
     <section className="relative flex h-[85vh] items-end justify-center overflow-hidden bg-black sm:h-screen">
       {/* Hero Image — mobile */}
       <img
-        src="/images/hero/mobile/ISivis Mobile header.jpeg"
+        src="/images/hero/mobile/Mobile Hero.webp"
         alt="Maison ISIVIS — Luxury fashion, handcrafted elegance"
         className="absolute inset-0 h-full w-full object-cover object-top sm:hidden"
       />
