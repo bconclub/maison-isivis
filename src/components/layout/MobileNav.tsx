@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUIStore } from "@/lib/stores/ui-store";
-import { MOBILE_NAV_CATEGORIES, MOBILE_NAV_COLLECTIONS } from "@/lib/constants";
+import { NAV_LINKS } from "@/lib/constants";
 import { drawerSlideLeft, modalOverlay } from "@/lib/animations";
 
 export function MobileNav() {
@@ -72,56 +72,19 @@ export function MobileNav() {
 
             {/* Navigation Links */}
             <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-6">
-              {/* New Arrivals */}
-              <div className="mb-4">
-                <Link
-                  href="/products?filter=new-arrivals"
-                  onClick={closeMobileNav}
-                  className="block rounded-luxury-md px-3 py-2.5 text-base font-semibold text-brand-purple transition-colors hover:bg-neutral-50"
-                >
-                  New Arrivals
-                </Link>
-              </div>
-
-              {/* Shop Categories */}
-              <div className="mb-8">
-                <p className="mb-3 text-caption font-medium uppercase tracking-luxury-wide text-neutral-400">
-                  Shop by Category
-                </p>
-                <ul className="space-y-1">
-                  {MOBILE_NAV_CATEGORIES.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        onClick={closeMobileNav}
-                        className="block rounded-luxury-md px-3 py-2.5 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-brand-purple"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Style Collections */}
-              <div className="mb-8">
-                <p className="mb-3 text-caption font-medium uppercase tracking-luxury-wide text-neutral-400">
-                  Collections
-                </p>
-                <ul className="space-y-1">
-                  {MOBILE_NAV_COLLECTIONS.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        onClick={closeMobileNav}
-                        className="block rounded-luxury-md px-3 py-2.5 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-brand-purple"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul className="space-y-1">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={closeMobileNav}
+                      className="block rounded-luxury-md px-3 py-2.5 text-base font-semibold text-brand-purple transition-colors hover:bg-neutral-50"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
 
               {/* Account Links */}
               <div className="border-t border-neutral-200 pt-6">

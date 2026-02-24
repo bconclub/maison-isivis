@@ -31,41 +31,16 @@ export const STYLE_COLLECTIONS = [
 // Desktop header nav
 export const NAV_LINKS = [
   {
-    label: "Shop By Category",
-    href: "/collections",
-    children: [
-      { label: "Corsets", href: "/collections/corsets" },
-      { label: "Dresses", href: "/collections/dresses" },
-      { label: "Tops", href: "/collections/tops" },
-      { label: "Bottoms", href: "/collections/bottoms" },
-      { label: "Jumpsuits", href: "/collections/jumpsuits" },
-      { label: "Co-ords", href: "/collections/co-ords" },
-      { label: "Outerwear", href: "/collections/outerwear" },
-      { label: "Lounge and Intimates", href: "/collections/lounge-and-intimates" },
-      { label: "Swimwear", href: "/collections/swimwear" },
-      { label: "Active Wear", href: "/collections/active-wear" },
-      { label: "Accessories", href: "/collections/accessories" },
-      { label: "Gift Cards", href: "/collections/gift-cards" },
-    ],
-  },
-  {
     label: "New Arrivals",
     href: "/products?filter=new-arrivals",
-    children: [
-      { label: "Just Dropped", href: "/products?filter=new-arrivals" },
-      { label: "Trending Now", href: "/products?filter=trending" },
-      { label: "Back In Stock", href: "/products?filter=back-in-stock" },
-    ],
   },
   {
-    label: "Collections",
-    href: "/collections",
-    children: [
-      { label: "Old Money", href: "/collections/old-money" },
-      { label: "Fierce", href: "/collections/fierce" },
-      { label: "Ethereal", href: "/collections/ethereal" },
-      { label: "Contemporary", href: "/collections/contemporary" },
-    ],
+    label: "Trending Now",
+    href: "/products?filter=trending",
+  },
+  {
+    label: "Best Sellers",
+    href: "/products?filter=best-sellers",
   },
 ] as const;
 
