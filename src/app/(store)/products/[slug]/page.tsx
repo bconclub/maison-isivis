@@ -3,13 +3,12 @@ import { notFound } from "next/navigation";
 import {
   getProductBySlug,
   getRelatedProducts,
-  getReviewsByProduct,
 } from "@/lib/data";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductInfo } from "@/components/product/ProductInfo";
 import { ProductAccordion } from "@/components/product/ProductAccordion";
-import { ReviewsSection } from "@/components/product/ReviewsSection";
+
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 
 interface Props {
@@ -49,7 +48,6 @@ export default async function ProductDetailPage({ params }: Props) {
     notFound();
   }
 
-  const reviews = await getReviewsByProduct(product.id);
   const relatedProducts = await getRelatedProducts(product.id);
 
   // Build breadcrumb trail — use primary (first) category
@@ -87,9 +85,6 @@ export default async function ProductDetailPage({ params }: Props) {
       <div className="mt-12 max-w-3xl">
         <ProductAccordion product={product} />
       </div>
-
-      {/* Reviews */}
-      <ReviewsSection reviews={reviews} />
 
       {/* Related Products */}
       <RelatedProducts products={relatedProducts} />
