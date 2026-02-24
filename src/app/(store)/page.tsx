@@ -97,8 +97,8 @@ export default async function HomePage() {
       {/* ===== JEWELLERY COLLECTION ===== */}
       <CategoryCarousel
         products={jewelleryProducts}
-        eyebrow="Adorn yourself"
-        title="Jewellery Collection"
+        eyebrow="Born of ISYA"
+        title="The Isivis Icons"
         ctaLabel="See Collection"
         ctaHref="/collections/jewellery"
         bg="bg-neutral-50"
