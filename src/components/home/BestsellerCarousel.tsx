@@ -54,10 +54,10 @@ export function BestsellerCarousel({ products }: BestsellerCarouselProps) {
         <div className="mb-10 flex items-end justify-between">
           <div>
             <p className="font-script text-xl sm:text-lg text-brand-blue">
-              The pieces you love most
+              Best Selling Worldwide
             </p>
             <h2 className="mt-2 font-heading text-2xl sm:text-h2 text-brand-purple">
-              Customer Favourites
+              The Cult Favourites
             </h2>
           </div>
 
