@@ -27,7 +27,7 @@ export function Footer() {
 
       {/* Main Footer */}
       <div className="container-luxury py-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-14">
           {/* Column 1: Logo + Newsletter */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block">
@@ -141,10 +141,7 @@ export function Footer() {
 
             {/* Community CTA */}
             <div className="mt-6">
-              <p className="text-body-sm text-white/40">
-                Join 50,000+ women worldwide
-              </p>
-              <p className="mt-1 text-body-sm font-medium text-white/70">
+              <p className="text-body-sm font-medium text-white/70">
                 #maisonisivis
               </p>
             </div>
