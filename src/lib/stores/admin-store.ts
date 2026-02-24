@@ -110,11 +110,12 @@ export const useAdminStore = create<AdminState>()(
           });
         }
 
-        // ALWAYS fetch from Supabase to ensure real UUIDs for categories/products
+        // ALWAYS fetch from Supabase to ensure real UUIDs for categories/products/orders
         try {
-          const [prodRes, catRes] = await Promise.all([
+          const [prodRes, catRes, ordersRes] = await Promise.all([
             fetch("/api/admin/products"),
             fetch("/api/admin/categories"),
+            fetch("/api/admin/orders"),
           ]);
           if (catRes.ok) {
             const { categories } = await catRes.json();
@@ -124,6 +125,10 @@ export const useAdminStore = create<AdminState>()(
           if (prodRes.ok) {
             const { products } = await prodRes.json();
             if (products) set({ products });
+          }
+          if (ordersRes.ok) {
+            const { orders } = await ordersRes.json();
+            if (orders) set({ orders });
           }
         } catch {
           // Supabase unavailable, keep persisted/mock data
