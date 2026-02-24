@@ -6,6 +6,10 @@ import Link from "next/link";
 
 const DESKTOP_SLIDES = [
   {
+    src: "/images/cover image.webp",
+    alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance from our London atelier",
+  },
+  {
     src: "/images/hero/desktop/003-desktop.webp",
     alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance from our London atelier",
   },
@@ -16,7 +20,7 @@ const DESKTOP_SLIDES = [
 ];
 
 const MOBILE_SLIDE = {
-  src: "/images/hero/mobile/mobile-hero-black.png",
+  src: "/images/cover image.webp",
   alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance",
 };
 

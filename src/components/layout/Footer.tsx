@@ -4,7 +4,7 @@ import { SITE_NAME, FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="bg-[#200052] text-white/60">
+    <footer className="bg-[#0033CC] text-white/60">
       {/* Brand tagline banner */}
       <div className="border-b border-white/10">
         <div className="container-luxury flex flex-col items-center justify-between gap-4 py-5 sm:flex-row">
