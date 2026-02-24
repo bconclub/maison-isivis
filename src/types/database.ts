@@ -130,6 +130,7 @@ export interface Database {
           featured: boolean;
           new_arrival: boolean;
           bestseller: boolean;
+          trending: boolean;
           badge: string | null;
           meta_title: string | null;
           meta_description: string | null;
@@ -163,6 +164,7 @@ export interface Database {
           featured?: boolean;
           new_arrival?: boolean;
           bestseller?: boolean;
+          trending?: boolean;
           badge?: string | null;
           meta_title?: string | null;
           meta_description?: string | null;
@@ -194,6 +196,7 @@ export interface Database {
           featured?: boolean;
           new_arrival?: boolean;
           bestseller?: boolean;
+          trending?: boolean;
           badge?: string | null;
           meta_title?: string | null;
           meta_description?: string | null;
