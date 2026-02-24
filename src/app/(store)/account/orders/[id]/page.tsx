@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
-import { MOCK_ORDERS } from "@/lib/mock-data";
+import { notFound, redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import { formatPrice, formatDate } from "@/lib/utils";
 import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
 import type { OrderStatus } from "@/types/order";
@@ -18,13 +18,66 @@ const ORDER_TIMELINE: OrderStatus[] = [
   "delivered",
 ];
 
+interface ShippingAddress {
+  fullName?: string;
+  phone?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  city?: string;
+  state?: string;
+  pinCode?: string;
+  country?: string;
+}
+
 export default async function OrderDetailPage({ params }: Props) {
   const { id } = await params;
-  const order = MOCK_ORDERS.find((o) => o.id === id);
 
-  if (!order) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: rawOrder } = await supabase
+    .from("orders")
+    .select("*, order_items(*)")
+    .eq("id", id)
+    .eq("user_id", user.id)
+    .single() as { data: any | null };
+
+  if (!rawOrder) {
     notFound();
   }
+
+  const shippingAddress = (rawOrder.shipping_address ?? {}) as ShippingAddress;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const order = {
+    id: rawOrder.id as string,
+    orderNumber: rawOrder.order_number as string,
+    status: rawOrder.status as OrderStatus,
+    subtotal: parseFloat(String(rawOrder.subtotal)),
+    shippingCost: parseFloat(String(rawOrder.shipping_cost)),
+    tax: parseFloat(String(rawOrder.tax)),
+    discount: parseFloat(String(rawOrder.discount)),
+    total: parseFloat(String(rawOrder.total)),
+    createdAt: rawOrder.created_at as string,
+    shippingAddress,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    items: (Array.isArray(rawOrder.order_items) ? rawOrder.order_items : []).map((item: any) => ({
+      id: item.id,
+      productName: item.product_name,
+      productSlug: item.product_slug,
+      variantName: item.variant_name,
+      quantity: item.quantity,
+      price: parseFloat(String(item.price)),
+      imageUrl: item.image_url,
+    })),
+  };
 
   const currentStepIndex = ORDER_TIMELINE.indexOf(order.status);
 
@@ -99,7 +152,8 @@ export default async function OrderDetailPage({ params }: Props) {
           Items
         </h3>
         <div className="space-y-3">
-          {order.items.map((item) => (
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {order.items.map((item: any) => (
             <div
               key={item.id}
               className="flex gap-4 rounded-luxury-md border border-neutral-100 p-4"
@@ -166,7 +220,7 @@ export default async function OrderDetailPage({ params }: Props) {
             {order.discount > 0 && (
               <div className="flex justify-between text-green-600">
                 <span>Discount</span>
-                <span>−{formatPrice(order.discount)}</span>
+                <span>-{formatPrice(order.discount)}</span>
               </div>
             )}
             <div className="border-t border-neutral-100 pt-2">
@@ -185,18 +239,20 @@ export default async function OrderDetailPage({ params }: Props) {
           </h3>
           <div className="text-body-sm text-neutral-600">
             <p className="font-medium text-neutral-900">
-              {order.shippingAddress.fullName}
+              {shippingAddress.fullName ?? "—"}
             </p>
-            <p>{order.shippingAddress.addressLine1}</p>
-            {order.shippingAddress.addressLine2 && (
-              <p>{order.shippingAddress.addressLine2}</p>
+            <p>{shippingAddress.addressLine1 ?? ""}</p>
+            {shippingAddress.addressLine2 && (
+              <p>{shippingAddress.addressLine2}</p>
             )}
             <p>
-              {order.shippingAddress.city}, {order.shippingAddress.state}{" "}
-              {order.shippingAddress.pinCode}
+              {shippingAddress.city ?? ""}{shippingAddress.state ? `, ${shippingAddress.state}` : ""}{" "}
+              {shippingAddress.pinCode ?? ""}
             </p>
-            <p>{order.shippingAddress.country}</p>
-            <p className="mt-2">{order.shippingAddress.phone}</p>
+            <p>{shippingAddress.country ?? ""}</p>
+            {shippingAddress.phone && (
+              <p className="mt-2">{shippingAddress.phone}</p>
+            )}
           </div>
         </div>
       </div>

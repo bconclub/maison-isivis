@@ -104,7 +104,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     .from("orders")
     .insert({
       order_number: orderNumber,
-      user_id: null, // Guest checkout
+      user_id: meta.userId || null, // Null for guest checkout
       shipping_address: {
         fullName: meta.fullName,
         phone: meta.phone,

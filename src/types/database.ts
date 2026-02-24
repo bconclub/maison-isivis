@@ -210,6 +210,7 @@ export interface Database {
           id: string;
           order_number: string;
           user_id: string | null;
+          email: string | null;
           shipping_address: Json;
           subtotal: number;
           shipping_cost: number;
@@ -238,7 +239,9 @@ export interface Database {
           updated_at: string;
         };
         Insert: {
+          order_number: string;
           user_id?: string | null;
+          email?: string | null;
           shipping_address: Json;
           subtotal: number;
           shipping_cost?: number;

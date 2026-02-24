@@ -1,11 +1,22 @@
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { AccountSidebar } from "@/components/account/AccountSidebar";
 
-export default function AccountLayout({
+export default async function AccountLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
   return (
     <div className="container-luxury py-8 sm:py-12">
       <Breadcrumbs items={[{ label: "Account" }]} className="mb-6" />

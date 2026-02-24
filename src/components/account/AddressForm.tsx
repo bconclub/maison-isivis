@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addressSchema, type AddressFormData } from "@/lib/validations";
 import { Input } from "@/components/ui/Input";
-import { toast } from "@/components/ui/Toast";
 
 interface AddressFormProps {
   initialData?: Partial<AddressFormData>;
   onClose: () => void;
+  onSave: (data: AddressFormData) => Promise<void>;
 }
 
-export function AddressForm({ initialData, onClose }: AddressFormProps) {
+export function AddressForm({ initialData, onClose, onSave }: AddressFormProps) {
   const {
     register,
     handleSubmit,
@@ -22,10 +22,7 @@ export function AddressForm({ initialData, onClose }: AddressFormProps) {
   });
 
   async function onSubmit(data: AddressFormData) {
-    // Placeholder — will connect to Supabase later
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    toast("Address saved (placeholder)", "success");
-    console.log("Address data:", data);
+    await onSave(data);
     onClose();
   }
 

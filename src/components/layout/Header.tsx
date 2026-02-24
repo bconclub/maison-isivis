@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/lib/stores/cart-store";
 import { useUIStore } from "@/lib/stores/ui-store";
+import { useAuth } from "@/hooks/useAuth";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +35,7 @@ export function Header() {
   const toggleMobileNav = useUIStore((s) => s.toggleMobileNav);
   const toggleSearch = useUIStore((s) => s.toggleSearch);
   const openCart = useCartStore((s) => s.openCart);
+  const { user } = useAuth();
   const getItemCount = useCartStore((s) => s.getItemCount);
   const cartCount = mounted ? getItemCount() : 0;
 
@@ -153,9 +155,9 @@ export function Header() {
 
             {/* Account */}
             <Link
-              href="/login"
+              href={user ? "/account" : "/login"}
               className="hidden h-10 w-10 items-center justify-center rounded-luxury-md text-white/80 transition-colors hover:text-white sm:flex"
-              aria-label="Account"
+              aria-label={user ? "My Account" : "Sign In"}
             >
               <svg
                 width="20"

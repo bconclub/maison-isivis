@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 import { checkoutSchema } from "@/lib/validations";
 import {
   SITE_URL,
@@ -118,9 +119,20 @@ export async function POST(req: NextRequest) {
     const shippingCost =
       subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
 
+    // Check if user is logged in (optional — guest checkout still works)
+    let userId = "";
+    try {
+      const supabaseAuth = await createClient();
+      const { data: { user } } = await supabaseAuth.auth.getUser();
+      userId = user?.id ?? "";
+    } catch {
+      // Guest checkout — no user
+    }
+
     // Prepare metadata (Stripe limits: 500 chars per value, 50 keys)
     const shippingData = parsed.data;
     const orderMeta = {
+      userId,
       email: shippingData.email,
       fullName: shippingData.fullName,
       phone: shippingData.phone,

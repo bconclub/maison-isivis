@@ -42,7 +42,25 @@ export async function middleware(request: NextRequest) {
   );
 
   // Refresh the auth token
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { pathname } = request.nextUrl;
+
+  // Protect /account routes — redirect to login if not authenticated
+  if (pathname.startsWith("/account") && !user) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
+
+  // Redirect logged-in users away from login/register pages
+  if ((pathname === "/login" || pathname === "/register") && user) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/account";
+    return NextResponse.redirect(url);
+  }
 
   return supabaseResponse;
 }

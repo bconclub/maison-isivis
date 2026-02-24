@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCartStore } from "@/lib/stores/cart-store";
+import { useAuth } from "@/hooks/useAuth";
+import { createClient } from "@/lib/supabase/client";
 import { checkoutSchema, type CheckoutFormData } from "@/lib/validations";
 import { Input } from "@/components/ui/Input";
 import { CartSummaryDisplay } from "@/components/cart/CartSummaryDisplay";
@@ -41,6 +43,7 @@ export function CheckoutPageClient() {
   const router = useRouter();
   const items = useCartStore((s) => s.items);
   const getSummary = useCartStore((s) => s.getSummary);
+  const { user, profile } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const mounted = useSyncExternalStore(
@@ -52,6 +55,7 @@ export function CheckoutPageClient() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
@@ -59,6 +63,36 @@ export function CheckoutPageClient() {
       country: "GB",
     },
   });
+
+  // Pre-fill form for logged-in users
+  useEffect(() => {
+    if (!user) return;
+
+    // Fill from profile
+    if (user.email) setValue("email", user.email);
+    if (profile?.fullName) setValue("fullName", profile.fullName);
+    if (profile?.phone) setValue("phone", profile.phone);
+
+    // Fetch default address
+    const supabase = createClient();
+    supabase
+      .from("addresses")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("is_default", true)
+      .single()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then(({ data }: { data: any }) => {
+        if (data) {
+          setValue("addressLine1", data.address_line1);
+          if (data.address_line2) setValue("addressLine2", data.address_line2);
+          setValue("city", data.city);
+          setValue("state", data.state);
+          setValue("pinCode", data.pin_code);
+          setValue("country", data.country);
+        }
+      });
+  }, [user, profile, setValue]);
 
   const onSubmit = async (data: CheckoutFormData) => {
     if (items.length === 0) {

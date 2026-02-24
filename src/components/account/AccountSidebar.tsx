@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 
 const ACCOUNT_NAV = [
@@ -35,6 +36,14 @@ const ICONS: Record<string, React.ReactNode> = {
 
 export function AccountSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { signOut } = useAuth();
+
+  async function handleSignOut() {
+    await signOut();
+    router.push("/");
+    router.refresh();
+  }
 
   return (
     <nav className="w-full lg:w-56">
@@ -64,7 +73,10 @@ export function AccountSidebar() {
       </div>
 
       <div className="mt-6 border-t border-neutral-100 pt-4">
-        <button className="flex w-full items-center gap-3 rounded-luxury-md px-4 py-3 text-body-sm font-medium text-neutral-400 transition-colors hover:text-red-500">
+        <button
+          onClick={handleSignOut}
+          className="flex w-full items-center gap-3 rounded-luxury-md px-4 py-3 text-body-sm font-medium text-neutral-400 transition-colors hover:text-red-500"
+        >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
             <polyline points="16 17 21 12 16 7" />

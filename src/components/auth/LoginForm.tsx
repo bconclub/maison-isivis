@@ -1,25 +1,96 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormData } from "@/lib/validations";
+import { createClient } from "@/lib/supabase/client";
 import { Input } from "@/components/ui/Input";
 import { toast } from "@/components/ui/Toast";
 
 export function LoginForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [sendingReset, setSendingReset] = useState(false);
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
+  // Show error from callback
+  const callbackError = searchParams.get("error");
+  if (callbackError === "auth_callback_failed") {
+    toast("Sign in failed. Please try again.", "error");
+  }
+
   async function onSubmit(data: LoginFormData) {
-    // Placeholder — will connect to Supabase auth later
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast("Login functionality coming soon", "info");
-    console.log("Login data:", data);
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      if (error.message.includes("Invalid login credentials")) {
+        toast("Invalid email or password. Please try again.", "error");
+      } else if (error.message.includes("Email not confirmed")) {
+        toast(
+          "Please check your email and confirm your account first.",
+          "warning"
+        );
+      } else {
+        toast(error.message, "error");
+      }
+      return;
+    }
+
+    toast("Welcome back!", "success");
+    router.push("/account");
+    router.refresh();
+  }
+
+  async function handleGoogleLogin() {
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      toast("Could not initiate Google sign-in. Please try again.", "error");
+    }
+  }
+
+  async function handleForgotPassword() {
+    const email = forgotEmail || watch("email");
+    if (!email) {
+      toast("Please enter your email address first.", "warning");
+      return;
+    }
+
+    setSendingReset(true);
+    const supabase = createClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/callback?next=/account`,
+    });
+    setSendingReset(false);
+
+    if (error) {
+      toast(error.message, "error");
+      return;
+    }
+
+    toast("Password reset email sent! Check your inbox.", "success");
+    setShowForgotPassword(false);
   }
 
   return (
@@ -50,11 +121,38 @@ export function LoginForm() {
         </label>
         <button
           type="button"
+          onClick={() => setShowForgotPassword(!showForgotPassword)}
           className="text-body-sm font-medium text-brand-purple transition-colors hover:text-brand-purple-light"
         >
           Forgot Password?
         </button>
       </div>
+
+      {/* Forgot Password Section */}
+      {showForgotPassword && (
+        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+          <p className="mb-3 text-body-sm text-neutral-600">
+            Enter your email and we&apos;ll send you a password reset link.
+          </p>
+          <div className="flex gap-2">
+            <input
+              type="email"
+              value={forgotEmail}
+              onChange={(e) => setForgotEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="flex-1 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple/20"
+            />
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              disabled={sendingReset}
+              className="whitespace-nowrap rounded-lg bg-brand-purple px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-purple-light disabled:opacity-50"
+            >
+              {sendingReset ? "Sending..." : "Send Link"}
+            </button>
+          </div>
+        </div>
+      )}
 
       <button
         type="submit"
@@ -64,7 +162,7 @@ export function LoginForm() {
         {isSubmitting ? "Signing In..." : "Sign In"}
       </button>
 
-      {/* Social login placeholders */}
+      {/* Social login */}
       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-neutral-200" />
@@ -80,7 +178,7 @@ export function LoginForm() {
         <button
           type="button"
           className="flex h-11 items-center justify-center gap-2 rounded-luxury-md border border-neutral-200 text-body-sm font-medium text-neutral-700 transition-colors hover:border-brand-purple hover:text-brand-purple"
-          onClick={() => toast("Google login coming soon", "info")}
+          onClick={handleGoogleLogin}
         >
           <svg width="18" height="18" viewBox="0 0 24 24">
             <path
@@ -107,7 +205,12 @@ export function LoginForm() {
           className="flex h-11 items-center justify-center gap-2 rounded-luxury-md border border-neutral-200 text-body-sm font-medium text-neutral-700 transition-colors hover:border-brand-purple hover:text-brand-purple"
           onClick={() => toast("Apple login coming soon", "info")}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
             <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
           </svg>
           Apple

@@ -4,11 +4,13 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUIStore } from "@/lib/stores/ui-store";
+import { useAuth } from "@/hooks/useAuth";
 import { NAV_LINKS } from "@/lib/constants";
 import { drawerSlideLeft, modalOverlay } from "@/lib/animations";
 
 export function MobileNav() {
   const { isMobileNavOpen, closeMobileNav } = useUIStore();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (isMobileNavOpen) {
@@ -91,7 +93,7 @@ export function MobileNav() {
                 <ul className="space-y-1">
                   <li>
                     <Link
-                      href="/login"
+                      href={user ? "/account" : "/login"}
                       onClick={closeMobileNav}
                       className="flex items-center gap-3 rounded-luxury-md px-3 py-2.5 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-brand-purple"
                     >

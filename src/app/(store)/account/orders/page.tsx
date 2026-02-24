@@ -1,15 +1,40 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { MOCK_ORDERS } from "@/lib/mock-data";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import { formatPrice, formatDate } from "@/lib/utils";
 import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
+import type { OrderStatus } from "@/types/order";
 
 export const metadata: Metadata = {
   title: "Order History | Maison ISIVIS",
 };
 
-export default function OrdersPage() {
-  const orders = MOCK_ORDERS;
+export default async function OrdersPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: rawOrders } = await supabase
+    .from("orders")
+    .select("*, order_items(id)")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false }) as { data: any[] | null };
+
+  const orders = (rawOrders ?? []).map((row: any) => ({
+    id: row.id as string,
+    orderNumber: row.order_number as string,
+    total: parseFloat(String(row.total)),
+    status: row.status as OrderStatus,
+    createdAt: row.created_at as string,
+    itemCount: Array.isArray(row.order_items) ? row.order_items.length : 0,
+  }));
 
   if (orders.length === 0) {
     return (
@@ -63,8 +88,8 @@ export default function OrdersPage() {
                   Order #{order.orderNumber}
                 </p>
                 <p className="mt-1 text-caption text-neutral-500">
-                  {formatDate(order.createdAt)} · {order.items.length}{" "}
-                  {order.items.length === 1 ? "item" : "items"}
+                  {formatDate(order.createdAt)} · {order.itemCount}{" "}
+                  {order.itemCount === 1 ? "item" : "items"}
                 </p>
               </div>
               <div className="flex items-center gap-3">

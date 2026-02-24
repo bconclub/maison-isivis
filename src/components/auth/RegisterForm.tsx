@@ -1,12 +1,16 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterFormData } from "@/lib/validations";
+import { createClient } from "@/lib/supabase/client";
 import { Input } from "@/components/ui/Input";
 import { toast } from "@/components/ui/Toast";
 
 export function RegisterForm() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -16,10 +20,43 @@ export function RegisterForm() {
   });
 
   async function onSubmit(data: RegisterFormData) {
-    // Placeholder — will connect to Supabase auth later
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast("Registration functionality coming soon", "info");
-    console.log("Register data:", data);
+    const supabase = createClient();
+    const { data: authData, error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          full_name: data.fullName,
+        },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      if (error.message.includes("already registered")) {
+        toast(
+          "An account with this email already exists. Try signing in instead.",
+          "error"
+        );
+      } else {
+        toast(error.message, "error");
+      }
+      return;
+    }
+
+    // Handle both: email confirmation required vs auto-confirmed
+    if (authData.user && !authData.session) {
+      // Email confirmation required
+      toast(
+        "Account created! Please check your email to confirm your account.",
+        "success"
+      );
+    } else if (authData.session) {
+      // Auto-confirmed (email confirm disabled in Supabase)
+      toast("Welcome to Maison ISIVIS!", "success");
+      router.push("/account");
+      router.refresh();
+    }
   }
 
   return (
