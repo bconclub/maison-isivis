@@ -12,7 +12,7 @@ const DESKTOP_SLIDES = [
 ];
 
 const MOBILE_SLIDE = {
-  src: "/images/hero/mobile/cover image 001.webp",
+  src: "/images/ISivis Mobile header.jpeg",
   alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance",
 };
 
