@@ -128,7 +128,7 @@ export function CommunityCarousel() {
   }
 
   return (
-    <section className="section-spacing bg-brand-blue/[0.06]">
+    <section className="section-spacing bg-brand-blue-20">
       <div className="text-center">
         {/* Header — constrained */}
         <div className="container-luxury">
