@@ -38,6 +38,7 @@ export interface Product {
   featured: boolean;
   newArrival: boolean;
   bestseller: boolean;
+  trending: boolean;
   badge: string | null;
   metaTitle: string | null;
   metaDescription: string | null;

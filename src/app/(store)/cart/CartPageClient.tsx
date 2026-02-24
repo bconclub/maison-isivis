@@ -96,15 +96,27 @@ export function CartPageClient() {
                 <PromoCodeInput />
               </div>
 
-              <button
-                disabled
-                className="mt-6 flex w-full cursor-not-allowed items-center justify-center rounded-luxury-md bg-neutral-300 px-6 py-4 text-body-sm font-medium uppercase tracking-luxury text-neutral-500"
+              <Link
+                href="/checkout"
+                className="mt-6 flex w-full items-center justify-center rounded-luxury-md bg-brand-purple px-6 py-4 text-body-sm font-medium uppercase tracking-luxury text-white shadow-luxury transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-purple/90 hover:shadow-luxury-lg"
               >
-                Checkout Coming Soon
-              </button>
+                Proceed to Checkout
+              </Link>
 
-              <p className="mt-4 text-center text-caption text-neutral-400">
-                Checkout is not available yet. Stay tuned!
+              <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-caption text-neutral-400">
+                <svg
+                  className="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                Secure checkout powered by Stripe
               </p>
             </div>
           </div>

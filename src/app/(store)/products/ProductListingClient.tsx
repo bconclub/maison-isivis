@@ -61,6 +61,10 @@ function filterProducts(
     products = products.filter((p) => p.salePrice != null);
   if (filters.newArrivals)
     products = products.filter((p) => p.newArrival);
+  if ((filters as Record<string, unknown>).trending)
+    products = products.filter((p) => p.trending);
+  if ((filters as Record<string, unknown>).bestSellers)
+    products = products.filter((p) => p.bestseller);
 
   // Search
   if (filters.search) {
@@ -161,6 +165,8 @@ export function ProductListingClient({ allProducts }: ProductListingClientProps)
 
     const filter = searchParams.get("filter");
     if (filter === "new-arrivals") f.newArrivals = true;
+    if (filter === "trending") (f as Record<string, unknown>).trending = true;
+    if (filter === "best-sellers") (f as Record<string, unknown>).bestSellers = true;
 
     f.limit = 12;
 
@@ -174,6 +180,7 @@ export function ProductListingClient({ allProducts }: ProductListingClientProps)
   const filterParam = searchParams.get("filter");
   if (filterParam === "new-arrivals") pageTitle = "New Arrivals";
   if (filterParam === "trending") pageTitle = "Trending Now";
+  if (filterParam === "best-sellers") pageTitle = "Best Sellers";
   if (filterParam === "back-in-stock") pageTitle = "Back In Stock";
   const searchQuery = searchParams.get("q");
   if (searchQuery) pageTitle = `Results for "${searchQuery}"`;

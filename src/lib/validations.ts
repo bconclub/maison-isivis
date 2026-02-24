@@ -67,6 +67,19 @@ export const promoCodeSchema = z.object({
     .transform((val) => val.toUpperCase().trim()),
 });
 
+// === Checkout Schema ===
+export const checkoutSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  fullName: z.string().min(2, "Full name is required"),
+  phone: z.string().min(1, "Phone number is required"),
+  addressLine1: z.string().min(1, "Address is required"),
+  addressLine2: z.string().optional(),
+  city: z.string().min(1, "City is required"),
+  state: z.string().min(1, "County/State is required"),
+  pinCode: z.string().min(1, "Postal code is required"),
+  country: z.string().min(1, "Country is required"),
+});
+
 // Type exports derived from schemas
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
@@ -75,3 +88,4 @@ export type ContactFormData = z.infer<typeof contactSchema>;
 export type NewsletterFormData = z.infer<typeof newsletterSchema>;
 export type ReviewFormData = z.infer<typeof reviewSchema>;
 export type PromoCodeFormData = z.infer<typeof promoCodeSchema>;
+export type CheckoutFormData = z.infer<typeof checkoutSchema>;

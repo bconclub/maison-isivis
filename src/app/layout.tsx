@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Cormorant_Garamond, Inter, Italiana } from "next/font/google";
 import "./globals.css";
 
@@ -76,6 +77,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-white font-body text-neutral-900 antialiased">
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -82,6 +82,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           featured: product.featured,
           newArrival: product.newArrival,
           bestseller: product.bestseller,
+          trending: product.trending,
           badge: product.badge,
           metaTitle: product.metaTitle,
           metaDescription: product.metaDescription,
@@ -99,6 +100,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
           featured: false,
           newArrival: false,
           bestseller: false,
+          trending: false,
           displayOrder: 0,
           published: true,
         },
@@ -149,6 +151,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         featured: data.featured,
         newArrival: data.newArrival,
         bestseller: data.bestseller,
+        trending: data.trending ?? false,
         badge: data.badge ?? null,
         metaTitle: data.metaTitle ?? null,
         metaDescription: data.metaDescription ?? null,
@@ -192,6 +195,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         featured: data.featured,
         newArrival: data.newArrival,
         bestseller: data.bestseller,
+        trending: data.trending ?? false,
         badge: data.badge ?? null,
         metaTitle: data.metaTitle ?? null,
         metaDescription: data.metaDescription ?? null,

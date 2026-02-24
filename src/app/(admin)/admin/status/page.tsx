@@ -35,6 +35,9 @@ interface StatusData {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: boolean;
     SUPABASE_SERVICE_ROLE_KEY: boolean;
     ANTHROPIC_API_KEY: boolean;
+    STRIPE_SECRET_KEY: boolean;
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: boolean;
+    STRIPE_WEBHOOK_SECRET: boolean;
     NEXT_PUBLIC_SITE_URL: string | null;
     NODE_ENV: string;
   };
@@ -44,9 +47,10 @@ interface StatusData {
 const FEATURES = {
   ready: [
     // Storefront — fully functional
-    { module: "Storefront", feature: "Homepage with hero slideshow", route: "/" },
+    { module: "Storefront", feature: "Homepage with hero section (desktop + mobile)", route: "/" },
     { module: "Storefront", feature: "Featured products carousel", route: "/" },
-    { module: "Storefront", feature: "Find Your Fantasy collections grid", route: "/" },
+    { module: "Storefront", feature: "Find Your Fantasy curated product grid (4 products)", route: "/" },
+    { module: "Storefront", feature: "Community carousel with drag-to-scroll + auto-scroll", route: "/" },
     { module: "Storefront", feature: "Product listing with filters, sort & pagination", route: "/products" },
     { module: "Storefront", feature: "Product detail page (gallery, variants, accordion)", route: "/products/[slug]" },
     { module: "Storefront", feature: "Collection & category pages", route: "/collections/[slug]" },
@@ -54,13 +58,32 @@ const FEATURES = {
     { module: "Storefront", feature: "Wishlist (add/remove, persist to localStorage)", route: "/wishlist" },
     { module: "Storefront", feature: "Cart drawer (mini cart side panel)", route: "Global" },
     { module: "Storefront", feature: "Announcement bar carousel", route: "Global" },
-    { module: "Storefront", feature: "Responsive header with mega menus", route: "Global" },
+    { module: "Storefront", feature: "Simplified header nav (New Arrivals, Trending, Best Sellers)", route: "Global" },
     { module: "Storefront", feature: "Mobile navigation drawer", route: "Global" },
     { module: "Storefront", feature: "Footer with links & social", route: "Global" },
     { module: "Storefront", feature: "Breadcrumb navigation", route: "Global" },
     { module: "Storefront", feature: "Loading states & skeleton screens", route: "Global" },
     { module: "Storefront", feature: "Toast notifications", route: "Global" },
+    // Checkout & Payment — Stripe integration
+    { module: "Checkout", feature: "Checkout page with shipping form", route: "/checkout" },
+    { module: "Checkout", feature: "Stripe Checkout payment integration (live)", route: "/api/checkout" },
+    { module: "Checkout", feature: "Stripe webhook handler (creates orders in DB)", route: "/api/webhooks/stripe" },
+    { module: "Checkout", feature: "Order success / confirmation page", route: "/checkout/success" },
+    { module: "Checkout", feature: "Server-side price recalculation (fraud prevention)", route: "/api/checkout" },
+    // Content pages — all complete
+    { module: "Content", feature: "About page with founder image", route: "/about" },
+    { module: "Content", feature: "Contact page with response time info", route: "/contact" },
+    { module: "Content", feature: "FAQ page", route: "/faq" },
+    { module: "Content", feature: "Rewards page (4 tiers, earn points, 11 FAQs)", route: "/rewards" },
+    { module: "Content", feature: "Fit / Size guide with lavender theme", route: "/size-guide" },
+    { module: "Content", feature: "Fabric care guide", route: "/fabric-care" },
+    { module: "Content", feature: "Shipping policy", route: "/shipping" },
+    { module: "Content", feature: "Returns policy", route: "/returns" },
+    { module: "Content", feature: "Privacy policy", route: "/privacy" },
+    { module: "Content", feature: "Pre-order policy", route: "/pre-order-policy" },
+    { module: "Content", feature: "Terms & conditions", route: "/terms" },
     // Admin — connected to DB via API routes
+    { module: "Admin", feature: "Admin login gate (password authentication)", route: "/admin" },
     { module: "Admin", feature: "Products CRUD (API + Supabase)", route: "/admin/products" },
     { module: "Admin", feature: "Product image upload to Supabase Storage", route: "/admin/products/new" },
     { module: "Admin", feature: "Product variant manager (size, color, price, stock)", route: "/admin/products/new" },
@@ -70,6 +93,9 @@ const FEATURES = {
     { module: "Admin", feature: "Collections CRUD with product picker", route: "/admin/collections" },
     { module: "Admin", feature: "Database seeding endpoint", route: "/api/admin/seed" },
     { module: "Admin", feature: "Build status page", route: "/admin/status" },
+    // Analytics — live
+    { module: "Analytics", feature: "Google Analytics (G-5N92PH0W38)", route: "Global" },
+    { module: "Analytics", feature: "Microsoft Clarity (vm7pgzc2sc)", route: "Global" },
     // Database — schema & infra
     { module: "Database", feature: "Full PostgreSQL schema (13 tables, RLS, triggers)", route: "Supabase" },
     { module: "Database", feature: "Row Level Security policies", route: "Supabase" },
@@ -78,6 +104,7 @@ const FEATURES = {
     // Integrations — connected
     { module: "Integrations", feature: "Supabase (DB + Storage)", route: ".env" },
     { module: "Integrations", feature: "Anthropic Claude API (AI generation)", route: ".env" },
+    { module: "Integrations", feature: "Stripe Payment Gateway (live keys)", route: ".env" },
   ],
   pending: [
     // Admin — UI exists but uses mock data only, no API/DB persistence
@@ -89,14 +116,11 @@ const FEATURES = {
     // Auth
     { module: "Auth", feature: "User login (Supabase Auth)", route: "/login", priority: "High" },
     { module: "Auth", feature: "User registration", route: "/register", priority: "High" },
-    { module: "Auth", feature: "Protected admin routes (auth guard)", route: "/admin/*", priority: "High" },
+    { module: "Auth", feature: "Protected admin routes (Supabase Auth guard)", route: "/admin/*", priority: "High" },
     { module: "Auth", feature: "Password reset flow", route: "/forgot-password", priority: "Medium" },
-    // Checkout & Payment
-    { module: "Checkout", feature: "Checkout page & flow", route: "/checkout", priority: "High" },
-    { module: "Checkout", feature: "Stripe payment integration", route: "/checkout", priority: "High" },
+    // Checkout & Payment — additional gateways
     { module: "Checkout", feature: "Razorpay payment integration", route: "/checkout", priority: "Medium" },
     { module: "Checkout", feature: "Cash on Delivery option", route: "/checkout", priority: "Low" },
-    { module: "Checkout", feature: "Order confirmation page & email", route: "/order/[id]", priority: "High" },
     { module: "Checkout", feature: "Promo code validation (backend)", route: "/api", priority: "Medium" },
     // Account
     { module: "Account", feature: "User profile management", route: "/account", priority: "Medium" },
@@ -110,14 +134,10 @@ const FEATURES = {
     // Email
     { module: "Email", feature: "Transactional emails (order, shipping)", route: "Backend", priority: "High" },
     { module: "Email", feature: "Newsletter subscription (backend)", route: "/api", priority: "Low" },
-    { module: "Email", feature: "Contact form submission", route: "/contact", priority: "Medium" },
+    { module: "Email", feature: "Contact form submission (backend)", route: "/contact", priority: "Medium" },
     // Content
-    { module: "Content", feature: "About page (real images)", route: "/about", priority: "Low" },
     { module: "Content", feature: "Blog system", route: "/blogs", priority: "Low" },
-    { module: "Content", feature: "FAQ content", route: "/faq", priority: "Low" },
-    { module: "Content", feature: "Shipping / Returns / Privacy / Terms policies", route: "Various", priority: "Low" },
-    // Analytics & Integrations
-    { module: "Analytics", feature: "Analytics integration (GA / Mixpanel)", route: "Global", priority: "Low" },
+    // Integrations
     { module: "Integrations", feature: "Instagram feed embed", route: "/", priority: "Low" },
     { module: "Integrations", feature: "Cloudinary image optimization pipeline", route: "Backend", priority: "Medium" },
   ],
@@ -357,6 +377,9 @@ export default function StatusPage() {
                   ["NEXT_PUBLIC_SUPABASE_ANON_KEY", data.environment.NEXT_PUBLIC_SUPABASE_ANON_KEY],
                   ["SUPABASE_SERVICE_ROLE_KEY", data.environment.SUPABASE_SERVICE_ROLE_KEY],
                   ["ANTHROPIC_API_KEY", data.environment.ANTHROPIC_API_KEY],
+                  ["STRIPE_SECRET_KEY", data.environment.STRIPE_SECRET_KEY],
+                  ["NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY", data.environment.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY],
+                  ["STRIPE_WEBHOOK_SECRET", data.environment.STRIPE_WEBHOOK_SECRET],
                 ].map(([label, configured]) => (
                   <div
                     key={label as string}
@@ -536,6 +559,7 @@ export default function StatusPage() {
                 { label: "TypeScript", version: "5.x", category: "Language" },
                 { label: "Tailwind CSS", version: "3.4.19", category: "Styling" },
                 { label: "Supabase", version: "2.95.3", category: "Database" },
+                { label: "Stripe SDK", version: "20.3.1", category: "Payments" },
                 { label: "Zustand", version: "5.0.11", category: "State" },
                 { label: "Framer Motion", version: "12.33.0", category: "Animations" },
                 { label: "React Hook Form", version: "7.71.1", category: "Forms" },

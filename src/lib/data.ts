@@ -57,6 +57,7 @@ function dbToProduct(row: any): Product {
     featured: row.featured,
     newArrival: row.new_arrival,
     bestseller: row.bestseller,
+    trending: row.trending ?? false,
     badge: row.badge,
     metaTitle: row.meta_title,
     metaDescription: row.meta_description,

@@ -72,6 +72,10 @@ export async function GET() {
       !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     SUPABASE_SERVICE_ROLE_KEY: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
     ANTHROPIC_API_KEY: !!process.env.ANTHROPIC_API_KEY,
+    STRIPE_SECRET_KEY: !!process.env.STRIPE_SECRET_KEY,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
+      !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    STRIPE_WEBHOOK_SECRET: !!process.env.STRIPE_WEBHOOK_SECRET,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL ?? null,
     NODE_ENV: process.env.NODE_ENV ?? "unknown",
   };

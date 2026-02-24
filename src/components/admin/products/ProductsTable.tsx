@@ -7,7 +7,7 @@ import { formatPrice } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { DeleteConfirmModal } from "./DeleteConfirmModal";
 
-type Tab = "all" | "featured" | "bestsellers";
+type Tab = "all" | "featured" | "bestsellers" | "trending";
 
 export function ProductsTable() {
   const products = useAdminStore((s) => s.products);
@@ -20,11 +20,17 @@ export function ProductsTable() {
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<"name" | "price" | "stock" | "date">("name");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [hideOff, setHideOff] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
 
   // ── Filtered products for "All" tab ──
   const filteredAll = useMemo(() => {
     let result = [...products];
+
+    // Hide unpublished products when toggle is on
+    if (hideOff) {
+      result = result.filter((p) => p.published);
+    }
 
     if (search) {
       const q = search.toLowerCase();
@@ -60,7 +66,7 @@ export function ProductsTable() {
     });
 
     return result;
-  }, [products, search, categoryFilter, sortBy, sortDir]);
+  }, [products, search, categoryFilter, sortBy, sortDir, hideOff]);
 
   // ── Featured products sorted by displayOrder ──
   const featuredProducts = useMemo(
@@ -76,6 +82,15 @@ export function ProductsTable() {
     () =>
       [...products]
         .filter((p) => p.bestseller)
+        .sort((a, b) => a.displayOrder - b.displayOrder),
+    [products]
+  );
+
+  // ── Trending products sorted by displayOrder ──
+  const trendingProducts = useMemo(
+    () =>
+      [...products]
+        .filter((p) => p.trending)
         .sort((a, b) => a.displayOrder - b.displayOrder),
     [products]
   );
@@ -111,7 +126,6 @@ export function ProductsTable() {
     const currentOrder = current.displayOrder;
     const swapOrder = swap.displayOrder;
 
-    // If both have the same displayOrder, assign sequential values
     const newCurrentOrder = currentOrder === swapOrder
       ? (direction === "up" ? swapOrder - 1 : swapOrder + 1)
       : swapOrder;
@@ -126,11 +140,13 @@ export function ProductsTable() {
   // Counts for tab badges
   const featuredCount = products.filter((p) => p.featured).length;
   const bestsellerCount = products.filter((p) => p.bestseller).length;
+  const trendingCount = products.filter((p) => p.trending).length;
 
   const tabs: { key: Tab; label: string; count?: number }[] = [
     { key: "all", label: "All Products" },
     { key: "featured", label: "Featured", count: featuredCount },
     { key: "bestsellers", label: "Best Sellers", count: bestsellerCount },
+    { key: "trending", label: "Trending", count: trendingCount },
   ];
 
   const currentList =
@@ -138,6 +154,8 @@ export function ProductsTable() {
       ? featuredProducts
       : activeTab === "bestsellers"
       ? bestsellerProducts
+      : activeTab === "trending"
+      ? trendingProducts
       : filteredAll;
 
   return (
@@ -177,10 +195,10 @@ export function ProductsTable() {
         ))}
       </div>
 
-      {/* Toolbar — only show search/filter on All tab */}
+      {/* Toolbar */}
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         {activeTab === "all" ? (
-          <div className="flex flex-1 gap-3">
+          <div className="flex flex-1 items-center gap-3">
             <div className="relative flex-1 sm:max-w-xs">
               <svg
                 width="16"
@@ -214,17 +232,57 @@ export function ProductsTable() {
                 </option>
               ))}
             </select>
+
+            {/* Hide Off toggle */}
+            <button
+              onClick={() => setHideOff(!hideOff)}
+              className={cn(
+                "flex shrink-0 items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
+                hideOff
+                  ? "border-brand-purple bg-brand-purple/5 text-brand-purple"
+                  : "border-neutral-200 text-neutral-500 hover:text-neutral-700"
+              )}
+              title={hideOff ? "Showing live products only" : "Click to hide off products"}
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {hideOff ? (
+                  <>
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                    <line x1="2" x2="22" y1="2" y2="22" />
+                  </>
+                )}
+              </svg>
+              {hideOff ? "Live Only" : "Hide Off"}
+            </button>
           </div>
         ) : (
           <p className="text-sm text-neutral-500">
             {activeTab === "featured"
-              ? "Drag to reorder how featured products appear on the homepage carousel."
-              : "Drag to reorder how best sellers appear on the homepage."}
+              ? "Reorder how featured products appear on the homepage carousel."
+              : activeTab === "trending"
+              ? "Manage which products appear under Trending Now on the storefront."
+              : "Reorder how best sellers appear on the homepage."}
           </p>
         )}
         <Link
           href="/admin/products/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-brand-purple px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-purple/90"
+          className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-brand-purple px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-purple/90"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M5 12h14" />
@@ -239,7 +297,6 @@ export function ProductsTable() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-neutral-100 text-left">
-              {/* Position column for featured/bestseller tabs */}
               {activeTab !== "all" && (
                 <th className="px-4 py-3 text-center font-medium text-neutral-500 w-20">
                   Position
@@ -271,9 +328,7 @@ export function ProductsTable() {
                 <th className="px-5 py-3 text-center font-medium text-neutral-500">Featured</th>
               )}
               {activeTab !== "all" && (
-                <th className="px-5 py-3 text-center font-medium text-neutral-500">
-                  {activeTab === "featured" ? "Remove" : "Remove"}
-                </th>
+                <th className="px-5 py-3 text-center font-medium text-neutral-500">Remove</th>
               )}
               <th className="px-5 py-3 font-medium text-neutral-500">Actions</th>
             </tr>
@@ -281,11 +336,15 @@ export function ProductsTable() {
           <tbody>
             {currentList.length === 0 ? (
               <tr>
-                <td colSpan={activeTab === "all" ? 9 : 9} className="px-5 py-12 text-center text-neutral-400">
+                <td colSpan={9} className="px-5 py-12 text-center text-neutral-400">
                   {activeTab === "featured"
                     ? "No featured products yet. Mark products as featured to show them here."
                     : activeTab === "bestsellers"
                     ? "No best sellers yet. Mark products as best sellers to show them here."
+                    : activeTab === "trending"
+                    ? "No trending products yet. Mark products as trending to show them here."
+                    : hideOff
+                    ? "No live products found. Try turning off the \"Live Only\" filter."
                     : "No products found."}
                 </td>
               </tr>
@@ -293,9 +352,11 @@ export function ProductsTable() {
               currentList.map((product, idx) => (
                 <tr
                   key={product.id}
-                  className="border-b border-neutral-50 last:border-0 hover:bg-neutral-50/50"
+                  className={cn(
+                    "border-b border-neutral-50 last:border-0 hover:bg-neutral-50/50",
+                    !product.published && activeTab === "all" && "opacity-50"
+                  )}
                 >
-                  {/* Position controls */}
                   {activeTab !== "all" && (
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-center gap-0.5">
@@ -375,9 +436,7 @@ export function ProductsTable() {
                   <td className="px-5 py-3">
                     <button
                       onClick={() =>
-                        updateProduct(product.id, {
-                          published: !product.published,
-                        })
+                        updateProduct(product.id, { published: !product.published })
                       }
                       className="group flex items-center gap-2"
                       title={product.published ? "Switch to Draft" : "Publish product"}
@@ -411,9 +470,7 @@ export function ProductsTable() {
                     <td className="px-5 py-3 text-center">
                       <button
                         onClick={() =>
-                          updateProduct(product.id, {
-                            featured: !product.featured,
-                          })
+                          updateProduct(product.id, { featured: !product.featured })
                         }
                         className={cn(
                           "inline-flex items-center justify-center rounded-full p-1 transition-colors",
@@ -439,7 +496,7 @@ export function ProductsTable() {
                     </td>
                   )}
 
-                  {/* Remove button (Featured/Bestsellers tabs) */}
+                  {/* Remove button (Featured/Bestsellers/Trending tabs) */}
                   {activeTab !== "all" && (
                     <td className="px-5 py-3 text-center">
                       <button
@@ -447,6 +504,8 @@ export function ProductsTable() {
                           updateProduct(product.id, {
                             ...(activeTab === "featured"
                               ? { featured: false }
+                              : activeTab === "trending"
+                              ? { trending: false }
                               : { bestseller: false }),
                           })
                         }
@@ -454,6 +513,8 @@ export function ProductsTable() {
                         title={
                           activeTab === "featured"
                             ? "Remove from featured"
+                            : activeTab === "trending"
+                            ? "Remove from trending"
                             : "Remove from best sellers"
                         }
                       >
@@ -508,9 +569,11 @@ export function ProductsTable() {
 
       <p className="mt-3 text-xs text-neutral-400">
         {activeTab === "all"
-          ? `Showing ${filteredAll.length} of ${products.length} products`
+          ? `Showing ${filteredAll.length} of ${products.length} products${hideOff ? " (live only)" : ""}`
           : activeTab === "featured"
           ? `${featuredProducts.length} featured products`
+          : activeTab === "trending"
+          ? `${trendingProducts.length} trending products`
           : `${bestsellerProducts.length} best sellers`}
       </p>
 

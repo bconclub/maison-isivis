@@ -23,6 +23,7 @@ export const productSchema = z.object({
   featured: z.boolean(),
   newArrival: z.boolean(),
   bestseller: z.boolean(),
+  trending: z.boolean(),
   badge: z.string().optional().nullable(),
   metaTitle: z.string().optional().nullable(),
   metaDescription: z.string().optional().nullable(),

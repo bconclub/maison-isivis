@@ -110,12 +110,13 @@ export function CartDrawer() {
                   <CartSummaryDisplay compact />
 
                   <div className="mt-4 space-y-2.5">
-                    <button
-                      disabled
-                      className="flex w-full cursor-not-allowed items-center justify-center rounded-luxury-md bg-neutral-300 px-6 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-neutral-500"
+                    <Link
+                      href="/checkout"
+                      onClick={closeCart}
+                      className="flex w-full items-center justify-center rounded-luxury-md bg-brand-purple px-6 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-white shadow-luxury transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-purple/90 hover:shadow-luxury-lg"
                     >
-                      Checkout Coming Soon
-                    </button>
+                      Checkout
+                    </Link>
                     <Link
                       href="/cart"
                       onClick={closeCart}
