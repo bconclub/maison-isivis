@@ -64,6 +64,15 @@ export default function RootLayout({
             gtag('config', 'G-5N92PH0W38');
           `}
         </Script>
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "vm7pgzc2sc");
+          `}
+        </Script>
       </head>
       <body className="min-h-screen bg-white font-body text-neutral-900 antialiased">
         {children}
