@@ -14,37 +14,118 @@ const COMMUNITY_PHOTOS = [
 
 export function CommunityCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
   const animationRef = useRef<number | null>(null);
   const scrollSpeed = 0.5; // pixels per frame
+
+  // Drag state
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragScrollLeft = useRef(0);
+  const [grabbing, setGrabbing] = useState(false);
+
+  // Pause state: paused when hovering OR dragging
+  const isPaused = useRef(false);
+  // Resume auto-scroll after drag ends (with a small delay)
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Duplicate photos for seamless infinite loop
   const photos = [...COMMUNITY_PHOTOS, ...COMMUNITY_PHOTOS];
 
+  // --- Auto-scroll ---
   const animate = useCallback(() => {
     const el = scrollRef.current;
-    if (!el || isPaused) {
-      animationRef.current = requestAnimationFrame(animate);
-      return;
+    if (el && !isPaused.current) {
+      el.scrollLeft += scrollSpeed;
+
+      // When we've scrolled past the first set, jump back seamlessly
+      const halfWidth = el.scrollWidth / 2;
+      if (el.scrollLeft >= halfWidth) {
+        el.scrollLeft -= halfWidth;
+      }
     }
-
-    el.scrollLeft += scrollSpeed;
-
-    // When we've scrolled past the first set, jump back seamlessly
-    const halfWidth = el.scrollWidth / 2;
-    if (el.scrollLeft >= halfWidth) {
-      el.scrollLeft -= halfWidth;
-    }
-
     animationRef.current = requestAnimationFrame(animate);
-  }, [isPaused, scrollSpeed]);
+  }, [scrollSpeed]);
 
   useEffect(() => {
     animationRef.current = requestAnimationFrame(animate);
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (resumeTimer.current) clearTimeout(resumeTimer.current);
     };
   }, [animate]);
+
+  // --- Hover pause ---
+  function handleMouseEnter() {
+    if (!isDragging.current) isPaused.current = true;
+  }
+  function handleMouseLeave() {
+    if (!isDragging.current) isPaused.current = false;
+    // If mouse leaves while dragging, end the drag
+    if (isDragging.current) endDrag();
+  }
+
+  // --- Drag-to-scroll ---
+  function startDrag(clientX: number) {
+    const el = scrollRef.current;
+    if (!el) return;
+    isDragging.current = true;
+    isPaused.current = true;
+    setGrabbing(true);
+    dragStartX.current = clientX;
+    dragScrollLeft.current = el.scrollLeft;
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+  }
+
+  function moveDrag(clientX: number) {
+    if (!isDragging.current) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    const dx = clientX - dragStartX.current;
+    el.scrollLeft = dragScrollLeft.current - dx;
+
+    // Seamless loop during drag
+    const halfWidth = el.scrollWidth / 2;
+    if (el.scrollLeft >= halfWidth) {
+      el.scrollLeft -= halfWidth;
+      dragScrollLeft.current -= halfWidth;
+    } else if (el.scrollLeft <= 0) {
+      el.scrollLeft += halfWidth;
+      dragScrollLeft.current += halfWidth;
+    }
+  }
+
+  function endDrag() {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    setGrabbing(false);
+    // Resume auto-scroll after a short delay
+    resumeTimer.current = setTimeout(() => {
+      isPaused.current = false;
+    }, 2000);
+  }
+
+  // Mouse events
+  function onMouseDown(e: React.MouseEvent) {
+    e.preventDefault();
+    startDrag(e.clientX);
+  }
+  function onMouseMove(e: React.MouseEvent) {
+    moveDrag(e.clientX);
+  }
+  function onMouseUp() {
+    endDrag();
+  }
+
+  // Touch events
+  function onTouchStart(e: React.TouchEvent) {
+    startDrag(e.touches[0].clientX);
+  }
+  function onTouchMove(e: React.TouchEvent) {
+    moveDrag(e.touches[0].clientX);
+  }
+  function onTouchEnd() {
+    endDrag();
+  }
 
   return (
     <section className="section-spacing bg-brand-blue/[0.06]">
@@ -63,15 +144,23 @@ export function CommunityCarousel() {
           </p>
         </div>
 
-        {/* Carousel — full bleed */}
+        {/* Carousel — full bleed, draggable + auto-scroll */}
         <div
           className="relative mt-10 overflow-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <div
             ref={scrollRef}
-            className="scrollbar-hide flex gap-3 overflow-x-hidden sm:gap-4"
+            className={`scrollbar-hide flex gap-3 overflow-x-hidden select-none sm:gap-4 ${
+              grabbing ? "cursor-grabbing" : "cursor-grab"
+            }`}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             {photos.map((photo, i) => (
               <div
@@ -82,7 +171,8 @@ export function CommunityCarousel() {
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  draggable={false}
+                  className="pointer-events-none object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw"
                 />
                 {/* Hover overlay with Instagram icon */}
