@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const DESKTOP_SLIDES = [
   {
-    src: "/images/Isivis HEader.webp",
+    src: "/images/ISIVIS Hero.webp",
     alt: "Maison ISIVIS — Luxury fashion, handcrafted elegance from our London atelier",
   },
 ];
