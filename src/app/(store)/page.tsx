@@ -54,8 +54,7 @@ export default async function HomePage() {
       <section className="bg-neutral-50 section-spacing">
         <div className="container-luxury">
           <div className="mb-12 text-center">
-            <p className="font-script text-lg text-brand-blue">Explore</p>
-            <h2 className="mt-2 font-heading text-h1 font-light uppercase tracking-luxury text-brand-purple/80">
+            <h2 className="font-heading text-h1 font-light uppercase tracking-luxury text-brand-purple/80">
               Find Your Fantasy
             </h2>
           </div>
