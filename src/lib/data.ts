@@ -239,6 +239,18 @@ export async function getRelatedProducts(
     .slice(0, limit);
 }
 
+export async function getProductsByCollectionSlug(
+  collectionSlug: string,
+  limit = 8
+): Promise<Product[]> {
+  const productIds = COLLECTION_PRODUCT_MAP[collectionSlug];
+  if (!productIds) return [];
+  const products = await fetchAllProducts();
+  return products
+    .filter((p) => productIds.includes(p.id))
+    .slice(0, limit);
+}
+
 export async function getReviewsByProduct(
   productId: string
 ): Promise<Review[]> {
