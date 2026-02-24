@@ -96,7 +96,6 @@ export const FOOTER_LINKS = {
   help: [
     { label: "Contact Us", href: "/contact" },
     { label: "FAQ", href: "/faq" },
-    { label: "Shipment Tracking", href: "/tracking" },
     { label: "Fit Guide", href: "/size-guide" },
     { label: "Fabric Care", href: "/fabric-care" },
     { label: "Join The Queendom", href: "/rewards" },
