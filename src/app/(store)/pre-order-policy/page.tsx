@@ -111,10 +111,10 @@ export default function PreOrderPolicyPage() {
           <p className="text-body-sm text-neutral-600">
             Questions about your pre-order? Contact our Customer Care team at{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>
           </p>
         </div>

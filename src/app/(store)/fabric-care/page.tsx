@@ -519,10 +519,10 @@ export default function FabricCarePage() {
           <p className="text-body-sm text-neutral-600">
             Need help with garment care? Email us at{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>
           </p>
         </div>

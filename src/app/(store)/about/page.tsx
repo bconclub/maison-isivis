@@ -240,7 +240,7 @@ export default function AboutPage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="group inline-flex items-center gap-2 rounded-luxury bg-brand-gradient px-8 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-white shadow-luxury-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-luxury-lg"
             >
               Email Us

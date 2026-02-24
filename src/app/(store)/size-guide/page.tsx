@@ -93,10 +93,10 @@ export default function FitGuidePage() {
           <p className="mt-3 text-body-sm text-neutral-600">
             Email us at{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>{" "}
             and our styling experts will help you find the perfect size.
           </p>

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const EMAIL_LINK = (
   <a
-    href="mailto:info@isivislondon.com"
+    href="mailto:connect@maisonisivis.com"
     className="font-medium text-brand-purple hover:underline"
   >
     contact us
@@ -196,7 +196,7 @@ const FAQ_SECTIONS: FAQSection[] = [
                 The missing items were caused during packing or transportation.
                 In this case please reach out to us immediately. Please{" "}
                 <a
-                  href="mailto:info@isivislondon.com"
+                  href="mailto:connect@maisonisivis.com"
                   className="font-medium text-brand-purple hover:underline"
                 >
                   email us
@@ -226,7 +226,7 @@ const FAQ_SECTIONS: FAQSection[] = [
           <p>
             Please reach out to us promptly. You can{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
               email us
@@ -578,10 +578,10 @@ const FAQ_SECTIONS: FAQSection[] = [
             To explore general partnership collaborations, please reach out to us
             via email at{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>{" "}
             to share your interest. We look forward to hearing from you!
           </p>
@@ -659,7 +659,7 @@ export default function FAQPage() {
           Find answers to the most common questions about our products, ordering,
           shipping, and more. Can&apos;t find what you&apos;re looking for?{" "}
           <a
-            href="mailto:info@isivislondon.com"
+            href="mailto:connect@maisonisivis.com"
             className="font-medium text-brand-purple hover:underline"
           >
             Contact us
@@ -709,10 +709,10 @@ export default function FAQPage() {
             </Link>{" "}
             or email{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>
           </p>
         </div>

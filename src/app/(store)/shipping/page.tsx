@@ -166,10 +166,10 @@ export default function ShippingPolicyPage() {
             </Link>{" "}
             or email{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>
           </p>
         </div>

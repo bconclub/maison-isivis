@@ -34,10 +34,10 @@ export default function ReturnPolicyPage() {
             <p>
               To start a return or exchange process, please contact us at{" "}
               <a
-                href="mailto:info@isivislondon.com"
+                href="mailto:connect@maisonisivis.com"
                 className="font-medium text-brand-purple hover:underline"
               >
-                info@isivislondon.com
+                connect@maisonisivis.com
               </a>
               . When submitting your request, please include the following
               details:
@@ -99,10 +99,10 @@ export default function ReturnPolicyPage() {
             Our return address is located in London. Please do not send packages
             to the waybill address, as they will be refused. Contact us at{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>{" "}
             for the full return address.
           </p>
@@ -196,10 +196,10 @@ export default function ReturnPolicyPage() {
             </Link>{" "}
             or email{" "}
             <a
-              href="mailto:info@isivislondon.com"
+              href="mailto:connect@maisonisivis.com"
               className="font-medium text-brand-purple hover:underline"
             >
-              info@isivislondon.com
+              connect@maisonisivis.com
             </a>
           </p>
         </div>
