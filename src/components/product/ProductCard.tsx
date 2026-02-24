@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types/product";
 import { PriceDisplay } from "./PriceDisplay";
-import { WishlistButton } from "./WishlistButton";
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -41,11 +40,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
               </span>
             </div>
           )}
-
-          {/* Wishlist — top right */}
-          <div className="absolute right-2.5 top-2.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-            <WishlistButton productId={product.id} />
-          </div>
 
           {/* Quick info on hover — bottom */}
           {!product.inStock && (

@@ -1,11 +1,9 @@
 export { PriceDisplay } from "./PriceDisplay";
-export { WishlistButton } from "./WishlistButton";
 export { ProductCard } from "./ProductCard";
 export { ProductGrid } from "./ProductGrid";
 export { SizeSelector } from "./SizeSelector";
 export { ColorSelector } from "./ColorSelector";
 export { QuantitySelector } from "./QuantitySelector";
-export { EmptyWishlistState } from "./EmptyWishlistState";
 export { FilterSidebar } from "./FilterSidebar";
 export { SortSelect } from "./SortSelect";
 export { ActiveFilters } from "./ActiveFilters";

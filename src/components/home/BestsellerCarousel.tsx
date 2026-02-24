@@ -150,23 +150,6 @@ export function BestsellerCarousel({ products }: BestsellerCarouselProps) {
                     </div>
                   )}
 
-                  {/* Wishlist icon on hover */}
-                  <div
-                    className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-neutral-500 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100"
-                    aria-hidden="true"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                    </svg>
-                  </div>
-
                   {/* Out of stock */}
                   {!product.inStock && (
                     <div className="absolute inset-x-0 bottom-0 bg-neutral-900/70 px-3 py-2 text-center">

@@ -114,10 +114,10 @@ export const FOOTER_LINKS = {
 } as const;
 
 export const SOCIAL_LINKS = {
-  instagram: "https://instagram.com/maisonisivis",
+  instagram: "https://www.instagram.com/maisonisivis/",
   facebook: "https://facebook.com/maisonisivis",
   twitter: "https://twitter.com/maisonisivis",
-  youtube: "",
+  youtube: "https://www.youtube.com/@maisonisivis",
   tiktok: "https://tiktok.com/@maisonisivis",
 } as const;
 

@@ -132,12 +132,14 @@ export default function AboutPage() {
           <div className="mx-auto flex max-w-4xl flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-16">
             {/* Founder image */}
             <div className="w-full shrink-0 lg:w-2/5">
-              <div className="aspect-[3/4] overflow-hidden rounded-luxury-md bg-neutral-200">
-                <div className="flex h-full items-center justify-center">
-                  <p className="text-body-sm text-neutral-400">
-                    Ishita Gupta
-                  </p>
-                </div>
+              <div className="relative aspect-[3/4] overflow-hidden rounded-luxury-md bg-neutral-200">
+                <Image
+                  src="/images/Ishita.webp"
+                  alt="Ishita Gupta — Founder of Maison ISIVIS"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
               </div>
             </div>
 

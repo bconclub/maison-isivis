@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/lib/stores/cart-store";
 import { useUIStore } from "@/lib/stores/ui-store";
-import { useWishlistStore } from "@/lib/stores/wishlist-store";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -97,10 +96,7 @@ export function Header() {
   const toggleSearch = useUIStore((s) => s.toggleSearch);
   const openCart = useCartStore((s) => s.openCart);
   const getItemCount = useCartStore((s) => s.getItemCount);
-  const wishlistCount = useWishlistStore((s) => s.productIds.length);
-
   const cartCount = mounted ? getItemCount() : 0;
-  const wCount = mounted ? wishlistCount : 0;
 
   return (
     <header
@@ -244,31 +240,6 @@ export function Header() {
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-            </Link>
-
-            {/* Wishlist */}
-            <Link
-              href="/wishlist"
-              className="relative hidden h-10 w-10 items-center justify-center rounded-luxury-md text-white/80 transition-colors hover:text-white sm:flex"
-              aria-label={`Wishlist (${wCount} items)`}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-              </svg>
-              {wCount > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-white text-[10px] font-bold text-brand-purple">
-                  {wCount}
-                </span>
-              )}
             </Link>
 
             {/* Cart */}

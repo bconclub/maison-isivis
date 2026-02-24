@@ -6,7 +6,6 @@ import { PriceDisplay } from "./PriceDisplay";
 import { SizeSelector } from "./SizeSelector";
 import { ColorSelector } from "./ColorSelector";
 import { QuantitySelector } from "./QuantitySelector";
-import { WishlistButton } from "./WishlistButton";
 import { useCartStore } from "@/lib/stores/cart-store";
 import { toast } from "@/components/ui/Toast";
 import { Badge } from "@/components/ui/Badge";
@@ -129,25 +128,19 @@ export function ProductInfo({ product }: ProductInfoProps) {
         onChange={setQuantity}
       />
 
-      {/* Add to Cart + Wishlist */}
-      <div className="flex gap-3">
-        <button
-          onClick={handleAddToCart}
-          disabled={!product.inStock}
-          className={cn(
-            "flex h-14 flex-1 items-center justify-center rounded-luxury-md text-body-sm font-medium uppercase tracking-luxury transition-all duration-300",
-            product.inStock
-              ? "bg-gradient-to-r from-brand-purple via-brand-purple-80 to-brand-blue text-white shadow-md hover:shadow-luxury hover:brightness-110"
-              : "cursor-not-allowed bg-neutral-200 text-neutral-400"
-          )}
-        >
-          {product.inStock ? "Add to Bag" : "Out of Stock"}
-        </button>
-
-        <div className="flex h-14 w-14 items-center justify-center rounded-luxury-md border border-neutral-200 transition-colors duration-200 hover:border-brand-purple/40">
-          <WishlistButton productId={product.id} size="lg" />
-        </div>
-      </div>
+      {/* Add to Cart */}
+      <button
+        onClick={handleAddToCart}
+        disabled={!product.inStock}
+        className={cn(
+          "flex h-14 w-full items-center justify-center rounded-luxury-md text-body-sm font-medium uppercase tracking-luxury transition-all duration-300",
+          product.inStock
+            ? "bg-gradient-to-r from-brand-purple via-brand-purple-80 to-brand-blue text-white shadow-md hover:shadow-luxury hover:brightness-110"
+            : "cursor-not-allowed bg-neutral-200 text-neutral-400"
+        )}
+      >
+        {product.inStock ? "Add to Bag" : "Out of Stock"}
+      </button>
 
       {/* Divider */}
       <div className="h-px bg-neutral-100" />
