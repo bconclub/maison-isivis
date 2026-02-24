@@ -108,7 +108,7 @@ export default async function HomePage() {
       <CategoryCarousel
         products={swimwearProducts}
         eyebrow="Resort-ready luxury"
-        title="Sun-Kissed Collection"
+        title="Golden Hour Goddess"
         ctaLabel="See Collection"
         ctaHref="/collections/swimwear"
       />
