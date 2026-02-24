@@ -118,10 +118,12 @@ export function CommunityCarousel() {
 
   // Touch events
   function onTouchStart(e: React.TouchEvent) {
-    startDrag(e.touches[0].clientX);
+    const touch = e.touches[0];
+    if (touch) startDrag(touch.clientX);
   }
   function onTouchMove(e: React.TouchEvent) {
-    moveDrag(e.touches[0].clientX);
+    const touch = e.touches[0];
+    if (touch) moveDrag(touch.clientX);
   }
   function onTouchEnd() {
     endDrag();
