@@ -59,19 +59,6 @@ export default function ContactPage() {
             <div className="flex items-start gap-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-purple/5 text-brand-purple">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-body-sm font-medium text-neutral-900">Atelier</p>
-                <p className="text-body-sm text-neutral-600">London, United Kingdom</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-purple/5 text-brand-purple">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
@@ -79,6 +66,11 @@ export default function ContactPage() {
               <div>
                 <p className="text-body-sm font-medium text-neutral-900">Response Time</p>
                 <p className="text-body-sm text-neutral-600">Within 24 hours, Mon–Fri</p>
+                <p className="mt-2 text-body-sm leading-relaxed text-neutral-500">
+                  We strive to get back to you within 48 hours. However, during
+                  peak times, holidays, and public holidays, please give us up
+                  to 3 business days to get back to you.
+                </p>
               </div>
             </div>
           </div>
