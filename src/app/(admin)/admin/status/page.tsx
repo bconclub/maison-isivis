@@ -93,6 +93,19 @@ const FEATURES = {
     { module: "Admin", feature: "Collections CRUD with product picker", route: "/admin/collections" },
     { module: "Admin", feature: "Database seeding endpoint", route: "/api/admin/seed" },
     { module: "Admin", feature: "Build status page", route: "/admin/status" },
+    // Auth & Account — fully functional
+    { module: "Auth", feature: "Customer login (email + password)", route: "/login" },
+    { module: "Auth", feature: "Customer registration with email confirmation", route: "/register" },
+    { module: "Auth", feature: "Forgot password / reset flow", route: "/login" },
+    { module: "Auth", feature: "Route protection (middleware + server guard)", route: "/account/*" },
+    { module: "Auth", feature: "Auth callback handler (email confirm + OAuth)", route: "/auth/callback" },
+    { module: "Account", feature: "Profile management (name, phone)", route: "/account" },
+    { module: "Account", feature: "Password change", route: "/account" },
+    { module: "Account", feature: "Address book CRUD (add, edit, delete, set default)", route: "/account/addresses" },
+    { module: "Account", feature: "Order history (real orders from DB)", route: "/account/orders" },
+    { module: "Account", feature: "Order detail page", route: "/account/orders/[id]" },
+    { module: "Account", feature: "Checkout pre-fill from profile + default address", route: "/checkout" },
+    { module: "Account", feature: "Orders linked to user account via Stripe metadata", route: "/api/webhooks/stripe" },
     // Analytics — live
     { module: "Analytics", feature: "Google Analytics (G-5N92PH0W38)", route: "Global" },
     { module: "Analytics", feature: "Microsoft Clarity (vm7pgzc2sc)", route: "Global" },
@@ -114,18 +127,13 @@ const FEATURES = {
     { module: "Admin", feature: "Reviews API route + DB persistence", route: "/admin/reviews", priority: "High" },
     { module: "Admin", feature: "Reviews moderation write to DB", route: "/admin/reviews", priority: "High" },
     // Auth
-    { module: "Auth", feature: "User login (Supabase Auth)", route: "/login", priority: "High" },
-    { module: "Auth", feature: "User registration", route: "/register", priority: "High" },
+    { module: "Auth", feature: "Google OAuth sign-in (needs Google Cloud Console setup)", route: "/login", priority: "Medium" },
     { module: "Auth", feature: "Protected admin routes (Supabase Auth guard)", route: "/admin/*", priority: "High" },
-    { module: "Auth", feature: "Password reset flow", route: "/forgot-password", priority: "Medium" },
     // Checkout & Payment — additional gateways
     { module: "Checkout", feature: "Razorpay payment integration", route: "/checkout", priority: "Medium" },
     { module: "Checkout", feature: "Cash on Delivery option", route: "/checkout", priority: "Low" },
     { module: "Checkout", feature: "Promo code validation (backend)", route: "/api", priority: "Medium" },
     // Account
-    { module: "Account", feature: "User profile management", route: "/account", priority: "Medium" },
-    { module: "Account", feature: "Address book (CRUD)", route: "/account/addresses", priority: "Medium" },
-    { module: "Account", feature: "Order history (real user orders from DB)", route: "/account/orders", priority: "Medium" },
     { module: "Account", feature: "Wishlist sync to database", route: "/wishlist", priority: "Low" },
     // Reviews
     { module: "Reviews", feature: "Customer review submission form", route: "/products/[slug]", priority: "Medium" },
