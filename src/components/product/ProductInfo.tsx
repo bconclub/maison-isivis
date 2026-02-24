@@ -50,7 +50,6 @@ export function ProductInfo({ product }: ProductInfoProps) {
       color: selectedColor ?? undefined,
     });
 
-    toast("Added to bag", "success");
     openCart();
   }
 
