@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { STYLE_COLLECTIONS } from "@/lib/constants";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
-import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug, getProductsByCollectionSlug } from "@/lib/data";
+import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug, getProductBySlug } from "@/lib/data";
 import { CommunityCarousel } from "@/components/home/CommunityCarousel";
 import { BestsellerCarousel } from "@/components/home/BestsellerCarousel";
 import { CategoryCarousel } from "@/components/home/CategoryCarousel";
@@ -19,26 +18,19 @@ export const metadata: Metadata = {
     "Handcrafted luxury fashion from our London atelier. Prêt-à-couture for the modern woman. Discover signature pieces, curated collections, and timeless elegance.",
 };
 
-export default async function HomePage() {
-  const [
-    featuredProducts,
-    bestsellerProducts,
-    jewelleryProducts,
-    swimwearProducts,
-    ...collectionProducts
-  ] = await Promise.all([
-    getFeaturedProducts(),
-    getBestsellerProducts(8),
-    getProductsByCategorySlug("jewellery", 12),
-    getProductsByCategorySlug("swimwear", 12),
-    ...STYLE_COLLECTIONS.map((c) => getProductsByCollectionSlug(c.slug, 4)),
-  ]);
+const FANTASY_SLUGS = ["victoria", "celestia-pearl-dress", "aria-embellished-set", "selene"];
 
-  // Map collection products by slug
-  const collectionProductMap: Record<string, typeof featuredProducts> = {};
-  STYLE_COLLECTIONS.forEach((c, i) => {
-    collectionProductMap[c.slug] = collectionProducts[i] ?? [];
-  });
+export default async function HomePage() {
+  const [featuredProducts, bestsellerProducts, jewelleryProducts, swimwearProducts, ...fantasyProducts] =
+    await Promise.all([
+      getFeaturedProducts(),
+      getBestsellerProducts(8),
+      getProductsByCategorySlug("jewellery", 12),
+      getProductsByCategorySlug("swimwear", 12),
+      ...FANTASY_SLUGS.map((slug) => getProductBySlug(slug)),
+    ]);
+
+  const fantasyGrid = fantasyProducts.filter(Boolean);
 
   return (
     <>
@@ -48,7 +40,7 @@ export default async function HomePage() {
       {/* ===== FEATURED PRODUCTS CAROUSEL ===== */}
       <FeaturedCarousel products={featuredProducts} />
 
-      {/* ===== FIND YOUR FANTASY — STYLE COLLECTIONS ===== */}
+      {/* ===== FIND YOUR FANTASY ===== */}
       <section className="bg-neutral-50 section-spacing">
         <div className="container-luxury">
           <div className="mb-12 text-center">
@@ -57,32 +49,10 @@ export default async function HomePage() {
             </h2>
           </div>
 
-          <div className="space-y-16">
-            {STYLE_COLLECTIONS.map((collection) => {
-              const products = collectionProductMap[collection.slug] ?? [];
-              if (products.length === 0) return null;
-
-              return (
-                <div key={collection.slug}>
-                  <div className="mb-6 flex items-center justify-between">
-                    <h3 className="font-heading text-h3 font-light text-neutral-800">
-                      {collection.label}
-                    </h3>
-                    <Link
-                      href={collection.href}
-                      className="text-body-sm font-medium text-brand-purple transition-colors hover:underline"
-                    >
-                      View All
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-                    {products.map((product) => (
-                      <ProductCard key={product.id} product={product} />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+            {fantasyGrid.map((product) => (
+              <ProductCard key={product!.id} product={product!} />
+            ))}
           </div>
         </div>
       </section>
