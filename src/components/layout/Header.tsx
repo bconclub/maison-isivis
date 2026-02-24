@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore, useCallback, useState } from "react";
+import { useSyncExternalStore, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/lib/stores/cart-store";
@@ -25,67 +25,6 @@ function useMounted() {
     emptySubscribe,
     () => true,
     () => false
-  );
-}
-
-function DropdownNavItem({
-  label,
-  href,
-  children,
-}: {
-  label: string;
-  href: string;
-  children: ReadonlyArray<{ readonly label: string; readonly href: string }>;
-}) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
-      <Link
-        href={href}
-        className="flex items-center gap-1.5 text-body-sm font-medium uppercase tracking-luxury text-white/80 transition-colors hover:text-white"
-      >
-        {label}
-        <svg
-          className={cn(
-            "h-3 w-3 transition-transform duration-200",
-            open && "rotate-180"
-          )}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
-          <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </Link>
-
-      {/* Dropdown panel */}
-      <div
-        className={cn(
-          "absolute left-1/2 top-full -translate-x-1/2 pt-3 transition-all duration-200",
-          open
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-1 opacity-0"
-        )}
-      >
-        <div className="min-w-[220px] rounded-luxury-md border border-white/10 bg-brand-purple py-2 shadow-luxury-lg">
-          {children.map((child) => (
-            <Link
-              key={child.href}
-              href={child.href}
-              className="block px-5 py-2.5 text-body-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
-            >
-              {child.label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -178,24 +117,15 @@ export function Header() {
 
           {/* Desktop Navigation — next to logo */}
           <nav className="hidden lg:flex lg:items-center lg:gap-7" role="navigation">
-            {NAV_LINKS.map((link) =>
-              "children" in link && link.children ? (
-                <DropdownNavItem
-                  key={link.label}
-                  label={link.label}
-                  href={link.href}
-                  children={link.children}
-                />
-              ) : (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-body-sm font-medium uppercase tracking-luxury text-white/80 transition-colors hover:text-white"
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-body-sm font-medium uppercase tracking-luxury text-white/80 transition-colors hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Right: Icons */}
