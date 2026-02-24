@@ -47,7 +47,7 @@ export function CommunityCarousel() {
   }, [animate]);
 
   return (
-    <section className="section-spacing bg-brand-purple-10">
+    <section className="section-spacing bg-brand-blue/[0.06]">
       <div className="text-center">
         {/* Header — constrained */}
         <div className="container-luxury">
