@@ -58,7 +58,7 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
               Curated for you
             </p>
             <h2 className="mt-2 font-heading text-2xl sm:text-h2 text-brand-purple">
-              Featured Pieces
+              Handpicked Treasures
             </h2>
           </div>
 
