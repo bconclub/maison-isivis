@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { sendOrderConfirmationEmail } from "@/lib/email";
+import type { OrderEmailItem } from "@/lib/email";
 import type Stripe from "stripe";
 
 // Disable body parsing — Stripe needs the raw body for signature verification
@@ -176,4 +178,35 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   console.log(
     `Order ${orderNumber} created for ${meta.email} — £${total.toFixed(2)}`
   );
+
+  // Send confirmation email (fire-and-forget — errors logged, never thrown)
+  if (meta.email) {
+    const emailItems: OrderEmailItem[] = orderItems.map((oi) => ({
+      productName: oi.product_name,
+      variantName: oi.variant_name,
+      quantity: oi.quantity,
+      unitPrice: oi.price,
+      imageUrl: oi.image_url,
+    }));
+
+    sendOrderConfirmationEmail({
+      to: meta.email,
+      customerName: meta.fullName ?? "Valued Customer",
+      orderNumber,
+      items: emailItems,
+      subtotal,
+      shipping: shippingAmount,
+      tax,
+      total,
+      shippingAddress: {
+        fullName: meta.fullName ?? "",
+        addressLine1: meta.addressLine1 ?? "",
+        addressLine2: meta.addressLine2 || undefined,
+        city: meta.city ?? "",
+        state: meta.state ?? "",
+        pinCode: meta.pinCode ?? "",
+        country: meta.country ?? "",
+      },
+    });
+  }
 }
