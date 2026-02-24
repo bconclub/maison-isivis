@@ -43,6 +43,8 @@ export function CheckoutPageClient() {
   const router = useRouter();
   const items = useCartStore((s) => s.items);
   const getSummary = useCartStore((s) => s.getSummary);
+  const updateQuantity = useCartStore((s) => s.updateQuantity);
+  const removeItem = useCartStore((s) => s.removeItem);
   const { user, profile } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -290,10 +292,10 @@ export function CheckoutPageClient() {
                 Order Summary
               </h2>
 
-              {/* Items preview */}
-              <div className="mb-5 max-h-64 space-y-3 overflow-y-auto">
+              {/* Items — editable */}
+              <div className="mb-5 max-h-80 space-y-3 overflow-y-auto">
                 {items.map((item) => (
-                  <div key={item.id} className="flex items-center gap-3">
+                  <div key={item.id} className="flex items-start gap-3">
                     <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-luxury-sm bg-neutral-100">
                       {item.product.images[0] && (
                         <img
@@ -302,9 +304,6 @@ export function CheckoutPageClient() {
                           className="h-full w-full object-cover"
                         />
                       )}
-                      <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-neutral-800 text-[10px] font-bold text-white">
-                        {item.quantity}
-                      </span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="truncate text-body-sm font-medium text-neutral-800">
@@ -317,8 +316,38 @@ export function CheckoutPageClient() {
                             .join(" / ")}
                         </p>
                       )}
+                      <div className="mt-1.5 flex items-center gap-2">
+                        <div className="flex items-center rounded-md border border-neutral-200">
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="flex h-7 w-7 items-center justify-center text-neutral-500 transition-colors hover:text-neutral-800"
+                            aria-label="Decrease quantity"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14" /></svg>
+                          </button>
+                          <span className="flex h-7 w-6 items-center justify-center text-xs font-medium text-neutral-800">
+                            {item.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            className="flex h-7 w-7 items-center justify-center text-neutral-500 transition-colors hover:text-neutral-800"
+                            aria-label="Increase quantity"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14" /></svg>
+                          </button>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          className="text-caption text-neutral-400 transition-colors hover:text-red-500"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-body-sm font-medium text-neutral-800">
+                    <p className="text-body-sm font-medium text-neutral-800 pt-0.5">
                       {formatPrice(
                         (item.product.salePrice ?? item.product.price) *
                           item.quantity
