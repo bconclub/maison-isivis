@@ -27,7 +27,7 @@ export default function CollectionsPage() {
       </h1>
       <p className="mt-3 max-w-2xl text-body-sm leading-relaxed text-neutral-500">
         Explore our handcrafted luxury fashion. Browse by category or discover
-        our curated style edits — each piece designed in our London atelier.
+        our curated style edits, each piece designed in our London atelier.
       </p>
 
       {/* Shop By Category */}

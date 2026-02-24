@@ -32,7 +32,7 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 max-w-xs text-body-sm leading-relaxed">
-              Maison ISIVIS &mdash; Handcrafted luxury fashion from our London
+              Maison ISIVIS. Handcrafted luxury fashion from our London
               atelier. Empowering women through elegance since 2021.
             </p>
 

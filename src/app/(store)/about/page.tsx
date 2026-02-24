@@ -157,7 +157,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   Her bold vision has made ISIVIS a staple for women across the
-                  Middle East and Britain&mdash;a brand that celebrates
+                  Middle East and Britain. A brand that celebrates
                   confidence, individuality, and the power of feminine strength.
                 </p>
               </div>
