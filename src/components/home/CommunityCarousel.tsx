@@ -52,7 +52,7 @@ export function CommunityCarousel() {
         {/* Header — constrained */}
         <div className="container-luxury">
           <h2 className="font-heading text-h1 font-light uppercase tracking-luxury text-brand-purple">
-            ISIVIS Community
+            Join The Queendom
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-neutral-600">
             Tag us @maisonisivis and flaunt away turning everyone&apos;s fantasy
