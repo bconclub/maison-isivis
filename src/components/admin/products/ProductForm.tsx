@@ -607,6 +607,10 @@ export function ProductForm({ product, mode }: ProductFormProps) {
             <input type="checkbox" {...register("bestseller")} className="rounded border-neutral-300" />
             Best Seller
           </label>
+          <label className="flex items-center gap-2 text-sm text-neutral-700">
+            <input type="checkbox" {...register("trending")} className="rounded border-neutral-300" />
+            Trending
+          </label>
         </div>
       </div>
 
