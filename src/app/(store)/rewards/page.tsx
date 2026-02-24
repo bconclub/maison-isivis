@@ -1,14 +1,24 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-
-export const metadata: Metadata = {
-  title: "Join The Queendom | Maison ISIVIS",
-  description:
-    "Join forces with ISIVIS London. Become part of our affiliate program, earn rewards, and be part of a global community of empowered women.",
-};
+import { Input } from "@/components/ui/Input";
+import { toast } from "@/components/ui/Toast";
 
 export default function RewardsPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate submission
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    toast("Application submitted! We'll be in touch soon.", "success");
+    setIsSubmitting(false);
+    (e.target as HTMLFormElement).reset();
+  }
+
   return (
     <div className="container-luxury py-8 sm:py-12">
       <Breadcrumbs
@@ -43,10 +53,76 @@ export default function RewardsPage() {
           </p>
         </section>
 
+        {/* Application Form */}
+        <section className="mt-12">
+          <div className="rounded-luxury-md border border-neutral-100 bg-white p-6 shadow-sm sm:p-8">
+            <h2 className="mb-2 font-heading text-h3 font-light text-neutral-800">
+              Apply to Collaborate
+            </h2>
+            <p className="mb-8 text-body-sm text-neutral-500">
+              Fill in your details and we&apos;ll get back to you.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <Input
+                label="Instagram Username"
+                placeholder="Instagram Username"
+                required
+              />
+              <Input
+                label="Email Id"
+                type="email"
+                placeholder="Email Id"
+                required
+              />
+              <Input
+                label="Phone Number"
+                type="tel"
+                placeholder="Phone Number"
+                required
+              />
+
+              {/* Why do you want to work with us */}
+              <div>
+                <label className="mb-1.5 block text-body-sm font-medium text-neutral-700">
+                  Why do you want to work with us
+                </label>
+                <textarea
+                  rows={4}
+                  placeholder="Tell us why you'd be a great fit..."
+                  className="w-full rounded-luxury-md border border-neutral-200 bg-white px-4 py-3 font-body text-base text-neutral-900 placeholder:text-neutral-400 transition-all duration-200 focus:border-brand-blue focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10"
+                  required
+                />
+              </div>
+
+              {/* Screenshots of insights */}
+              <div>
+                <label className="mb-1.5 block text-body-sm font-medium text-neutral-700">
+                  Screenshots of insights
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="w-full rounded-luxury-md border border-neutral-200 bg-white px-4 py-3 font-body text-sm text-neutral-600 file:mr-4 file:rounded-md file:border-0 file:bg-brand-purple/10 file:px-4 file:py-2 file:text-sm file:font-medium file:text-brand-purple hover:file:bg-brand-purple/20 transition-all duration-200 focus:border-brand-blue focus:outline-none focus:ring-[3px] focus:ring-brand-blue/10"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex w-full items-center justify-center rounded-luxury-md bg-gradient-to-r from-brand-purple via-brand-purple-80 to-brand-blue px-6 py-3.5 text-body-sm font-medium uppercase tracking-luxury text-white shadow-md transition-all duration-300 hover:shadow-luxury hover:brightness-110 disabled:opacity-50"
+              >
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </button>
+            </form>
+          </div>
+        </section>
+
         {/* CTA */}
         <div className="mt-12 rounded-luxury-md bg-neutral-50 p-6 text-center sm:p-8">
           <p className="text-body-sm text-neutral-600">
-            Interested in collaborating?{" "}
+            Have questions?{" "}
             <Link
               href="/contact"
               className="font-medium text-brand-purple hover:underline"
