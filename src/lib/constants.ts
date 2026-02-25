@@ -73,8 +73,7 @@ export const FOOTER_LINKS = {
     { label: "FAQ", href: "/faq" },
     { label: "Fit Guide", href: "/size-guide" },
     { label: "Fabric Care", href: "/fabric-care" },
-    { label: "Join The Queendom", href: "/rewards" },
-    { label: "Rewards", href: "/rewards" },
+    { label: "Join The Queendom", href: "/join-the-queendom" },
   ],
   info: [
     { label: "About Us", href: "/about" },
