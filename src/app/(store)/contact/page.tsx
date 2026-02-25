@@ -18,10 +18,26 @@ export default function ContactPage() {
   });
 
   async function onSubmit(data: ContactFormData) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast("Message sent! We'll get back to you shortly.", "success");
-    console.log("Contact form:", data);
-    reset();
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const json = await res.json();
+        throw new Error(json.error || "Failed to send");
+      }
+
+      toast("Message sent! We'll get back to you shortly.", "success");
+      reset();
+    } catch (err) {
+      toast(
+        err instanceof Error ? err.message : "Something went wrong",
+        "error"
+      );
+    }
   }
 
   return (

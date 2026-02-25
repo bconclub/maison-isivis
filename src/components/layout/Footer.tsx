@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SITE_NAME, FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
+import { NewsletterForm } from "./NewsletterForm";
 
 export function Footer() {
   return (
@@ -45,26 +46,7 @@ export function Footer() {
             </p>
 
             {/* Newsletter */}
-            <form className="mt-6">
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 rounded-luxury border border-white/15 bg-white/10 px-3.5 py-2.5 text-body-sm text-white placeholder:text-white/40 focus:border-brand-blue focus:outline-none focus:ring-[2px] focus:ring-brand-blue/20"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="rounded-luxury bg-brand-gradient px-5 py-2.5 text-caption font-medium uppercase tracking-luxury text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-luxury-sm"
-                >
-                  Subscribe
-                </button>
-              </div>
-              <p className="mt-2 text-[11px] leading-relaxed text-white/30">
-                By signing up you agree to our Terms &amp; Conditions. You can
-                unsubscribe at anytime you wish.
-              </p>
-            </form>
+            <NewsletterForm />
           </div>
 
           {/* Column 2: Help */}
