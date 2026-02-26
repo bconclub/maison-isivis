@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Privacy Policy | Maison ISIVIS",
   description:
-    "Learn how ISIVIS London collects, uses, and protects your personal information when you visit our website or make a purchase.",
+    "Learn how Maison ISIVIS collects, uses, and protects your personal information when you visit our website or make a purchase.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
           Privacy Policy
         </h1>
         <p className="mt-4 text-body-sm leading-relaxed text-neutral-600">
-          This Privacy Policy explains how ISIVIS London collects, uses, and
+          This Privacy Policy explains how Maison ISIVIS collects, uses, and
           shares your personal information when you visit our website or make a
           purchase.
         </p>

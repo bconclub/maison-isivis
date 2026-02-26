@@ -24,7 +24,7 @@ export default function FitGuidePage() {
             <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
               <Image
                 src="/images/Fit guide/001.webp"
-                alt="ISIVIS London size chart showing measurements for XS through XXL across US/CAN, UK, EU, and AUS sizing"
+                alt="Maison ISIVIS size chart showing measurements for XS through XXL across US/CAN, UK, EU, and AUS sizing"
                 fill
                 className="object-contain"
                 sizes="(max-width: 768px) 100vw, 768px"

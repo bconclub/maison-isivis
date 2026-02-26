@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { CartItem, CartSummary } from "@/types/cart";
 import type { Product } from "@/types/product";
+import { toast } from "@/components/ui/Toast";
 import {
   TAX_RATE,
   FREE_SHIPPING_THRESHOLD,
@@ -58,6 +59,7 @@ export const useCartStore = create<CartState>()(
                 MAX_CART_QUANTITY
               ),
             };
+            setTimeout(() => toast(`Added another ${product.name || "item"} to your bag`, "success"), 0);
             return { items: updatedItems };
           }
 
@@ -69,14 +71,21 @@ export const useCartStore = create<CartState>()(
             selectedColor: options?.color,
           };
 
+          setTimeout(() => toast(`Added ${product.name || "item"} to your bag`, "success"), 0);
           return { items: [...state.items, newItem] };
         });
       },
 
       removeItem: (itemId) => {
-        set((state) => ({
-          items: state.items.filter((item) => item.id !== itemId),
-        }));
+        set((state) => {
+          const item = state.items.find((i) => i.id === itemId);
+          if (item) {
+            setTimeout(() => toast(`Removed ${item.product.name || "item"} from your bag`, "info"), 0);
+          }
+          return {
+            items: state.items.filter((i) => i.id !== itemId),
+          };
+        });
       },
 
       updateQuantity: (itemId, quantity) => {
@@ -120,7 +129,7 @@ export const useCartStore = create<CartState>()(
         const hasShippableItems = items.some((item) => item.product.shippingEnabled !== false);
         const shipping =
           !hasShippableItems ? 0 :
-          subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
+            subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
         const discount = 0;
         const total = subtotal + tax + shipping - discount;
         const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);

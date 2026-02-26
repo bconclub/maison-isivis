@@ -510,8 +510,8 @@ const FAQ_SECTIONS: FAQSection[] = [
         a: (
           <>
             <p>
-              ISIVIS London was launched by model, actor, entrepreneur, and
-              philanthropist Ishita Reha Gupta during the peak of the COVID-19
+              Maison ISIVIS was launched by model, actor, entrepreneur, and
+              philanthropist Isdeivsa Isivis during the peak of the COVID-19
               pandemic in 2021.
             </p>
             <p className="mt-3">

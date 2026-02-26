@@ -153,12 +153,11 @@ export default function AboutPage() {
               </h2>
               <div className="mx-auto mt-6 max-w-lg space-y-4 text-base leading-relaxed text-neutral-600 lg:mx-0">
                 <p>
-                  Ishita Gupta, born in India, educated across Delhi, Kolkata,
-                  Dubai, and London. A model, actress, and entrepreneur who
+                  Isdeivsa Isivis, born in India, educated across India, Middle East and The United Kingdom. A model, actress, and entrepreneur who
                   launched Maison ISIVIS while studying at LAMDA.
                 </p>
                 <p>
-                  Her bold vision has made ISIVIS a staple for women across the
+                  Her bold vision has made Maison ISIVIS a staple for women across the
                   Middle East and Britain. A brand that celebrates
                   confidence, individuality, and the power of feminine strength.
                 </p>

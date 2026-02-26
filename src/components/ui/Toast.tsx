@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { create } from "zustand";
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => { };
 function useMounted() {
   return useSyncExternalStore(
     emptySubscribe,
@@ -62,10 +62,10 @@ export function toast(
 
 // === Toast Item Component ===
 const variantStyles = {
-  success: "border-success bg-success/5 text-success",
-  error: "border-error bg-error/5 text-error",
-  warning: "border-warning bg-warning/5 text-warning",
-  info: "border-info bg-info/5 text-info",
+  success: "border-green-500 bg-green-50 text-green-900 border-l-4",
+  error: "border-red-500 bg-red-50 text-red-900 border-l-4",
+  warning: "border-amber-500 bg-amber-50 text-amber-900 border-l-4",
+  info: "border-blue-500 bg-blue-50 text-blue-900 border-l-4",
 } as const;
 
 const variantIcons: Record<ToastVariant, string> = {
@@ -95,7 +95,7 @@ function ToastItemComponent({ item }: { item: ToastItem }) {
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
       className={cn(
-        "flex items-center gap-3 rounded-luxury-md border bg-white px-4 py-3 shadow-luxury",
+        "flex items-center gap-3 rounded-luxury-md border px-4 py-3 shadow-luxury",
         variantStyles[item.variant]
       )}
       role="alert"

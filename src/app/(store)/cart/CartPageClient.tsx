@@ -9,7 +9,7 @@ import { PromoCodeInput } from "@/components/cart/PromoCodeInput";
 import { EmptyCartState } from "@/components/cart/EmptyCartState";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => { };
 
 export function CartPageClient() {
   const items = useCartStore((s) => s.items);

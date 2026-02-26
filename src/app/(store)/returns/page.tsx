@@ -18,7 +18,7 @@ export default function ReturnPolicyPage() {
           Return Policy
         </h1>
         <p className="mt-4 text-body-sm leading-relaxed text-neutral-600">
-          At ISIVIS London we put love and attention into hand-crafting our
+          At Maison ISIVIS we put love and attention into hand-crafting our
           products, but we understand that they may not always meet your
           expectations. If you are not completely satisfied with your purchase,
           you can request a return or exchange within 7 business days from the
@@ -178,7 +178,7 @@ export default function ReturnPolicyPage() {
             Lost Items
           </h2>
           <p className="mt-4 text-body-sm leading-relaxed text-neutral-600">
-            ISIVIS London is not responsible for customs fees, taxes, or lost or
+            Maison ISIVIS is not responsible for customs fees, taxes, or lost or
             stolen items. Additionally, we are not liable for incorrect shipping
             information provided by customers.
           </p>

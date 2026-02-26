@@ -70,7 +70,7 @@ export default function JoinTheQueendomPage() {
         {/* Left — Image */}
         <div className="relative mx-auto aspect-[3/4] w-full max-w-md overflow-hidden rounded-luxury-md bg-brand-gradient">
           <Image
-            src="/images/hero/queendom.webp"
+            src="/images/hero/queendom.jpeg"
             alt="Join The Queendom"
             fill
             className="object-cover"
@@ -89,14 +89,14 @@ export default function JoinTheQueendomPage() {
           </h2>
 
           <p className="mt-4 text-body-sm leading-relaxed text-neutral-600">
-            Established in 2021 in the vibrant city of London, ISIVIS London has
+            Established in 2021 in the vibrant city of London, Maison ISIVIS has
             swiftly risen to prominence as a top-tier international fashion
             design company, embodying contemporary sensuality and opulence on a
             global scale. As the premier next-generation designer in London, we
             specialize in creating, producing, distributing, and retailing
             fashion and lifestyle items tailored for the discerning Millennial
             and Gen Z audience, emphasizing quality, comfort, and luxury. From
-            the outset, ISIVIS London has been a trailblazer, pushing boundaries
+            the outset, Maison ISIVIS has been a trailblazer, pushing boundaries
             and revolutionizing the fashion landscape. With a commitment to
             innovation, we continuously introduce new products, staying ahead of
             the curve to offer our community an unparalleled and glamorous

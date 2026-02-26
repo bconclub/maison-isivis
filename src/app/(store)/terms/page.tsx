@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Maison ISIVIS",
   description:
-    "Terms and Conditions governing the sale and purchase of goods from ISIVIS London. Orders, pricing, payment, and customer responsibilities.",
+    "Terms and Conditions governing the sale and purchase of goods from Maison ISIVIS. Orders, pricing, payment, and customer responsibilities.",
 };
 
 export default function TermsPage() {
@@ -21,7 +21,7 @@ export default function TermsPage() {
         </h1>
         <p className="mt-4 text-body-sm leading-relaxed text-neutral-600">
           The following Terms and Conditions govern the sale and purchase of
-          goods between you and ISIVIS London. Your statutory rights as a
+          goods between you and Maison ISIVIS. Your statutory rights as a
           consumer are not affected by these Terms and Conditions. By placing an
           order with us, you agree to adhere to these Terms and Conditions.
           Please note that these Terms and Conditions may be revised without

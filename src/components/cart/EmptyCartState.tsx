@@ -1,12 +1,14 @@
-import Link from "next/link";
+"use client";
 
-interface EmptyCartStateProps {
+import Link from "next/link";
+import { useCartStore } from "@/lib/stores/cart-store"; interface EmptyCartStateProps {
   /** "drawer" shows a compact version, "page" shows a full-width version */
   variant?: "drawer" | "page";
 }
 
 export function EmptyCartState({ variant = "drawer" }: EmptyCartStateProps) {
   const isPage = variant === "page";
+  const closeCart = useCartStore((s) => s.closeCart);
 
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -38,6 +40,7 @@ export function EmptyCartState({ variant = "drawer" }: EmptyCartStateProps) {
 
       <Link
         href="/products"
+        onClick={closeCart}
         className="inline-flex h-11 items-center justify-center rounded-luxury-md bg-brand-purple px-6 text-body-sm font-medium uppercase tracking-luxury text-white transition-all duration-300 hover:bg-brand-purple-light hover:shadow-luxury"
       >
         Continue Shopping
