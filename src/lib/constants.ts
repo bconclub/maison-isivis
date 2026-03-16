@@ -98,9 +98,10 @@ export const CURRENCY = "GBP";
 export const CURRENCY_SYMBOL = "\u00a3";
 export const DEFAULT_PAGE_SIZE = 24;
 export const MAX_CART_QUANTITY = 10;
-export const FREE_SHIPPING_THRESHOLD = 50;
-export const STANDARD_SHIPPING_COST = 4.99;
+export const FREE_SHIPPING_THRESHOLD = 150;
+export const STANDARD_SHIPPING_COST = 12;
 export const EXPRESS_SHIPPING_COST = 9.99;
+export const INTERNATIONAL_SHIPPING_COST = 12;
 export const TAX_RATE = 0.2; // 20% UK VAT
 
 export const SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
