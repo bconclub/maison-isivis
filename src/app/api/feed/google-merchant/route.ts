@@ -165,8 +165,8 @@ ${buildShippingEntries(regularPrice)}`;
             v.stock > 0 ? "in_stock" : "out_of_stock";
 
           items.push(`    <item>
-      <g:id>${escapeXml(p.id)}_${escapeXml(v.variantId)}</g:id>
-      <g:item_group_id>${escapeXml(p.id)}</g:item_group_id>
+      <g:id>${escapeXml(p.slug)}_${escapeXml(v.size || v.variantId).substring(0, 20)}</g:id>
+      <g:item_group_id>${escapeXml(p.slug)}</g:item_group_id>
 ${sharedFields}
       <g:availability>${variantAvailability}</g:availability>
       <g:size>${escapeXml(v.size || "One Size")}</g:size>
@@ -176,7 +176,7 @@ ${sharedFields}
       } else {
         // Non-variant product — single item
         items.push(`    <item>
-      <g:id>${escapeXml(p.id)}</g:id>
+      <g:id>${escapeXml(p.slug)}</g:id>
 ${sharedFields}
       <g:availability>${p.in_stock ? "in_stock" : "out_of_stock"}</g:availability>
       <g:size>One Size</g:size>
