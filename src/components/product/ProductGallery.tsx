@@ -57,6 +57,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 src={img.url}
                 alt={img.alt ?? `${productName} - Image ${i + 1}`}
                 fill
+                loading="eager"
                 className="object-cover"
                 sizes="80px"
               />
