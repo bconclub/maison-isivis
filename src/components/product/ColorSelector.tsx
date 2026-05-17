@@ -38,6 +38,7 @@ const COLOR_HEX_MAP: Record<string, string> = {
   Fuchsia: "#C850C0",
   Magenta: "#C850C0",
   "Hot Pink": "#FF69B4",
+  "Metallic Pink": "#E8739A",
   Berry: "#8E3A59",
   Raspberry: "#B5305A",
   Rosewood: "#65000B",
