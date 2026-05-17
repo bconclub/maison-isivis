@@ -10,6 +10,21 @@ import { useUIStore } from "@/lib/stores/ui-store";
 import { getFilteredProducts } from "@/lib/mock-data";
 import { formatPrice } from "@/lib/utils";
 
+function SearchResultImage({ src, alt }: { src: string; alt: string }) {
+  const [error, setError] = useState(false);
+  if (error) return <div className="absolute inset-0 bg-neutral-200" />;
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      className="object-cover"
+      sizes="44px"
+      onError={() => setError(true)}
+    />
+  );
+}
+
 export function SearchModal() {
   const isOpen = useUIStore((s) => s.isSearchOpen);
   const closeSearch = useUIStore((s) => s.closeSearch);
@@ -144,12 +159,9 @@ export function SearchModal() {
                           >
                             <div className="relative h-14 w-11 shrink-0 overflow-hidden rounded bg-neutral-100">
                               {product.images[0] ? (
-                                <Image
+                                <SearchResultImage
                                   src={product.images[0].url}
                                   alt={product.images[0].alt ?? product.name}
-                                  fill
-                                  className="object-cover"
-                                  sizes="44px"
                                 />
                               ) : (
                                 <div className="absolute inset-0 bg-neutral-200" />
