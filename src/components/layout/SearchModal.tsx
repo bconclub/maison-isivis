@@ -7,7 +7,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { modalOverlay } from "@/lib/animations";
 import { useUIStore } from "@/lib/stores/ui-store";
-import { getFilteredProducts } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/client";
 import { formatPrice } from "@/lib/utils";
 
 function SearchResultImage({ src, alt }: { src: string; alt: string }) {
@@ -25,12 +25,23 @@ function SearchResultImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+interface SearchProduct {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  sale_price: number | null;
+  images: { url: string; alt: string }[];
+}
+
 export function SearchModal() {
   const isOpen = useUIStore((s) => s.isSearchOpen);
   const closeSearch = useUIStore((s) => s.closeSearch);
   const router = useRouter();
 
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchProduct[] | null>(null);
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Focus input when opened
@@ -41,17 +52,43 @@ export function SearchModal() {
     } else {
       document.body.style.overflow = "";
       setQuery("");
+      setResults(null);
     }
     return () => {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
 
-  // Live search results
-  const results =
-    query.length >= 2
-      ? getFilteredProducts({ search: query, limit: 5 })
-      : null;
+  // Debounced Supabase search
+  useEffect(() => {
+    if (query.length < 2) {
+      setResults(null);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      try {
+        const supabase = createClient();
+        const { data } = await supabase
+          .from("products")
+          .select("id, name, slug, price, sale_price, images")
+          .eq("published", true)
+          .ilike("name", `%${query}%`)
+          .limit(5);
+
+        const products = (data ?? []).map((row) => ({
+          ...row,
+          images: typeof row.images === "string" ? JSON.parse(row.images) : (row.images ?? []),
+        }));
+        setResults(products);
+      } catch {
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [query]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -73,6 +110,8 @@ export function SearchModal() {
     if (isOpen) window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isOpen, closeSearch]);
+
+  const hasResults = results !== null;
 
   return (
     <AnimatePresence>
@@ -142,15 +181,19 @@ export function SearchModal() {
               </form>
 
               {/* Results */}
-              {results && (
+              {hasResults && (
                 <div className="mt-6">
-                  {results.products.length > 0 ? (
+                  {loading ? (
+                    <div className="py-8 text-center">
+                      <p className="text-body-sm text-neutral-400">Searching...</p>
+                    </div>
+                  ) : results!.length > 0 ? (
                     <>
                       <p className="mb-3 text-caption font-medium uppercase tracking-luxury text-neutral-500">
-                        {results.total} result{results.total !== 1 ? "s" : ""} found
+                        {results!.length} result{results!.length !== 1 ? "s" : ""} found
                       </p>
                       <div className="space-y-2">
-                        {results.products.map((product) => (
+                        {results!.map((product) => (
                           <Link
                             key={product.id}
                             href={`/products/${product.slug}`}
@@ -171,26 +214,21 @@ export function SearchModal() {
                               <p className="truncate text-body-sm font-medium text-neutral-900">
                                 {product.name}
                               </p>
-                              <p className="text-caption text-neutral-500">
-                                {product.categories?.map((c) => c.name).join(", ") ?? product.category?.name}
-                              </p>
                             </div>
                             <span className="text-body-sm font-medium text-brand-purple">
-                              {formatPrice(product.salePrice ?? product.price)}
+                              {formatPrice(product.sale_price ?? product.price)}
                             </span>
                           </Link>
                         ))}
                       </div>
 
                       {/* View all */}
-                      {results.total > 5 && (
-                        <button
-                          onClick={handleSubmit as () => void}
-                          className="mt-4 w-full rounded-luxury-md border border-neutral-200 py-3 text-center text-body-sm font-medium text-neutral-700 transition-colors hover:border-brand-purple hover:text-brand-purple"
-                        >
-                          View all {results.total} results
-                        </button>
-                      )}
+                      <button
+                        onClick={handleSubmit as () => void}
+                        className="mt-4 w-full rounded-luxury-md border border-neutral-200 py-3 text-center text-body-sm font-medium text-neutral-700 transition-colors hover:border-brand-purple hover:text-brand-purple"
+                      >
+                        View all results for &ldquo;{query}&rdquo;
+                      </button>
                     </>
                   ) : (
                     <div className="py-8 text-center">
@@ -206,7 +244,7 @@ export function SearchModal() {
               )}
 
               {/* Quick Links (when no query) */}
-              {!results && (
+              {!hasResults && (
                 <div className="mt-6">
                   <p className="mb-3 text-caption font-medium uppercase tracking-luxury text-neutral-500">
                     Popular Searches
