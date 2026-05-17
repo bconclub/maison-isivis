@@ -77,7 +77,11 @@ export function SearchModal() {
           .limit(5);
 
         const products = (data ?? []).map((row) => ({
-          ...row,
+          id: row.id,
+          name: row.name,
+          slug: row.slug,
+          price: row.price,
+          sale_price: row.sale_price,
           images: typeof row.images === "string" ? JSON.parse(row.images) : (row.images ?? []),
         }));
         setResults(products);
