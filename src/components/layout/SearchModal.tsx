@@ -76,12 +76,14 @@ export function SearchModal() {
           .ilike("name", `%${query}%`)
           .limit(5);
 
-        const products = (data ?? []).map((row) => ({
-          id: row.id,
-          name: row.name,
-          slug: row.slug,
-          price: row.price,
-          sale_price: row.sale_price,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const rows = (data ?? []) as any[];
+        const products = rows.map((row) => ({
+          id: row.id as string,
+          name: row.name as string,
+          slug: row.slug as string,
+          price: row.price as number,
+          sale_price: row.sale_price as number | null,
           images: typeof row.images === "string" ? JSON.parse(row.images) : (row.images ?? []),
         }));
         setResults(products);
