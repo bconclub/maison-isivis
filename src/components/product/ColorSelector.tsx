@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { cn } from "@/lib/utils";
 
 const COLOR_HEX_MAP: Record<string, string> = {
@@ -160,6 +161,20 @@ function isLightColor(hex: string): boolean {
   return (r * 299 + g * 587 + b * 114) / 1000 > 200;
 }
 
+/** Returns the CSS style for a color swatch — supports "/" separated multi-colors as a conic-gradient. */
+function resolveColorStyle(color: string): React.CSSProperties {
+  if (color.includes("/")) {
+    const parts = color.split("/").map((c) => c.trim());
+    const hexes = parts.map(resolveColorHex);
+    const slice = 360 / hexes.length;
+    const stops = hexes
+      .map((hex, i) => `${hex} ${i * slice}deg ${(i + 1) * slice}deg`)
+      .join(", ");
+    return { background: `conic-gradient(${stops})` };
+  }
+  return { backgroundColor: resolveColorHex(color) };
+}
+
 interface ColorSelectorProps {
   colors: string[];
   selectedColor: string | null;
@@ -180,10 +195,9 @@ export function ColorSelector({
       </p>
       <div className="flex flex-wrap gap-3">
         {colors.map((color) => {
-          const hex = resolveColorHex(color);
+          const isMulti = color.includes("/");
           const isSelected = selectedColor === color;
-          // Determine if the color is light (needs a visible border)
-          const isLight = isLightColor(hex);
+          const isLight = !isMulti && isLightColor(resolveColorHex(color));
 
           return (
             <button
@@ -196,7 +210,7 @@ export function ColorSelector({
                   : "ring-1 ring-neutral-200 hover:ring-brand-purple/50",
                 isLight && !isSelected && "ring-neutral-300"
               )}
-              style={{ backgroundColor: hex }}
+              style={resolveColorStyle(color)}
               aria-label={color}
               title={color}
             />
