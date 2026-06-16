@@ -6,7 +6,7 @@ import { buildOrderConfirmationHtml } from "@/lib/email-templates/order-confirma
 
 let resendInstance: Resend | null = null;
 
-function getResend(): Resend {
+export function getResend(): Resend {
   if (!resendInstance) {
     const key = process.env.RESEND_API_KEY;
     if (!key) throw new Error("Missing RESEND_API_KEY env var");

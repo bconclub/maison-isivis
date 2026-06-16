@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { Resend } from "resend";
+import { getResend } from "@/lib/email";
 import { SITE_NAME } from "@/lib/constants";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,8 +27,9 @@ export async function POST(req: NextRequest) {
       console.error("[Newsletter] DB error:", dbError);
     }
 
-    // Send notification to admin
-    resend.emails.send({
+    // Send notification to admin — fire-and-forget, never blocks subscription
+    try {
+      getResend().emails.send({
       from: `${SITE_NAME} <orders@maisonisivis.com>`,
       to: "connect@maisonisivis.com",
       subject: `New Newsletter Subscriber: ${email}`,
@@ -45,7 +44,10 @@ export async function POST(req: NextRequest) {
           </p>
         </div>
       `,
-    }).catch((err) => console.error("[Newsletter] Email error:", err));
+      }).catch((err) => console.error("[Newsletter] Email error:", err));
+    } catch (err) {
+      console.error("[Newsletter] Email setup error:", err);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {

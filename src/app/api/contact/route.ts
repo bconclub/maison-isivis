@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { getResend } from "@/lib/email";
 import { SITE_NAME } from "@/lib/constants";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
+    const resend = getResend();
+
     const { name, email, subject, message } = (await req.json()) as {
       name: string;
       email: string;
