@@ -4,12 +4,11 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 
 const COMMUNITY_PHOTOS = [
-  { src: "/images/community/Commnity-1.webp", alt: "ISIVIS community look 1" },
-  { src: "/images/community/Commnity-2.webp", alt: "ISIVIS community look 2" },
-  { src: "/images/community/Commnity-3.webp", alt: "ISIVIS community look 3" },
-  { src: "/images/community/Commnity-4.webp", alt: "ISIVIS community look 4" },
-  { src: "/images/community/Commnity-5.webp", alt: "ISIVIS community look 5" },
-  { src: "/images/community/Commnity-6.webp", alt: "ISIVIS community look 6" },
+  { src: "/images/community/community-1.webp", alt: "ISIVIS community look 1" },
+  { src: "/images/community/community-2.webp", alt: "ISIVIS community look 2" },
+  { src: "/images/community/community-3.webp", alt: "ISIVIS community look 3" },
+  { src: "/images/community/community-4.webp", alt: "ISIVIS community look 4" },
+  { src: "/images/community/community-5.webp", alt: "ISIVIS community look 5" },
 ];
 
 export function CommunityCarousel() {
