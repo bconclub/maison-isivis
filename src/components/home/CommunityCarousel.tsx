@@ -173,7 +173,7 @@ export function CommunityCarousel() {
                   alt={photo.alt}
                   fill
                   draggable={false}
-                  className="pointer-events-none object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="pointer-events-none object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw"
                 />
                 {/* Hover overlay with Instagram icon */}
