@@ -9,6 +9,7 @@ const COMMUNITY_PHOTOS = [
   { src: "/images/community/community-3.webp", alt: "ISIVIS community look 3" },
   { src: "/images/community/community-4.webp", alt: "ISIVIS community look 4" },
   { src: "/images/community/community-5.webp", alt: "ISIVIS community look 5" },
+  { src: "/images/community/community-6.webp", alt: "ISIVIS community look 6" },
 ];
 
 export function CommunityCarousel() {
