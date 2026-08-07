@@ -41,3 +41,11 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - The panel tint is dark, not white. The copy is white, so a light frost would lift the backdrop and cost contrast — the opposite of what a frosted panel is for here.
 - Kept deliberately thin (45% tint, medium blur) so the pattern still reads through the glass. White text measures 6.35:1 and the sub-line 4.74:1, both above AA, before the blur softens the strokes further.
 - Heading now steps up to `text-hero` at `2xl` rather than `xl`: the panel's padding takes 80px off the column, which left only 496px against 476px of text at `xl`.
+
+## 2026-08-07 · Tiled brand motif with parallax
+
+- The hero pattern is now a repeating motif rather than one stretched image. `011.png` repeats every 284x377px — found by autocorrelating a high-passed copy — so that block was cut out, high-passed to drop its radial gradient, and reduced to an alpha mask that can be tinted.
+- The full artwork could never tile: its edges mismatched by 20.5 (horizontal) and 25.8 (vertical). The extracted tile mismatches by 6.9 and 9.0. Tile height was tuned to 377px rather than the measured 374px, which cut the vertical seam from 59.3 to 9.0.
+- Rendered at 150px on mobile and 200px from `sm`, so the motif reads as fine repeating ornament instead of one oversized crop.
+- **Parallax** — the motif pans at 0.35x scroll speed. It shifts `background-position` rather than transforming the layer: a repeating background can be panned indefinitely without exposing an edge, so no oversized element is needed. Written straight to the DOM inside `requestAnimationFrame`, so scrolling never re-renders the hero, and skipped entirely under `prefers-reduced-motion`.
+- Asset dropped from 279 KB to 38 KB.

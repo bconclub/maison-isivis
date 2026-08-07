@@ -1,13 +1,40 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export function HeroSlideshow() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const patternRef = useRef<HTMLDivElement>(null);
   // Browsers only allow autoplay while muted, so the film starts silent and
   // the viewer opts into the voiceover.
   const [muted, setMuted] = useState(true);
+
+  // Parallax. Shifts background-position rather than transforming the layer:
+  // the motif repeats, so panning it can never expose an edge, and it needs
+  // no oversized element. Written straight to the DOM inside rAF so scrolling
+  // doesn't re-render the hero on every frame.
+  useEffect(() => {
+    const el = patternRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      el.style.backgroundPositionY = `${window.scrollY * 0.35}px`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = window.requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
 
   function toggleSound() {
     const v = videoRef.current;
@@ -24,12 +51,15 @@ export function HeroSlideshow() {
 
   return (
     <section className="relative overflow-hidden bg-brand-purple">
-      {/* Brand pattern (011.png) as the hero field, shown at full strength —
-          legibility is handled by the frosted panel behind the copy rather
-          than by flattening the artwork. */}
+      {/* Brand motif, tiled. Drawn from 011.png: the artwork repeats every
+          284x377px, so that block was cut out, high-passed to drop its radial
+          gradient, and reduced to an alpha mask. It tiles cleanly (seam error
+          6.9 horizontal / 9.0 vertical) which the full artwork could not.
+          Scrolls slower than the page for parallax. */}
       <div
+        ref={patternRef}
         aria-hidden
-        className="absolute inset-0 bg-[url('/images/brand/hero-pattern.webp')] bg-cover bg-center"
+        className="absolute inset-0 bg-[url('/images/brand/motif-tile.png')] bg-[length:150px_199px] bg-repeat sm:bg-[length:200px_266px]"
       />
       {/* Light scrim only, to seat the pattern against the brand purple. */}
       <div aria-hidden className="absolute inset-0 bg-brand-purple/15" />
