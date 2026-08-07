@@ -71,10 +71,13 @@ export function HeroSlideshow() {
           <div className="order-2 min-w-0 lg:order-1">
             {/* Frosted panel. The tint is dark, not white: the copy is white,
                 so a light frost would lift the backdrop and cost contrast.
-                Kept deliberately thin — 45% and a medium blur — so the pattern
-                still reads through the glass. White measures 6.35:1 and the
-                sub-line 4.74:1, both above AA, before the blur helps further. */}
-            <div className="rounded-luxury border border-white/15 bg-brand-purple/45 p-8 text-center shadow-luxury-lg backdrop-blur-md sm:p-10 lg:text-left">
+                Thinned to 40% with a light blur so the motif reads through the
+                glass. Measured against the tiled motif's brightest stroke —
+                rgb(214,205,245), brighter than the raw artwork — the heading
+                sits at 5.00:1 and the sub-line at 4.71:1. The sub-line carries
+                the extra weight instead of the panel, which is what lets the
+                frost come down. */}
+            <div className="rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left">
               {/* Steps up only at 2xl. text-hero is 72px, where "Turning
                   Fantasy" measures 476px in Italiana; the panel's padding
                   takes 80px off the column, leaving only 496px at xl. */}
@@ -83,7 +86,7 @@ export function HeroSlideshow() {
                 <br />
                 Into Reality
               </h1>
-              <p className="mx-auto mt-6 max-w-md font-body text-body-lg text-white/80 lg:mx-0">
+              <p className="mx-auto mt-6 max-w-md font-body text-body-lg text-white/95 lg:mx-0">
                 Prêt-à-couture from our London atelier.
               </p>
               <div className="mt-10">
@@ -113,7 +116,7 @@ export function HeroSlideshow() {
           {/* Film — right. Held at its native 464x848 portrait ratio and
               capped in width so it is never upscaled. */}
           <div className="order-1 lg:order-2">
-            <div className="relative mx-auto aspect-[464/848] w-full max-w-[300px] overflow-hidden rounded-luxury bg-black/30 shadow-luxury-lg sm:max-w-[360px] lg:max-w-[420px]">
+            <div className="relative mx-auto aspect-[464/848] w-full max-w-[300px] overflow-hidden rounded-luxury-lg bg-black/30 shadow-luxury-lg sm:max-w-[360px] lg:max-w-[420px]">
               <video
                 ref={videoRef}
                 className="h-full w-full object-cover"

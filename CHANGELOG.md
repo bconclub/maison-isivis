@@ -49,3 +49,10 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - Rendered at 150px on mobile and 200px from `sm`, so the motif reads as fine repeating ornament instead of one oversized crop.
 - **Parallax** — the motif pans at 0.35x scroll speed. It shifts `background-position` rather than transforming the layer: a repeating background can be panned indefinitely without exposing an edge, so no oversized element is needed. Written straight to the DOM inside `requestAnimationFrame`, so scrolling never re-renders the hero, and skipped entirely under `prefers-reduced-motion`.
 - Asset dropped from 279 KB to 38 KB.
+
+## 2026-08-07 · Lighter frost, softened panel edges
+
+- **Frost reduced** — panel tint 45% → 40%, blur `md` → `sm`, so more of the motif reads through the glass.
+- The sub-line now carries the weight instead of the panel (`white/80` → `white/95`), which is what allows the frost to come down without losing legibility. Measured against the tiled motif's brightest stroke — rgb(214,205,245), *brighter* than the raw artwork, since the tile is tinted and its alpha boosted — the heading sits at 5.00:1 and the sub-line at 4.71:1.
+- Worth noting: at the previous 45% the sub-line was actually at 4.32:1, marginally under AA. Earlier figures had been computed against the full-bleed artwork, before the background became a tinted tile.
+- **New radius step** — `rounded-luxury-lg` (12px) added to the scale. The house style is 2px/4px, which reads as unfinished on a large glass surface with a visible blur edge, but anything app-like would fight the brand. One step in between, added to the scale rather than hardcoded, and applied to both the copy panel and the film frame so they match.

@@ -78,6 +78,10 @@ const config: Config = {
       borderRadius: {
         luxury: "2px",
         "luxury-md": "4px",
+        // For large surfaces only (glass panels, feature cards). The 2px house
+        // style reads as unfinished at that scale, but anything app-like would
+        // fight it — this is the one step in between.
+        "luxury-lg": "12px",
       },
       backgroundImage: {
         "brand-gradient":
