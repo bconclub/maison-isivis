@@ -30,3 +30,11 @@ Last updated: 2026-08-07
 | 20 | 2026-08-07 | Process | Move requests off WhatsApp → brands@bconclub.com | Internal | Medium | Pending | |
 | 21 | 2026-08-07 | Process | Client asked for one dedicated person on the account | Client | Medium | Pending | User decision |
 | 22 | 2026-08-07 | Deploy | Ship uncommitted work (Back In Stock carousel + admin fixes) | Internal | High | Pending | 5 files modified, unpushed |
+
+## Live incident — found 2026-08-07
+
+| ID | Area | Item | Priority | Status | Notes |
+|----|------|------|----------|--------|-------|
+| 23 | Infrastructure | **`www.maisonisivis.com` TLS certificate expired 25 Jul 2026** | **Critical** | Blocked | Every visitor to the `www` host gets a browser security interstitial. Apex `maisonisivis.com` is healthy (cert valid to 24 Sep 2026). Needs Vercel dashboard access to re-issue |
+| 24 | SEO / Ads | Google Merchant feed emits 148 product links on the broken `www` host | **Critical** | Blocked | `NEXT_PUBLIC_SITE_URL` is set to `https://www.maisonisivis.com`. Fix the cert, or repoint the env var at the apex and redeploy |
+| 25 | Bug | Product pages soft-404: unknown slugs return HTTP 200 with not-found content | Medium | Pending | Pre-existing. Search engines index soft-404s |
