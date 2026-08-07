@@ -10,7 +10,9 @@ interface ImageManagerProps {
 }
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
-const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif"];
+// Must stay in sync with the upload route and the Supabase bucket's
+// allowed_mime_types — GIF is rejected server-side, so don't offer it.
+const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 
 // ── Upload file to Supabase Storage via API ──
 async function uploadToStorage(file: File): Promise<string> {
@@ -325,7 +327,7 @@ export function ImageManager({ images, onChange }: ImageManagerProps) {
                   {coverDragOver ? "Drop cover image here" : "Click to upload or drag & drop"}
                 </p>
                 <p className="mt-1 text-xs text-neutral-400">
-                  JPG, PNG, WebP, AVIF or GIF. Max 10 MB. Uploaded to cloud.
+                  JPG, PNG, WebP or AVIF. Max 10 MB. Uploaded to cloud.
                 </p>
               </>
             )}
@@ -398,7 +400,7 @@ export function ImageManager({ images, onChange }: ImageManagerProps) {
                 {galleryDragOver ? "Drop images here" : "Click to add gallery images or drag & drop"}
               </p>
               <p className="mt-1 text-xs text-neutral-400">
-                Multiple files allowed. JPG, PNG, WebP, AVIF or GIF. Max 10 MB each.
+                Multiple files allowed. JPG, PNG, WebP or AVIF. Max 10 MB each.
               </p>
             </>
           )}

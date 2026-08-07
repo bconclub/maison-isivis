@@ -15,6 +15,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        // ISV-CR-002 was mislabelled "Elektra Mesh Bodysuit" — its images, copy
+        // and meta title were all Valentina. Renamed; keep the old URL alive.
+        source: "/products/elektra-mesh-body",
+        destination: "/products/valentina-corset-bodysuit",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

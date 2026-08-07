@@ -174,6 +174,20 @@ export async function getProductBySlug(
   return joinCategories(product, categories);
 }
 
+// Returns products in the exact order the slugs are given, skipping any that
+// no longer exist. Used for hand-curated homepage sections.
+export async function getProductsBySlugs(
+  slugs: string[]
+): Promise<Product[]> {
+  const products = await fetchAllProducts();
+  const categories = await fetchAllCategories();
+
+  return slugs
+    .map((slug) => products.find((p) => p.slug === slug))
+    .filter((p): p is Product => Boolean(p) && !p!.hiddenFromListings)
+    .map((p) => joinCategories(p, categories));
+}
+
 export async function getCategoryBySlug(
   slug: string
 ): Promise<Category | undefined> {

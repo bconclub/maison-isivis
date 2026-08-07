@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
 import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
-import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug, getProductBySlug } from "@/lib/data";
+import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug, getProductBySlug, getProductsBySlugs } from "@/lib/data";
 import { CommunityCarousel } from "@/components/home/CommunityCarousel";
 import { BestsellerCarousel } from "@/components/home/BestsellerCarousel";
 import { CategoryCarousel } from "@/components/home/CategoryCarousel";
+import { ProductSpotlight } from "@/components/home/ProductSpotlight";
 import { ProductCard } from "@/components/product/ProductCard";
 
 // Always fetch fresh data so newly featured products appear immediately
@@ -20,11 +20,27 @@ export const metadata: Metadata = {
 
 const FANTASY_SLUGS = ["victoria", "celestia-pearl-dress", "aria-embellished-set", "selene"];
 
+// Hand-curated restock line-up, shown in carousel order
+const BACK_IN_STOCK_SLUGS = [
+  "scarlet-lace",
+  "mary-sequinned-mini-skirt",
+  "lumire-bandande-dress",
+  "luna-strapless-diamente-bandage-dress",
+  "noir-mini-dress",
+  "elowen-white-embellished-dress",
+  "eulalie",
+];
+
+// Single piece given its own full-width slot high on the page
+const SPOTLIGHT_SLUG = "isolde-navy-maxi-dress";
+
 export default async function HomePage() {
-  const [featuredProducts, bestsellerProducts, jewelleryProducts, swimwearProducts, ...fantasyProducts] =
+  const [featuredProducts, bestsellerProducts, backInStockProducts, spotlightProduct, jewelleryProducts, swimwearProducts, ...fantasyProducts] =
     await Promise.all([
       getFeaturedProducts(),
       getBestsellerProducts(8),
+      getProductsBySlugs(BACK_IN_STOCK_SLUGS),
+      getProductBySlug(SPOTLIGHT_SLUG),
       getProductsByCategorySlug("jewellery", 12),
       getProductsByCategorySlug("swimwear", 12),
       ...FANTASY_SLUGS.map((slug) => getProductBySlug(slug)),
@@ -36,6 +52,11 @@ export default async function HomePage() {
     <>
       {/* ===== HERO SECTION ===== */}
       <HeroSlideshow />
+
+      {/* ===== SPOTLIGHT ===== */}
+      {spotlightProduct && (
+        <ProductSpotlight product={spotlightProduct} eyebrow="New arrival" />
+      )}
 
       {/* ===== FEATURED PRODUCTS CAROUSEL ===== */}
       <FeaturedCarousel products={featuredProducts} />
@@ -56,6 +77,15 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ===== BACK IN STOCK ===== */}
+      <CategoryCarousel
+        products={backInStockProducts}
+        eyebrow="Restocked by popular demand"
+        title="Back In Stock"
+        ctaLabel="Shop All"
+        ctaHref="/products"
+      />
 
       {/* ===== CUSTOMER FAVOURITES (BEST SELLERS) ===== */}
       <BestsellerCarousel products={bestsellerProducts} />

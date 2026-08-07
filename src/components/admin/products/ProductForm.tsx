@@ -24,6 +24,7 @@ interface ProductFormProps {
 // Category → 2-letter SKU code mapping
 const CATEGORY_SKU_CODES: Record<string, string> = {
   Corsets: "CR",
+  Jewellery: "JW",
   Dresses: "DR",
   Tops: "TP",
   Bottoms: "BT",
@@ -56,6 +57,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
     register,
     handleSubmit,
     setValue,
+    setError,
     watch,
     formState: { errors, isSubmitting },
   } = useForm<ProductFormData>({
@@ -112,12 +114,21 @@ export function ProductForm({ product, mode }: ProductFormProps) {
         },
   });
 
-  // Auto-generate slug from name
+  // Auto-generate slug from name. Slugs are unique in the DB, so suffix
+  // -2, -3, … when a product of the same name already exists.
   const nameValue = watch("name");
+  // Read through a ref so a background store refresh doesn't overwrite a
+  // slug the user has since edited by hand.
+  const productsRef = useRef(products);
+  productsRef.current = products;
   useEffect(() => {
-    if (mode === "create" && nameValue) {
-      setValue("slug", slugify(nameValue));
-    }
+    if (mode !== "create" || !nameValue) return;
+    const base = slugify(nameValue);
+    const taken = new Set(productsRef.current.map((p) => p.slug));
+    let candidate = base;
+    let n = 2;
+    while (taken.has(candidate)) candidate = `${base}-${n++}`;
+    setValue("slug", candidate);
   }, [nameValue, mode, setValue]);
 
   async function onSubmit(data: ProductFormData) {
@@ -173,8 +184,12 @@ export function ProductForm({ product, mode }: ProductFormProps) {
       try {
         await addProduct(newProduct);
         toast("Product created successfully!", "success");
-      } catch {
-        toast("Failed to save product. Please try again.", "error");
+      } catch (err) {
+        // Show the real reason (duplicate SKU/slug is by far the most common)
+        const msg = err instanceof Error ? err.message : "";
+        toast(msg || "Failed to save product. Please try again.", "error");
+        if (/sku/i.test(msg)) setError("sku", { message: msg });
+        if (/slug/i.test(msg)) setError("slug", { message: msg });
         return; // Don't redirect on failure
       }
     } else if (product) {
@@ -232,13 +247,18 @@ export function ProductForm({ product, mode }: ProductFormProps) {
 
     // Count existing SKUs with same prefix to auto-increment
     const prefix = `ISV-${code}-`;
-    const existing = products.filter((p) => p.sku.startsWith(prefix));
+    const taken = new Set(products.map((p) => p.sku));
+    const existing = products.filter((p) => p.sku?.startsWith(prefix));
     const maxNum = existing.reduce((max, p) => {
       const num = parseInt(p.sku.replace(prefix, ""), 10);
       return isNaN(num) ? max : Math.max(max, num);
     }, 0);
 
-    return `${prefix}${String(maxNum + 1).padStart(3, "0")}`;
+    // SKUs are unique in the DB — skip past any number already in use
+    let next = maxNum + 1;
+    while (taken.has(`${prefix}${String(next).padStart(3, "0")}`)) next++;
+
+    return `${prefix}${String(next).padStart(3, "0")}`;
   }
 
   function handleAIApply(content: AIApplyPayload) {

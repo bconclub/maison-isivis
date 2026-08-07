@@ -155,6 +155,23 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("[Admin Products POST]", error);
+      // 23505 = unique violation. Say which field clashed so the form can
+      // tell the user what to change instead of failing silently.
+      if (error.code === "23505") {
+        const field = error.message.includes("products_sku_key")
+          ? "SKU"
+          : error.message.includes("products_slug_key")
+            ? "slug"
+            : "field";
+        const value = field === "SKU" ? body.sku : field === "slug" ? body.slug : "";
+        return NextResponse.json(
+          {
+            error: `A product with this ${field}${value ? ` ("${value}")` : ""} already exists. Change the ${field} and try again.`,
+            field: field.toLowerCase(),
+          },
+          { status: 409 }
+        );
+      }
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
