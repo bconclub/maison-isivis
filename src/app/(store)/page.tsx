@@ -6,7 +6,6 @@ import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug, 
 import { CommunityCarousel } from "@/components/home/CommunityCarousel";
 import { BestsellerCarousel } from "@/components/home/BestsellerCarousel";
 import { CategoryCarousel } from "@/components/home/CategoryCarousel";
-import { ProductSpotlight } from "@/components/home/ProductSpotlight";
 import { ProductCard } from "@/components/product/ProductCard";
 
 // Always fetch fresh data so newly featured products appear immediately
@@ -31,16 +30,12 @@ const BACK_IN_STOCK_SLUGS = [
   "eulalie",
 ];
 
-// Single piece given its own full-width slot high on the page
-const SPOTLIGHT_SLUG = "isolde-navy-maxi-dress";
-
 export default async function HomePage() {
-  const [featuredProducts, bestsellerProducts, backInStockProducts, spotlightProduct, jewelleryProducts, swimwearProducts, ...fantasyProducts] =
+  const [featuredProducts, bestsellerProducts, backInStockProducts, jewelleryProducts, swimwearProducts, ...fantasyProducts] =
     await Promise.all([
       getFeaturedProducts(),
       getBestsellerProducts(8),
       getProductsBySlugs(BACK_IN_STOCK_SLUGS),
-      getProductBySlug(SPOTLIGHT_SLUG),
       getProductsByCategorySlug("jewellery", 12),
       getProductsByCategorySlug("swimwear", 12),
       ...FANTASY_SLUGS.map((slug) => getProductBySlug(slug)),
@@ -52,11 +47,6 @@ export default async function HomePage() {
     <>
       {/* ===== HERO SECTION ===== */}
       <HeroSlideshow />
-
-      {/* ===== SPOTLIGHT ===== */}
-      {spotlightProduct && (
-        <ProductSpotlight product={spotlightProduct} eyebrow="New arrival" />
-      )}
 
       {/* ===== FEATURED PRODUCTS CAROUSEL ===== */}
       <FeaturedCarousel products={featuredProducts} />
@@ -131,6 +121,20 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ===== ATELIER IMAGE ===== */}
+      {/* Was the hero still; moved down here once the hero became the brand
+          film. Sits directly above Join The Queendom. */}
+      <section className="relative bg-black">
+        <Image
+          src="/images/ISIVIS Hero.webp"
+          alt="Maison ISIVIS — luxury fashion, handcrafted in our London atelier"
+          width={1920}
+          height={1080}
+          sizes="100vw"
+          className="h-auto w-full"
+        />
       </section>
 
       {/* ===== ISIVIS COMMUNITY ===== */}

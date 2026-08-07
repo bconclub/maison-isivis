@@ -21,3 +21,11 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - **Mobile hero video** — the brand film plays full-bleed on mobile with a poster frame and a sound toggle. It carries a voiceover, so it autoplays muted (browsers require that) and the viewer opts in.
 - Desktop keeps the still image. The video master is 464x848 portrait, which fits a phone viewport natively but would upscale roughly 4x on desktop.
 - Video 2.9 MB → 1.8 MB (h264, faststart). A VP9/webm encode came out larger than the mp4, so it was dropped rather than shipped.
+
+## 2026-08-07 · Hero rebuilt around the brand film
+
+- **Header reverted** — the ornament pattern and the `white/90` nav tweak are gone; the header is back to the plain brand gradient.
+- **Hero is now the brand pattern with the film playing on it.** Copy sits left, the video right, stacked on mobile. The film is held at its native 464x848 ratio and capped in width, so it is never upscaled — which is what let it run on desktop at all.
+- **Mobile legibility** — `cover` blows the motif up and crops it hard on a tall narrow phone, which read as noise behind the copy. The pattern is held to 40% below `sm` and shown in full above it. White text measures 6.65:1 on desktop and roughly 13:1 on mobile, against 1.77:1 with no scrim at all.
+- **Isolde spotlight section removed.** Isolde is featured again so it still appears on the home page, in Handpicked Treasures.
+- **The old hero still moved down** to sit directly above Join The Queendom.
