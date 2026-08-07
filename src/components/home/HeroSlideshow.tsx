@@ -39,9 +39,13 @@ export function HeroSlideshow() {
 
       <div className="container-luxury relative">
         <div className="grid min-h-[85vh] items-center gap-10 py-16 sm:min-h-screen lg:grid-cols-2 lg:gap-16">
-          {/* Copy — left */}
-          <div className="order-2 text-center lg:order-1 lg:text-left">
-            <h1 className="font-heading text-hero font-light leading-none text-white">
+          {/* Copy — left. min-w-0 so the column can shrink; grid children
+              default to min-width:auto and overflow instead. */}
+          <div className="order-2 min-w-0 text-center lg:order-1 lg:text-left">
+            {/* text-hero is sized off the viewport (8vw, capped 4.5rem), which
+                overflows this half-width column between lg and xl. Stepped up
+                only once the column is wide enough to hold it. */}
+            <h1 className="font-heading text-h1 font-light leading-none text-white xl:text-hero">
               Turning Fantasy
               <br />
               Into Reality

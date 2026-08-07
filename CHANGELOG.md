@@ -29,3 +29,8 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - **Mobile legibility** — `cover` blows the motif up and crops it hard on a tall narrow phone, which read as noise behind the copy. The pattern is held to 40% below `sm` and shown in full above it. White text measures 6.65:1 on desktop and roughly 13:1 on mobile, against 1.77:1 with no scrim at all.
 - **Isolde spotlight section removed.** Isolde is featured again so it still appears on the home page, in Handpicked Treasures.
 - **The old hero still moved down** to sit directly above Join The Queendom.
+
+## 2026-08-07 · Fix hero heading overflow
+
+- The hero heading was clipped on the right between `lg` and `xl`. `text-hero` is sized off the viewport (`clamp(3rem, 8vw, 4.5rem)`), but the heading now lives in a half-width grid column. Measured in Italiana, "Turning Fantasy" is 476px at 72px, against a 448px column at `lg` — a 28px overflow, and the forced line break left it nowhere to wrap.
+- Heading now steps up to `text-hero` only at `xl`, where the column is 576px. Added `min-w-0` to the column, since grid children default to `min-width: auto` and overflow rather than shrink.
