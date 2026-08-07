@@ -13,3 +13,11 @@
 User-facing: Isolde Navy Maxi Dress (£500) and Mary Sequinned Mini Skirt (£106.74) are live; Scarlet Lace renamed to Scarlet Lace Dress; Noir Mini Dress is black-only; Bianca Lilac repriced to £295.
 
 Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-CUTOVER.md`, `docs/META-BUSINESS-SETUP.md`.
+
+## 2026-08-07 · Header brand pattern, mobile hero video
+
+- **Header background** — the brand ornament artwork (`011.png`) now sits over the existing gradient at 30% opacity. The source is not seamless (it carries a radial gradient), so it covers rather than tiles, and only a centre band is shipped: 2.6 MB PNG → 78 KB webp.
+- **Nav links lifted from `white/80` to `white/90`** — at 30% the pattern's light ornament strokes dropped white/80 text to 4.24:1, under WCAG AA. At white/90 it measures 4.93:1.
+- **Mobile hero video** — the brand film plays full-bleed on mobile with a poster frame and a sound toggle. It carries a voiceover, so it autoplays muted (browsers require that) and the viewer opts in.
+- Desktop keeps the still image. The video master is 464x848 portrait, which fits a phone viewport natively but would upscale roughly 4x on desktop.
+- Video 2.9 MB → 1.8 MB (h264, faststart). A VP9/webm encode came out larger than the mp4, so it was dropped rather than shipped.

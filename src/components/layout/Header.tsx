@@ -42,19 +42,26 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 w-full transition-all duration-300",
-        isScrolled
-          ? "bg-brand-gradient shadow-luxury-lg"
-          : "bg-brand-gradient"
+        "sticky top-0 z-40 w-full bg-brand-gradient transition-all duration-300",
+        isScrolled && "shadow-luxury-lg"
       )}
     >
-      <div className="container-luxury">
+      {/* Brand pattern (011.png) over the gradient. A centre band of the
+          artwork — the full image is not seamless, so it covers rather than
+          tiles. At 30% the nav links needed lifting from white/80 to white/90
+          to stay above 4.5:1 against the light ornament strokes. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[url('/images/brand/header-pattern.webp')] bg-cover bg-center opacity-30"
+      />
+
+      <div className="container-luxury relative">
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Left on mobile: Hamburger + Search */}
           <div className="flex items-center gap-1 lg:hidden">
             <button
               onClick={toggleMobileNav}
-              className="flex h-10 w-10 items-center justify-center rounded-luxury-md text-white/80 transition-colors hover:text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-luxury-md text-white/90 transition-colors hover:text-white"
               aria-label="Open menu"
             >
               <svg
@@ -73,7 +80,7 @@ export function Header() {
             </button>
             <button
               onClick={toggleSearch}
-              className="flex h-10 w-10 items-center justify-center rounded-luxury-md text-white/80 transition-colors hover:text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-luxury-md text-white/90 transition-colors hover:text-white"
               aria-label="Search"
             >
               <svg
@@ -123,7 +130,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-body-sm font-medium uppercase tracking-luxury text-white/80 transition-colors hover:text-white"
+                className="text-body-sm font-medium uppercase tracking-luxury text-white/90 transition-colors hover:text-white"
               >
                 {link.label}
               </Link>
@@ -135,7 +142,7 @@ export function Header() {
             {/* Search — desktop only (mobile search is on left) */}
             <button
               onClick={toggleSearch}
-              className="hidden h-10 w-10 items-center justify-center rounded-luxury-md text-white/80 transition-colors hover:text-white lg:flex"
+              className="hidden h-10 w-10 items-center justify-center rounded-luxury-md text-white/90 transition-colors hover:text-white lg:flex"
               aria-label="Search"
             >
               <svg
@@ -156,7 +163,7 @@ export function Header() {
             {/* Account */}
             <Link
               href={user ? "/account" : "/login"}
-              className="hidden h-10 w-10 items-center justify-center rounded-luxury-md text-white/80 transition-colors hover:text-white sm:flex"
+              className="hidden h-10 w-10 items-center justify-center rounded-luxury-md text-white/90 transition-colors hover:text-white sm:flex"
               aria-label={user ? "My Account" : "Sign In"}
             >
               <svg
@@ -177,7 +184,7 @@ export function Header() {
             {/* Cart */}
             <button
               onClick={openCart}
-              className="relative flex h-10 w-10 items-center justify-center rounded-luxury-md text-white/80 transition-colors hover:text-white"
+              className="relative flex h-10 w-10 items-center justify-center rounded-luxury-md text-white/90 transition-colors hover:text-white"
               aria-label={`Cart (${cartCount} items)`}
             >
               <svg
