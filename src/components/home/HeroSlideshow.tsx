@@ -24,55 +24,59 @@ export function HeroSlideshow() {
 
   return (
     <section className="relative overflow-hidden bg-brand-purple">
-      {/* Brand pattern (011.png) as the hero field. On a tall narrow phone
-          `cover` blows the motif up and crops it hard, which reads as noise
-          behind the copy — so it is held back to 40% there and shown in full
-          from sm up. */}
+      {/* Brand pattern (011.png) as the hero field, shown at full strength —
+          legibility is handled by the frosted panel behind the copy rather
+          than by flattening the artwork. */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-[url('/images/brand/hero-pattern.webp')] bg-cover bg-center opacity-40 sm:opacity-100"
+        className="absolute inset-0 bg-[url('/images/brand/hero-pattern.webp')] bg-cover bg-center"
       />
-      {/* Scrim. Unaided, white text over the brightest ornament strokes is
-          1.77:1. With this it measures 6.65:1 on desktop and ~13:1 on mobile,
-          where the pattern is also dimmed. */}
-      <div aria-hidden className="absolute inset-0 bg-brand-purple/55" />
+      {/* Light scrim only, to seat the pattern against the brand purple. */}
+      <div aria-hidden className="absolute inset-0 bg-brand-purple/15" />
 
       <div className="container-luxury relative">
         <div className="grid min-h-[85vh] items-center gap-10 py-16 sm:min-h-screen lg:grid-cols-2 lg:gap-16">
           {/* Copy — left. min-w-0 so the column can shrink; grid children
               default to min-width:auto and overflow instead. */}
-          <div className="order-2 min-w-0 text-center lg:order-1 lg:text-left">
-            {/* text-hero is sized off the viewport (8vw, capped 4.5rem), which
-                overflows this half-width column between lg and xl. Stepped up
-                only once the column is wide enough to hold it. */}
-            <h1 className="font-heading text-h1 font-light leading-none text-white xl:text-hero">
-              Turning Fantasy
-              <br />
-              Into Reality
-            </h1>
-            <p className="mx-auto mt-6 max-w-md font-body text-body-lg text-white/80 lg:mx-0">
-              Prêt-à-couture from our London atelier.
-            </p>
-            <div className="mt-10">
-              <Link
-                href="/products"
-                className="group inline-flex items-center justify-center gap-2 rounded-luxury bg-white/90 px-10 py-4 text-base font-medium uppercase tracking-luxury text-brand-purple shadow-luxury backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-luxury-lg"
-              >
-                Explore
-                <svg
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
+          <div className="order-2 min-w-0 lg:order-1">
+            {/* Frosted panel. The tint is dark, not white: the copy is white,
+                so a light frost would lift the backdrop and cost contrast.
+                Kept deliberately thin — 45% and a medium blur — so the pattern
+                still reads through the glass. White measures 6.35:1 and the
+                sub-line 4.74:1, both above AA, before the blur helps further. */}
+            <div className="rounded-luxury border border-white/15 bg-brand-purple/45 p-8 text-center shadow-luxury-lg backdrop-blur-md sm:p-10 lg:text-left">
+              {/* Steps up only at 2xl. text-hero is 72px, where "Turning
+                  Fantasy" measures 476px in Italiana; the panel's padding
+                  takes 80px off the column, leaving only 496px at xl. */}
+              <h1 className="font-heading text-h1 font-light leading-none text-white 2xl:text-hero">
+                Turning Fantasy
+                <br />
+                Into Reality
+              </h1>
+              <p className="mx-auto mt-6 max-w-md font-body text-body-lg text-white/80 lg:mx-0">
+                Prêt-à-couture from our London atelier.
+              </p>
+              <div className="mt-10">
+                <Link
+                  href="/products"
+                  className="group inline-flex items-center justify-center gap-2 rounded-luxury bg-white/90 px-10 py-4 text-base font-medium uppercase tracking-luxury text-brand-purple shadow-luxury backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-luxury-lg"
                 >
-                  <path
-                    d="M5 12h14m-7-7 7 7-7 7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
+                  Explore
+                  <svg
+                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M5 12h14m-7-7 7 7-7 7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -104,13 +108,31 @@ export function HeroSlideshow() {
                 aria-pressed={!muted}
               >
                 {muted ? (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M11 5 6 9H2v6h4l5 4V5Z" />
                     <path d="m23 9-6 6" />
                     <path d="m17 9 6 6" />
                   </svg>
                 ) : (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M11 5 6 9H2v6h4l5 4V5Z" />
                     <path d="M15.5 8.5a5 5 0 0 1 0 7" />
                     <path d="M19 5a9 9 0 0 1 0 14" />

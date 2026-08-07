@@ -34,3 +34,10 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 
 - The hero heading was clipped on the right between `lg` and `xl`. `text-hero` is sized off the viewport (`clamp(3rem, 8vw, 4.5rem)`), but the heading now lives in a half-width grid column. Measured in Italiana, "Turning Fantasy" is 476px at 72px, against a 448px column at `lg` — a 28px overflow, and the forced line break left it nowhere to wrap.
 - Heading now steps up to `text-hero` only at `xl`, where the column is 576px. Added `min-w-0` to the column, since grid children default to `min-width: auto` and overflow rather than shrink.
+
+## 2026-08-07 · Frosted panel behind the hero copy
+
+- The pattern was fighting the copy. Legibility now comes from a frosted panel behind the text rather than from flattening the artwork, so the pattern can be shown at full strength: the section scrim drops from 55% to 15% and the mobile dimming is gone entirely.
+- The panel tint is dark, not white. The copy is white, so a light frost would lift the backdrop and cost contrast — the opposite of what a frosted panel is for here.
+- Kept deliberately thin (45% tint, medium blur) so the pattern still reads through the glass. White text measures 6.35:1 and the sub-line 4.74:1, both above AA, before the blur softens the strokes further.
+- Heading now steps up to `text-hero` at `2xl` rather than `xl`: the panel's padding takes 80px off the column, which left only 496px against 476px of text at `xl`.
