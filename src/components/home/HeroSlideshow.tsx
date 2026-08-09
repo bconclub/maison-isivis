@@ -89,12 +89,13 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
       <div aria-hidden className="absolute inset-0 bg-brand-purple/15" />
 
       <div className="container-luxury relative">
-        {/* Three tracks, but only from xl. At lg the fixed film and pick
-            tracks would leave the copy column 176px, and the panel's padding
-            alone takes 80 of that — the heading is 317px. Below xl everything
-            stacks instead. At 1280 the copy column lands at 476px, 396px
-            inside the padding, which clears the heading with room to spare. */}
-        <div className="grid min-h-[85vh] items-center gap-8 py-16 sm:min-h-screen xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)_minmax(0,280px)] xl:gap-10">
+        {/* Three tracks from xl, with the outer two equal (1fr each) so the
+            film sits dead centre in the viewport. A fixed right track made the
+            left column wider and pushed the film off-centre.
+            Film track is 320px at xl and 380px at 2xl: at 1280 that leaves the
+            copy column 416px — 352px inside p-8 — against a 317px heading. A
+            wider film track there would clip it. */}
+        <div className="grid items-center gap-8 py-16 sm:py-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,320px)_minmax(0,1fr)] xl:gap-8 2xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)_minmax(0,1fr)] 2xl:gap-10">
           {/* Copy — left. min-w-0 so the column can shrink; grid children
               default to min-width:auto and overflow instead. */}
           <div className="order-2 min-w-0 xl:order-1">
@@ -104,7 +105,7 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
                 glass. Measured against the tiled motif's brightest stroke —
                 rgb(214,205,245), brighter than the raw artwork — the heading
                 sits at 5.00:1 and the sub-line at 4.71:1. */}
-            <div className="rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left">
+            <div className="rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left xl:p-8 2xl:p-10">
               {/* Sized against the narrower three-track column: text-hero is
                   72px, where "Turning Fantasy" measures 476px in Italiana. */}
               <h1 className="font-heading text-h1 font-light leading-none text-white">
@@ -139,37 +140,76 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
             </div>
           </div>
 
-          {/* Film — centre. Held at its native 464x848 portrait ratio and
-              capped in width so it is never upscaled. */}
+          {/* Film — centre, in an ogee arch. The shape is a clip path rather
+              than a border-radius: an onion arch has a point at the apex and
+              an S-curve down each shoulder, which radii cannot express.
+              Held at the master's 464x848 ratio so it is never upscaled. */}
           <div className="order-1 xl:order-2">
-            <div className="relative mx-auto aspect-[464/848] w-full max-w-[300px] overflow-hidden rounded-luxury-lg border border-white/15 bg-black/30 shadow-luxury-lg sm:max-w-[360px] xl:max-w-none">
-              <video
-                ref={videoRef}
-                className="h-full w-full object-cover"
-                poster="/video/isivis-hero-poster.webp"
-                autoPlay
-                muted={muted}
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Maison ISIVIS brand film"
-              >
-                {/* h264 only — a VP9/webm encode came out larger than the mp4,
-                    so it earned no place. 2.9 MB master → 1.8 MB. */}
-                <source src="/video/isivis-hero.mp4" type="video/mp4" />
-              </video>
+            <div className="relative mx-auto aspect-[464/848] w-full max-w-[300px] sm:max-w-[360px] xl:max-w-none">
+              {/* objectBoundingBox units so one path serves every width. The
+                  container's fixed aspect keeps the curve from skewing. */}
+              <svg width="0" height="0" className="absolute" aria-hidden>
+                <defs>
+                  <clipPath id="hero-arch" clipPathUnits="objectBoundingBox">
+                    <path d="M0,1 L0,0.339 C0,0.186 0.14,0.087 0.34,0.033 C0.41,0.011 0.46,0 0.5,0 C0.54,0 0.59,0.011 0.66,0.033 C0.86,0.087 1,0.186 1,0.339 L1,1 Z" />
+                  </clipPath>
+                </defs>
+              </svg>
 
+              <div
+                className="relative h-full w-full bg-black/30"
+                style={{ clipPath: "url(#hero-arch)" }}
+              >
+                <video
+                  ref={videoRef}
+                  className="h-full w-full object-cover"
+                  poster="/video/isivis-hero-poster.webp"
+                  autoPlay
+                  muted={muted}
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Maison ISIVIS brand film"
+                >
+                  {/* h264 only — a VP9/webm encode came out larger than the
+                      mp4, so it earned no place. 2.9 MB master → 1.8 MB. */}
+                  <source src="/video/isivis-hero.mp4" type="video/mp4" />
+                </video>
+              </div>
+
+              {/* Outline tracing the same path. Drawn as a sibling rather than
+                  a border, since a clipped element cuts its own border off.
+                  preserveAspectRatio="none" so it stretches with the box. */}
+              <svg
+                viewBox="0 0 100 183"
+                preserveAspectRatio="none"
+                aria-hidden
+                className="pointer-events-none absolute inset-0 h-full w-full"
+              >
+                <path
+                  d="M0,183 L0,62 C0,34 14,16 34,6 C41,2 46,0 50,0 C54,0 59,2 66,6 C86,16 100,34 100,62 L100,183"
+                  fill="none"
+                  stroke="rgb(214 205 245)"
+                  strokeOpacity="0.45"
+                  strokeWidth="0.6"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+
+              {/* Small mute toggle, bottom right. The arch is flat along the
+                  bottom, so the corner is square and the button sits clear of
+                  the curve. */}
               <button
                 type="button"
                 onClick={toggleSound}
-                className="absolute bottom-3 right-3 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-                aria-label={muted ? "Unmute video" : "Mute video"}
+                className="absolute bottom-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-brand-purple/70 text-white backdrop-blur-sm transition-colors hover:bg-brand-purple/90"
+                aria-label={muted ? "Unmute film" : "Mute film"}
                 aria-pressed={!muted}
               >
                 {muted ? (
                   <svg
-                    width="20"
-                    height="20"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -183,8 +223,8 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
                   </svg>
                 ) : (
                   <svg
-                    width="20"
-                    height="20"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -204,8 +244,10 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
           {/* Founder's Pick — right. Its own card, stacked: image above, then
               label, name, price and the link. Hidden entirely if the slug ever
               stops resolving. */}
+          {/* Capped and centred in its track: the track is now 1fr to keep the
+              film centred, so an uncapped card would stretch with it. */}
           {featured && (
-            <div className="order-3 mx-auto w-full max-w-[360px] xl:max-w-none">
+            <div className="order-3 mx-auto w-full max-w-[360px] xl:max-w-[340px]">
               <div className="overflow-hidden rounded-luxury-lg border border-white/15 bg-brand-purple/40 shadow-luxury-lg backdrop-blur-sm">
                 {/* Image slider. All frames stack and cross-fade, so the box
                     never reflows and nothing shifts as it advances. */}

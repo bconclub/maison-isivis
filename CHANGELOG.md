@@ -77,3 +77,10 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - Verified: 1280 resolves to three tracks with no overflow; 1100 and 375 collapse to a stack with the film capped at 360px and 300px respectively.
 - Heading no longer steps up to `text-hero`, since the copy column is narrower in a three-track layout.
 - Kept the brand palette. The reference is navy-and-gold, which is a palette change rather than a layout one, so it was not applied.
+
+## 2026-08-07 · Centred film, right-sized hero, simpler sound control
+
+- **Film is now centred.** The grid was `1fr / 380px / 280px` — a flexible left track against a fixed right one, which made the copy column wider and pushed the film off-centre. Outer tracks are now `1fr` each, so the film sits dead centre by construction rather than by tuning.
+- Film track is 320px at `xl` and 380px at `2xl`. At 1280 that leaves the copy column 416px, 352px inside its padding, against a 317px heading — a wider film track there would clip it.
+- **Hero no longer forces a full-viewport height.** It carried `min-h-[85vh] sm:min-h-screen`, which no other section has — every other section uses `section-spacing` and hugs its content. On a tall monitor that meant ~1280px of section for ~585px of content, which is the "blown out of proportion" look. Height is now content-driven: roughly 745px at `xl`, 854px at `2xl`.
+- **"Play film" pill replaced** with a small 40px mute toggle at the film's bottom-right. The label was misleading anyway — the film is already playing, muted, because autoplay requires it.
