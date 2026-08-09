@@ -136,15 +136,17 @@ export default async function HomePage() {
 
       {/* ===== ATELIER IMAGE ===== */}
       {/* Was the hero still; moved down here once the hero became the brand
-          film. Sits directly above Join The Queendom. */}
-      <section className="relative bg-black">
+          film. Carries Join The Queendom's blue and sits flush against it, so
+          the image and the community block read as one section rather than a
+          white band floating above a blue one. */}
+      <section className="relative bg-brand-blue-20 pt-12 sm:pt-16">
         <Image
           src="/images/ISIVIS Hero.webp"
           alt="Maison ISIVIS — luxury fashion, handcrafted in our London atelier"
           width={1920}
           height={1080}
           sizes="100vw"
-          className="h-auto w-full"
+          className="mx-auto h-auto w-full max-w-container px-4 sm:px-6 lg:px-8"
         />
       </section>
 

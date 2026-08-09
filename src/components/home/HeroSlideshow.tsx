@@ -113,9 +113,6 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
                 <br />
                 Into Reality
               </h1>
-              <p className="mx-auto mt-6 max-w-md font-body text-body-lg text-white/95 lg:mx-0">
-                Prêt-à-couture from our London atelier.
-              </p>
               <div className="mt-10">
                 <Link
                   href="/products"

@@ -98,3 +98,8 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - The outline is a sibling SVG rather than a border: a clipped element cuts its own border off.
 - **Shoulder taper reduced from 17% to 9%.** At 17% the shape tapered away 34% of the frame's height and was clipping too much of the film; at 9% it tapers 18%, keeping the cartouche silhouette while showing much more footage.
 - Mute button moved to 11% from the bottom. The cartouche tapers to a point below 91% of its height, so a bottom-corner button would have floated outside the shape entirely.
+
+## 2026-08-09 · Hero subtext removed, atelier image joined to Join The Queendom
+
+- Removed the "Prêt-à-couture from our London atelier." line from the hero panel.
+- The atelier image now carries Join The Queendom's blue (`bg-brand-blue-20`) and is inset inside the container rather than running full-bleed on black. The two sections share a background and sit flush, so they read as one block instead of a white band floating above a blue one.
