@@ -140,9 +140,11 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
             </div>
           </div>
 
-          {/* Film — centre, in an ogee arch. The shape is a clip path rather
-              than a border-radius: an onion arch has a point at the apex and
-              an S-curve down each shoulder, which radii cannot express.
+          {/* Film — centre, cut to a scalloped cartouche. Generated
+              parametrically (7 scallops a side, 2.5 units deep, shoulders at
+              9%) rather than hand-drawn, so the scallops stay evenly spaced
+              and the two axes mirror exactly. A clip path, not a
+              border-radius: points and scallops are beyond what radii express.
               Held at the master's 464x848 ratio so it is never upscaled. */}
           <div className="order-1 xl:order-2">
             <div className="relative mx-auto aspect-[464/848] w-full max-w-[300px] sm:max-w-[360px] xl:max-w-none">
@@ -151,7 +153,7 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
               <svg width="0" height="0" className="absolute" aria-hidden>
                 <defs>
                   <clipPath id="hero-arch" clipPathUnits="objectBoundingBox">
-                    <path d="M0,1 L0,0.339 C0,0.186 0.14,0.087 0.34,0.033 C0.41,0.011 0.46,0 0.5,0 C0.54,0 0.59,0.011 0.66,0.033 C0.86,0.087 1,0.186 1,0.339 L1,1 Z" />
+                    <path d="M0.5,0C0.566,0.008 0.975,0.0378 0.975,0.09A0.025,0.05857 0 0 1 0.975,0.20714A0.025,0.05857 0 0 1 0.975,0.32429A0.025,0.05857 0 0 1 0.975,0.44143A0.025,0.05857 0 0 1 0.975,0.55857A0.025,0.05857 0 0 1 0.975,0.67571A0.025,0.05857 0 0 1 0.975,0.79286A0.025,0.05857 0 0 1 0.975,0.91C0.975,0.9622 0.566,0.992 0.5,1C0.434,0.992 0.025,0.9622 0.025,0.91A0.025,0.05857 0 0 1 0.025,0.79286A0.025,0.05857 0 0 1 0.025,0.67571A0.025,0.05857 0 0 1 0.025,0.55857A0.025,0.05857 0 0 1 0.025,0.44143A0.025,0.05857 0 0 1 0.025,0.32429A0.025,0.05857 0 0 1 0.025,0.20714A0.025,0.05857 0 0 1 0.025,0.09C0.025,0.0378 0.434,0.008 0.5,0Z" />
                   </clipPath>
                 </defs>
               </svg>
@@ -187,22 +189,23 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
                 className="pointer-events-none absolute inset-0 h-full w-full"
               >
                 <path
-                  d="M0,183 L0,62 C0,34 14,16 34,6 C41,2 46,0 50,0 C54,0 59,2 66,6 C86,16 100,34 100,62 L100,183"
+                  d="M50,0C56.6,1.46 97.5,6.92 97.5,16.47A2.5,10.72 0 0 1 97.5,37.91A2.5,10.72 0 0 1 97.5,59.34A2.5,10.72 0 0 1 97.5,80.78A2.5,10.72 0 0 1 97.5,102.22A2.5,10.72 0 0 1 97.5,123.66A2.5,10.72 0 0 1 97.5,145.09A2.5,10.72 0 0 1 97.5,166.53C97.5,176.08 56.6,181.54 50,183C43.4,181.54 2.5,176.08 2.5,166.53A2.5,10.72 0 0 1 2.5,145.09A2.5,10.72 0 0 1 2.5,123.66A2.5,10.72 0 0 1 2.5,102.22A2.5,10.72 0 0 1 2.5,80.78A2.5,10.72 0 0 1 2.5,59.34A2.5,10.72 0 0 1 2.5,37.91A2.5,10.72 0 0 1 2.5,16.47C2.5,6.92 43.4,1.46 50,0Z"
                   fill="none"
                   stroke="rgb(214 205 245)"
-                  strokeOpacity="0.45"
-                  strokeWidth="0.6"
+                  strokeOpacity="0.5"
+                  strokeWidth="0.7"
                   vectorEffect="non-scaling-stroke"
                 />
               </svg>
 
-              {/* Small mute toggle, bottom right. The arch is flat along the
-                  bottom, so the corner is square and the button sits clear of
-                  the curve. */}
+              {/* Small mute toggle, right-hand side. The cartouche tapers to a
+                  point below 91% of its height, so a bottom-corner button
+                  would sit outside the shape — it is held at 19% from the
+                  bottom, inside the straight scalloped run. */}
               <button
                 type="button"
                 onClick={toggleSound}
-                className="absolute bottom-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-brand-purple/70 text-white backdrop-blur-sm transition-colors hover:bg-brand-purple/90"
+                className="absolute bottom-[11%] right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-brand-purple/70 text-white backdrop-blur-sm transition-colors hover:bg-brand-purple/90"
                 aria-label={muted ? "Unmute film" : "Mute film"}
                 aria-pressed={!muted}
               >

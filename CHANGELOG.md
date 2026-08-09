@@ -90,3 +90,11 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - **"Handpicked Treasures / Curated for you" renamed to "Featured Pieces / The featured edit".** That row is `featured === true` straight from the admin — no curation happens — so the old name claimed something the data doesn't do.
 - **Founder's Pick removed from the featured row.** The hero already gives that piece a slot of its own, and it was reappearing as the first card immediately beneath. The row now shows 5 products; Isolde appears once, in the hero.
 - **Mobile hero order is now film → product → heading**, matching how it should read on a phone. Desktop keeps copy left, film centre, pick right.
+
+## 2026-08-07 · Scalloped cartouche cut-out for the film
+
+- The film is now cut to a **scalloped cartouche** — points top and bottom, seven scallops a side — replacing the plain ogee arch. Matches the reference outline far more closely.
+- Generated **parametrically** rather than hand-drawn, so the scallops stay evenly spaced and both axes mirror exactly. The generator emits the path twice: `objectBoundingBox` units (0–1) for the clip path, so one path serves every width, and viewBox units for the stroked outline.
+- The outline is a sibling SVG rather than a border: a clipped element cuts its own border off.
+- **Shoulder taper reduced from 17% to 9%.** At 17% the shape tapered away 34% of the frame's height and was clipping too much of the film; at 9% it tapers 18%, keeping the cartouche silhouette while showing much more footage.
+- Mute button moved to 11% from the bottom. The cartouche tapers to a point below 91% of its height, so a bottom-corner button would have floated outside the shape entirely.
