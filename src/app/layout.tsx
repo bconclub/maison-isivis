@@ -53,6 +53,24 @@ export default function RootLayout({
       className={`${cormorant.variable} ${inter.variable} ${italiana.variable}`}
     >
       <head>
+        {/* The hero motif is a CSS background, so the browser cannot discover
+            it until the stylesheet is parsed and the element laid out — by
+            which point the film is already fetching. Preloading it here moves
+            discovery to the first bytes of the document, so the pattern paints
+            before the video competes for bandwidth. The poster follows, so the
+            film's frame is filled before the video itself arrives. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/brand/motif-tile.png"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/video/isivis-hero-poster.webp"
+          fetchPriority="high"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-5N92PH0W38"
           strategy="afterInteractive"

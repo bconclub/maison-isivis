@@ -103,3 +103,9 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 
 - Removed the "Prêt-à-couture from our London atelier." line from the hero panel.
 - The atelier image now carries Join The Queendom's blue (`bg-brand-blue-20`) and is inset inside the container rather than running full-bleed on black. The two sections share a background and sit flush, so they read as one block instead of a white band floating above a blue one.
+
+## 2026-08-09 · Load the hero pattern before the film
+
+- The motif is a CSS background, so the browser could not discover it until the stylesheet was parsed and the element laid out — by which point the 1.8 MB film was already fetching. The pattern lost the race to a file 46x its size.
+- Both the motif (38 KB) and the film's poster (18 KB) are now `<link rel="preload" as="image" fetchPriority="high">` in the document head. Discovery moves from post-layout to byte 3,414 of the document, against the video tag at byte 283,411.
+- Net effect: the patterned field and the poster frame paint first, so the hero never shows a bare purple block waiting on video bytes.
