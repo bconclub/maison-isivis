@@ -68,3 +68,12 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 ## 2026-08-07 · Founder's Pick as its own piece
 
 - The Founder's Pick is no longer nested inside the hero copy panel. It is now a separate card sitting below it, carrying its own glass so it still reads against the motif. The two are siblings, not parent and child.
+
+## 2026-08-07 · Three-column hero
+
+- Hero rearranged to match the reference: copy left, film centre, Founder's Pick right. The pick is now a stacked card — image above, then label, name, price and a "View details" link — rather than a horizontal row.
+- **The three tracks only engage at `xl`, not `lg`.** At 1024px the fixed film and pick columns leave the copy column 176px, and the panel's padding alone takes 80 of that against a 317px heading. Below `xl` everything stacks.
+- Fixed a related trap: the film and pick carried `lg:max-w-none`, which below `xl` (now a single-column stack) would have let the film stretch to the full container — a ~1036px box for a 464px master. Both moved to `xl`.
+- Verified: 1280 resolves to three tracks with no overflow; 1100 and 375 collapse to a stack with the film capped at 360px and 300px respectively.
+- Heading no longer steps up to `text-hero`, since the copy column is narrower in a three-track layout.
+- Kept the brand palette. The reference is navy-and-gold, which is a palette change rather than a layout one, so it was not applied.
