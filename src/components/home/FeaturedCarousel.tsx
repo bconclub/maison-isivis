@@ -54,11 +54,13 @@ export function FeaturedCarousel({ products }: FeaturedCarouselProps) {
         {/* Header */}
         <div className="mb-10 flex items-end justify-between">
           <div>
+            {/* This row is `featured === true` straight from the admin, so it
+                is named for what it is rather than claiming a curation. */}
             <p className="font-script text-xl sm:text-lg text-brand-blue">
-              Curated for you
+              The featured edit
             </p>
             <h2 className="mt-2 font-heading text-2xl sm:text-h2 text-brand-purple">
-              Handpicked Treasures
+              Featured Pieces
             </h2>
           </div>
 

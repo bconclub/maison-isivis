@@ -84,3 +84,9 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - Film track is 320px at `xl` and 380px at `2xl`. At 1280 that leaves the copy column 416px, 352px inside its padding, against a 317px heading — a wider film track there would clip it.
 - **Hero no longer forces a full-viewport height.** It carried `min-h-[85vh] sm:min-h-screen`, which no other section has — every other section uses `section-spacing` and hugs its content. On a tall monitor that meant ~1280px of section for ~585px of content, which is the "blown out of proportion" look. Height is now content-driven: roughly 745px at `xl`, 854px at `2xl`.
 - **"Play film" pill replaced** with a small 40px mute toggle at the film's bottom-right. The label was misleading anyway — the film is already playing, muted, because autoplay requires it.
+
+## 2026-08-07 · Honest naming for the featured row, mobile hero order
+
+- **"Handpicked Treasures / Curated for you" renamed to "Featured Pieces / The featured edit".** That row is `featured === true` straight from the admin — no curation happens — so the old name claimed something the data doesn't do.
+- **Founder's Pick removed from the featured row.** The hero already gives that piece a slot of its own, and it was reappearing as the first card immediately beneath. The row now shows 5 products; Isolde appears once, in the hero.
+- **Mobile hero order is now film → product → heading**, matching how it should read on a phone. Desktop keeps copy left, film centre, pick right.

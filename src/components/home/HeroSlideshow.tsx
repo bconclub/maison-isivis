@@ -98,7 +98,7 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
         <div className="grid items-center gap-8 py-16 sm:py-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,320px)_minmax(0,1fr)] xl:gap-8 2xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)_minmax(0,1fr)] 2xl:gap-10">
           {/* Copy — left. min-w-0 so the column can shrink; grid children
               default to min-width:auto and overflow instead. */}
-          <div className="order-2 min-w-0 xl:order-1">
+          <div className="order-3 min-w-0 xl:order-1">
             {/* Frosted panel. The tint is dark, not white: the copy is white,
                 so a light frost would lift the backdrop and cost contrast.
                 Thinned to 40% with a light blur so the motif reads through the
@@ -247,7 +247,7 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
           {/* Capped and centred in its track: the track is now 1fr to keep the
               film centred, so an uncapped card would stretch with it. */}
           {featured && (
-            <div className="order-3 mx-auto w-full max-w-[360px] xl:max-w-[340px]">
+            <div className="order-2 mx-auto w-full max-w-[360px] xl:order-3 xl:max-w-[340px]">
               <div className="overflow-hidden rounded-luxury-lg border border-white/15 bg-brand-purple/40 shadow-luxury-lg backdrop-blur-sm">
                 {/* Image slider. All frames stack and cross-fade, so the box
                     never reflows and nothing shifts as it advances. */}

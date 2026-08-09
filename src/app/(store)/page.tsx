@@ -48,13 +48,19 @@ export default async function HomePage() {
 
   const fantasyGrid = fantasyProducts.filter(Boolean);
 
+  // The hero already gives this piece a slot of its own, so drop it from the
+  // featured row directly beneath it.
+  const featuredRow = featuredProducts.filter(
+    (p) => p.slug !== HERO_FEATURE_SLUG,
+  );
+
   return (
     <>
       {/* ===== HERO SECTION ===== */}
       <HeroSlideshow featured={heroFeature} />
 
       {/* ===== FEATURED PRODUCTS CAROUSEL ===== */}
-      <FeaturedCarousel products={featuredProducts} />
+      <FeaturedCarousel products={featuredRow} />
 
       {/* ===== FIND YOUR FANTASY ===== */}
       <section className="bg-neutral-50 section-spacing">
