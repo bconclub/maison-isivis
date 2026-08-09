@@ -29,7 +29,7 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(
       () => setSlide((s) => (s + 1) % slideCount),
-      2000
+      2000,
     );
     return () => window.clearInterval(id);
   }, [slideCount]);
@@ -134,81 +134,82 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
                   </svg>
                 </Link>
               </div>
-
-              {/* Founder's Pick. Sits inside the panel so it inherits the
-                  frosted backdrop rather than needing its own scrim over the
-                  motif. Hidden entirely if the slug ever stops resolving. */}
-              {featured && (
-                <div className="mt-8 border-t border-white/15 pt-6">
-                  <p className="text-caption font-medium uppercase tracking-luxury-wide text-white/70">
-                    Founder&apos;s Pick
-                  </p>
-
-                  <Link
-                    href={`/products/${featured.slug}`}
-                    className="group mt-4 flex items-center gap-4 text-left"
-                  >
-                    {/* Image slider. All frames stack and cross-fade, so the
-                        box never reflows and nothing shifts as it advances. */}
-                    <span className="relative block h-[112px] w-[84px] flex-shrink-0 overflow-hidden rounded-luxury-md bg-brand-purple-80">
-                      {featuredImages.map((img, i) => (
-                        <Image
-                          key={img.url}
-                          src={img.url}
-                          alt={img.alt || featured.name}
-                          fill
-                          sizes="84px"
-                          className={`object-cover object-top transition-opacity duration-700 ${
-                            i === slide ? "opacity-100" : "opacity-0"
-                          }`}
-                        />
-                      ))}
-                    </span>
-
-                    <span className="min-w-0">
-                      {/* Wraps rather than truncates: at 375px this column is
-                          ~159px wide, which would cut the name mid-word. */}
-                      <span className="block font-heading text-lg font-light leading-snug text-white sm:text-xl">
-                        {featured.name}
-                      </span>
-                      <span className="mt-1 block font-body text-sm text-white/95">
-                        {formatPrice(featured.price)}
-                      </span>
-
-                      {/* Indicators, in brand colours rather than plain white */}
-                      {featuredImages.length > 1 && (
-                        <span className="mt-3 flex gap-1.5">
-                          {featuredImages.map((img, i) => (
-                            <span
-                              key={img.url}
-                              className={`block h-1 rounded-full transition-all duration-500 ${
-                                i === slide
-                                  ? "w-6 bg-brand-blue-40"
-                                  : "w-2 bg-brand-purple-20/60"
-                              }`}
-                            />
-                          ))}
-                        </span>
-                      )}
-                    </span>
-
-                    <svg
-                      className="ml-auto h-5 w-5 flex-shrink-0 text-white/70 transition-transform duration-300 group-hover:translate-x-1"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M5 12h14m-7-7 7 7-7 7"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              )}
             </div>
+
+            {/* Founder's Pick — its own piece, sitting apart from the copy
+                panel rather than nested inside it. Carries its own glass so it
+                still reads against the motif. Hidden entirely if the slug ever
+                stops resolving. */}
+            {featured && (
+              <div className="mt-6 rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-6 shadow-luxury-lg backdrop-blur-sm sm:p-7">
+                <p className="text-caption font-medium uppercase tracking-luxury-wide text-white/70">
+                  Founder&apos;s Pick
+                </p>
+
+                <Link
+                  href={`/products/${featured.slug}`}
+                  className="group mt-4 flex items-center gap-4 text-left"
+                >
+                  {/* Image slider. All frames stack and cross-fade, so the
+                        box never reflows and nothing shifts as it advances. */}
+                  <span className="relative block h-[112px] w-[84px] flex-shrink-0 overflow-hidden rounded-luxury-md bg-brand-purple-80">
+                    {featuredImages.map((img, i) => (
+                      <Image
+                        key={img.url}
+                        src={img.url}
+                        alt={img.alt || featured.name}
+                        fill
+                        sizes="84px"
+                        className={`object-cover object-top transition-opacity duration-700 ${
+                          i === slide ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    ))}
+                  </span>
+
+                  <span className="min-w-0">
+                    {/* Wraps rather than truncates: at 375px this column is
+                          ~159px wide, which would cut the name mid-word. */}
+                    <span className="block font-heading text-lg font-light leading-snug text-white sm:text-xl">
+                      {featured.name}
+                    </span>
+                    <span className="mt-1 block font-body text-sm text-white/95">
+                      {formatPrice(featured.price)}
+                    </span>
+
+                    {/* Indicators, in brand colours rather than plain white */}
+                    {featuredImages.length > 1 && (
+                      <span className="mt-3 flex gap-1.5">
+                        {featuredImages.map((img, i) => (
+                          <span
+                            key={img.url}
+                            className={`block h-1 rounded-full transition-all duration-500 ${
+                              i === slide
+                                ? "w-6 bg-brand-blue-40"
+                                : "w-2 bg-brand-purple-20/60"
+                            }`}
+                          />
+                        ))}
+                      </span>
+                    )}
+                  </span>
+
+                  <svg
+                    className="ml-auto h-5 w-5 flex-shrink-0 text-white/70 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M5 12h14m-7-7 7 7-7 7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Film — right. Held at its native 464x848 portrait ratio and

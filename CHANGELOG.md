@@ -64,3 +64,7 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - Indicators use the brand palette — `brand-blue-40` active, `brand-purple-20` inactive — rather than plain white.
 - Mobile: the name wraps instead of truncating. At 375px that column is roughly 159px wide, which would otherwise cut the name mid-word. Verified no horizontal overflow at 375px.
 - Dev server moved to `autoPort`, since port 3000 collides with another project's server.
+
+## 2026-08-07 · Founder's Pick as its own piece
+
+- The Founder's Pick is no longer nested inside the hero copy panel. It is now a separate card sitting below it, carrying its own glass so it still reads against the motif. The two are siblings, not parent and child.
