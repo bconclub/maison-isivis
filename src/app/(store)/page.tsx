@@ -30,12 +30,17 @@ const BACK_IN_STOCK_SLUGS = [
   "eulalie",
 ];
 
+// The one piece surfaced inside the hero. `featured` alone can't drive this —
+// six products carry that flag — so the hero pick is named explicitly.
+const HERO_FEATURE_SLUG = "isolde-navy-maxi-dress";
+
 export default async function HomePage() {
-  const [featuredProducts, bestsellerProducts, backInStockProducts, jewelleryProducts, swimwearProducts, ...fantasyProducts] =
+  const [featuredProducts, bestsellerProducts, backInStockProducts, heroFeature, jewelleryProducts, swimwearProducts, ...fantasyProducts] =
     await Promise.all([
       getFeaturedProducts(),
       getBestsellerProducts(8),
       getProductsBySlugs(BACK_IN_STOCK_SLUGS),
+      getProductBySlug(HERO_FEATURE_SLUG),
       getProductsByCategorySlug("jewellery", 12),
       getProductsByCategorySlug("swimwear", 12),
       ...FANTASY_SLUGS.map((slug) => getProductBySlug(slug)),
@@ -46,7 +51,7 @@ export default async function HomePage() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <HeroSlideshow />
+      <HeroSlideshow featured={heroFeature} />
 
       {/* ===== FEATURED PRODUCTS CAROUSEL ===== */}
       <FeaturedCarousel products={featuredProducts} />

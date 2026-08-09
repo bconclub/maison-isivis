@@ -56,3 +56,11 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - The sub-line now carries the weight instead of the panel (`white/80` → `white/95`), which is what allows the frost to come down without losing legibility. Measured against the tiled motif's brightest stroke — rgb(214,205,245), *brighter* than the raw artwork, since the tile is tinted and its alpha boosted — the heading sits at 5.00:1 and the sub-line at 4.71:1.
 - Worth noting: at the previous 45% the sub-line was actually at 4.32:1, marginally under AA. Earlier figures had been computed against the full-bleed artwork, before the background became a tinted tile.
 - **New radius step** — `rounded-luxury-lg` (12px) added to the scale. The house style is 2px/4px, which reads as unfinished on a large glass surface with a visible blur edge, but anything app-like would fight the brand. One step in between, added to the scale rather than hardcoded, and applied to both the copy panel and the film frame so they match.
+
+## 2026-08-07 · Founder's Pick in the hero
+
+- The hero now carries a **Founder's Pick** — Isolde Navy Maxi Dress. The product already existed (`ISV-DR-032`, £500, published, 3 images) and was already flagged `featured`; the flag couldn't drive this on its own, because six products carry it. The hero pick is named explicitly via `HERO_FEATURE_SLUG`, matching the file's existing `BACK_IN_STOCK_SLUGS` convention.
+- **Image slider** — the product's frames cross-fade every 2s. All frames are stacked and faded rather than swapped, so the box never reflows and nothing shifts as it advances. Skipped under `prefers-reduced-motion`, and the timer keys off the frame *count* so a fresh array identity each render can't restart it mid-cycle.
+- Indicators use the brand palette — `brand-blue-40` active, `brand-purple-20` inactive — rather than plain white.
+- Mobile: the name wraps instead of truncating. At 375px that column is roughly 159px wide, which would otherwise cut the name mid-word. Verified no horizontal overflow at 375px.
+- Dev server moved to `autoPort`, since port 3000 collides with another project's server.
