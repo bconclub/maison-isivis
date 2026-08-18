@@ -65,13 +65,11 @@ export function HeroSlideshow() {
       <div aria-hidden className="absolute inset-0 bg-brand-purple/15" />
 
       <div className="container-luxury relative">
-        {/* Three tracks from xl, with the outer two equal (1fr each) so the
-            film sits dead centre in the viewport. A fixed right track made the
-            left column wider and pushed the film off-centre.
-            Film track is 320px at xl and 380px at 2xl: at 1280 that leaves the
-            copy column 416px — 352px inside p-8 — against a 317px heading. A
-            wider film track there would clip it. */}
-        <div className="grid items-center gap-8 py-16 sm:py-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)] xl:gap-12 2xl:gap-16">
+        {/* Both tracks are bounded and the pair is centred. A 1fr copy track
+            absorbed all the spare width on a wide monitor and pushed the panel
+            and the film to opposite edges — they read as two unrelated things
+            rather than one composition. */}
+        <div className="grid items-center justify-center gap-8 py-16 sm:py-20 xl:grid-cols-[minmax(0,520px)_minmax(0,360px)] xl:gap-10 2xl:grid-cols-[minmax(0,560px)_minmax(0,380px)] 2xl:gap-12">
           {/* Copy — left. min-w-0 so the column can shrink; grid children
               default to min-width:auto and overflow instead. */}
           <div className="order-2 min-w-0 xl:order-1">
@@ -81,9 +79,9 @@ export function HeroSlideshow() {
                 glass. Measured against the tiled motif's brightest stroke —
                 rgb(214,205,245), brighter than the raw artwork — the heading
                 sits at 5.00:1 and the sub-line at 4.71:1. */}
-            <div className="mx-auto max-w-xl rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left xl:mx-0 xl:p-8 2xl:p-10">
-              {/* max-w-xl on the panel keeps the copy from stretching across
-                  the full 1fr column on a wide monitor. */}
+            <div className="mx-auto max-w-xl rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left xl:mx-0 xl:max-w-none xl:p-10">
+              {/* Below xl the panel caps itself; from xl the column is already
+                  bounded, so it fills the track. */}
               <h1 className="font-heading text-h1 font-light leading-none text-white">
                 Turning Fantasy
                 <br />

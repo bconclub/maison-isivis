@@ -129,3 +129,8 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - Each corner is a single cubic whose end tangents run perpendicular to the edges it joins; that perpendicularity is what produces the cusp rather than a rounded or chamfered corner.
 - **Double rule** — two stroked paths at 0.55 and 0.3 opacity, tracing the frame just inside the clip, matching the reference's twin border lines.
 - Mute button moved clear of the bottom cusp.
+
+## 2026-08-09 · Pull the hero pair together
+
+- The copy panel and the film were drifting to opposite edges on a wide monitor. The copy track was `1fr`, so it absorbed all the spare width — roughly 420px of empty pattern opened up between them at 1440px and above, and the two read as unrelated rather than one composition.
+- Both tracks are now bounded (520/360 at `xl`, 560/380 at `2xl`) and the pair is centred with `justify-center`, so the gap stays at 40–48px regardless of viewport width.
