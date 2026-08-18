@@ -81,9 +81,9 @@ export function HeroSlideshow() {
                 glass. Measured against the tiled motif's brightest stroke —
                 rgb(214,205,245), brighter than the raw artwork — the heading
                 sits at 5.00:1 and the sub-line at 4.71:1. */}
-            <div className="rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left xl:p-8 2xl:p-10">
-              {/* Sized against the narrower three-track column: text-hero is
-                  72px, where "Turning Fantasy" measures 476px in Italiana. */}
+            <div className="mx-auto max-w-xl rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left xl:mx-0 xl:p-8 2xl:p-10">
+              {/* max-w-xl on the panel keeps the copy from stretching across
+                  the full 1fr column on a wide monitor. */}
               <h1 className="font-heading text-h1 font-light leading-none text-white">
                 Turning Fantasy
                 <br />
@@ -126,7 +126,7 @@ export function HeroSlideshow() {
               <svg width="0" height="0" className="absolute" aria-hidden>
                 <defs>
                   <clipPath id="hero-arch" clipPathUnits="objectBoundingBox">
-                    <path d="M0.5,0C0.51167,0.00167 0.535,0.00417 0.57,0.01C0.605,0.01583 0.645,0.02167 0.71,0.035C0.775,0.04833 0.92833,0.05917 0.96,0.09C0.99167,0.12083 0.89333,0.15167 0.9,0.22C0.90667,0.28833 1,0.40667 1,0.5C1,0.59333 0.90667,0.71167 0.9,0.78C0.89333,0.84833 0.99167,0.87917 0.96,0.91C0.92833,0.94083 0.775,0.95167 0.71,0.965C0.645,0.97833 0.605,0.98417 0.57,0.99C0.535,0.99583 0.51167,0.99833 0.5,1C0.48833,0.99833 0.465,0.99583 0.43,0.99C0.395,0.98417 0.355,0.97833 0.29,0.965C0.225,0.95167 0.07167,0.94083 0.04,0.91C0.00833,0.87917 0.10667,0.84833 0.1,0.78C0.09333,0.71167 0,0.59333 0,0.5C0,0.40667 0.09333,0.28833 0.1,0.22C0.10667,0.15167 0.00833,0.12083 0.04,0.09C0.07167,0.05917 0.225,0.04833 0.29,0.035C0.355,0.02167 0.395,0.01583 0.43,0.01C0.465,0.00417 0.48833,0.00167 0.5,0Z" />
+                    <path d="M0.5,0C0.56,0.00219 0.93,0.08197 0.96,0.16393C0.96,0.21311 0.88,0.21311 0.88,0.27322C0.88,0.42441 0.88,0.57559 0.88,0.72678C0.88,0.78689 0.96,0.78689 0.96,0.83607C0.93,0.91803 0.56,0.99781 0.5,1C0.44,0.99781 0.07,0.91803 0.04,0.83607C0.04,0.78689 0.12,0.78689 0.12,0.72678C0.12,0.57559 0.12,0.42441 0.12,0.27322C0.12,0.21311 0.04,0.21311 0.04,0.16393C0.07,0.08197 0.44,0.00219 0.5,0Z" />
                   </clipPath>
                 </defs>
               </svg>
@@ -162,7 +162,7 @@ export function HeroSlideshow() {
                 className="pointer-events-none absolute inset-0 h-full w-full"
               >
                 <path
-                  d="M50,0C51.17,0.3 53.5,0.76 57,1.83C60.5,2.9 64.5,3.97 71,6.41C77.5,8.85 92.83,10.83 96,16.47C99.17,22.11 89.33,27.75 90,40.26C90.67,52.77 100,74.42 100,91.5C100,108.58 90.67,130.24 90,142.74C89.33,155.25 99.17,160.89 96,166.53C92.83,172.17 77.5,174.16 71,176.59C64.5,179.03 60.5,180.1 57,181.17C53.5,182.24 51.17,182.69 50,183C48.83,182.69 46.5,182.24 43,181.17C39.5,180.1 35.5,179.03 29,176.59C22.5,174.16 7.17,172.17 4,166.53C0.83,160.89 10.67,155.25 10,142.74C9.33,130.24 0,108.58 0,91.5C0,74.42 9.33,52.77 10,40.26C10.67,27.75 0.83,22.11 4,16.47C7.17,10.83 22.5,8.85 29,6.41C35.5,3.97 39.5,2.9 43,1.83C46.5,0.76 48.83,0.3 50,0Z"
+                  d="M50,0C56,0.4 93,15 96,30C96,39 88,39 88,50C88,77.67 88,105.33 88,133C88,144 96,144 96,153C93,168 56,182.6 50,183C44,182.6 7,168 4,153C4,144 12,144 12,133C12,105.33 12,77.67 12,50C12,39 4,39 4,30C7,15 44,0.4 50,0Z"
                   fill="none"
                   stroke="rgb(214 205 245)"
                   strokeOpacity="0.5"
