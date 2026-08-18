@@ -113,12 +113,12 @@ export function HeroSlideshow() {
             </div>
           </div>
 
-          {/* Film — right, cut to a baroque mirror silhouette. Generated
-              parametrically from a half-width profile smoothed with Catmull-Rom,
-              so the shoulders, waist and hips undulate evenly and both axes
-              mirror exactly. A clip path, not a
-              border-radius: points and scallops are beyond what radii express.
-              Held at the master's 464x848 ratio so it is never upscaled. */}
+          {/* Film — right, in a cusped frame: straight edges with corners
+              that scoop inward to a point. Each corner is one cubic whose end
+              tangents run perpendicular to the edges it joins, which is what
+              produces the cusp. Straight edges matter — the earlier tapered
+              silhouette cropped the footage badly. Held at the master's
+              464x848 ratio so it is never upscaled. */}
           <div className="order-1 xl:order-2">
             <div className="relative mx-auto aspect-[464/848] w-full max-w-[300px] sm:max-w-[360px] xl:max-w-none">
               {/* objectBoundingBox units so one path serves every width. The
@@ -126,7 +126,7 @@ export function HeroSlideshow() {
               <svg width="0" height="0" className="absolute" aria-hidden>
                 <defs>
                   <clipPath id="hero-arch" clipPathUnits="objectBoundingBox">
-                    <path d="M0.5,0C0.56,0.00219 0.93,0.08197 0.96,0.16393C0.96,0.21311 0.88,0.21311 0.88,0.27322C0.88,0.42441 0.88,0.57559 0.88,0.72678C0.88,0.78689 0.96,0.78689 0.96,0.83607C0.93,0.91803 0.56,0.99781 0.5,1C0.44,0.99781 0.07,0.91803 0.04,0.83607C0.04,0.78689 0.12,0.78689 0.12,0.72678C0.12,0.57559 0.12,0.42441 0.12,0.27322C0.12,0.21311 0.04,0.21311 0.04,0.16393C0.07,0.08197 0.44,0.00219 0.5,0Z" />
+                    <path d="M0.26,0L0.74,0C0.74,0.06885 0.766,0.0765 1,0.0765L1,0.9235C0.766,0.9235 0.74,0.93115 0.74,1L0.26,1C0.26,0.93115 0.234,0.9235 0,0.9235L0,0.0765C0.234,0.0765 0.26,0.06885 0.26,0Z" />
                   </clipPath>
                 </defs>
               </svg>
@@ -162,23 +162,30 @@ export function HeroSlideshow() {
                 className="pointer-events-none absolute inset-0 h-full w-full"
               >
                 <path
-                  d="M50,0C56,0.4 93,15 96,30C96,39 88,39 88,50C88,77.67 88,105.33 88,133C88,144 96,144 96,153C93,168 56,182.6 50,183C44,182.6 7,168 4,153C4,144 12,144 12,133C12,105.33 12,77.67 12,50C12,39 4,39 4,30C7,15 44,0.4 50,0Z"
+                  d="M27.2,1.2L72.8,1.2C72.8,13.8 75.4,15.2 98.8,15.2L98.8,167.8C75.4,167.8 72.8,169.2 72.8,181.8L27.2,181.8C27.2,169.2 24.6,167.8 1.2,167.8L1.2,15.2C24.6,15.2 27.2,13.8 27.2,1.2Z"
                   fill="none"
                   stroke="rgb(214 205 245)"
-                  strokeOpacity="0.5"
-                  strokeWidth="0.7"
+                  strokeOpacity="0.55"
+                  strokeWidth="1"
+                  vectorEffect="non-scaling-stroke"
+                />
+                <path
+                  d="M27.5,4.5L72.5,4.5C72.5,15.75 74.8,17 95.5,17L95.5,166C74.8,166 72.5,167.25 72.5,178.5L27.5,178.5C27.5,167.25 25.2,166 4.5,166L4.5,17C25.2,17 27.5,15.75 27.5,4.5Z"
+                  fill="none"
+                  stroke="rgb(214 205 245)"
+                  strokeOpacity="0.3"
+                  strokeWidth="0.6"
                   vectorEffect="non-scaling-stroke"
                 />
               </svg>
 
               {/* Small mute toggle, right-hand side. The cartouche tapers to a
-                  point below 91% of its height, so a bottom-corner button
-                  would sit outside the shape — it is held at 19% from the
-                  bottom, inside the straight scalloped run. */}
+                  corners scoop inward, so a button in the corner itself would
+                  fall outside the shape. Held clear of the bottom cusp. */}
               <button
                 type="button"
                 onClick={toggleSound}
-                className="absolute bottom-[11%] right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-brand-purple/70 text-white backdrop-blur-sm transition-colors hover:bg-brand-purple/90"
+                className="absolute bottom-[13%] right-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-brand-purple/70 text-white backdrop-blur-sm transition-colors hover:bg-brand-purple/90"
                 aria-label={muted ? "Unmute film" : "Mute film"}
                 aria-pressed={!muted}
               >
