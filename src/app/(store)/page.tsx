@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { HeroSlideshow } from "@/components/home/HeroSlideshow";
+import { FoundersPick } from "@/components/home/FoundersPick";
 import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
 import { getFeaturedProducts, getBestsellerProducts, getProductsByCategorySlug, getProductBySlug, getProductsBySlugs } from "@/lib/data";
 import { CommunityCarousel } from "@/components/home/CommunityCarousel";
@@ -30,8 +31,8 @@ const BACK_IN_STOCK_SLUGS = [
   "eulalie",
 ];
 
-// The one piece surfaced inside the hero. `featured` alone can't drive this —
-// six products carry that flag — so the hero pick is named explicitly.
+// The one piece called out in its own band below the hero. `featured` alone
+// can't drive this: six products carry that flag, so the pick is named here.
 const HERO_FEATURE_SLUG = "isolde-navy-maxi-dress";
 
 export default async function HomePage() {
@@ -48,7 +49,7 @@ export default async function HomePage() {
 
   const fantasyGrid = fantasyProducts.filter(Boolean);
 
-  // The hero already gives this piece a slot of its own, so drop it from the
+  // The Founder's Pick band already carries this piece, so drop it from the
   // featured row directly beneath it.
   const featuredRow = featuredProducts.filter(
     (p) => p.slug !== HERO_FEATURE_SLUG,
@@ -57,7 +58,11 @@ export default async function HomePage() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <HeroSlideshow featured={heroFeature} />
+      <HeroSlideshow />
+
+      {/* ===== FOUNDER'S PICK ===== */}
+      {/* Its own band directly below the hero, so the hero stays copy + film. */}
+      {heroFeature && <FoundersPick product={heroFeature} />}
 
       {/* ===== FEATURED PRODUCTS CAROUSEL ===== */}
       <FeaturedCarousel products={featuredRow} />

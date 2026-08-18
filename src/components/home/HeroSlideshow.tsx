@@ -1,38 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/types/product";
-import { formatPrice } from "@/lib/utils";
 
-interface HeroSlideshowProps {
-  /** The single piece surfaced in the hero. Omitted, the hero just drops it. */
-  featured?: Product;
-}
-
-export function HeroSlideshow({ featured }: HeroSlideshowProps) {
+export function HeroSlideshow() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const patternRef = useRef<HTMLDivElement>(null);
   // Browsers only allow autoplay while muted, so the film starts silent and
   // the viewer opts into the voiceover.
   const [muted, setMuted] = useState(true);
-  const [slide, setSlide] = useState(0);
-
-  const featuredImages = featured?.images ?? [];
-  const slideCount = featuredImages.length;
-
-  // Advance the Founder's Pick every 2s. Depends on the count, not the array,
-  // so a new object identity each render doesn't restart the timer mid-cycle.
-  useEffect(() => {
-    if (slideCount < 2) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(
-      () => setSlide((s) => (s + 1) % slideCount),
-      2000,
-    );
-    return () => window.clearInterval(id);
-  }, [slideCount]);
 
   // Parallax. Shifts background-position rather than transforming the layer:
   // the motif repeats, so panning it can never expose an edge, and it needs
@@ -95,10 +71,10 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
             Film track is 320px at xl and 380px at 2xl: at 1280 that leaves the
             copy column 416px — 352px inside p-8 — against a 317px heading. A
             wider film track there would clip it. */}
-        <div className="grid items-center gap-8 py-16 sm:py-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,320px)_minmax(0,1fr)] xl:gap-8 2xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)_minmax(0,1fr)] 2xl:gap-10">
+        <div className="grid items-center gap-8 py-16 sm:py-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)] xl:gap-12 2xl:gap-16">
           {/* Copy — left. min-w-0 so the column can shrink; grid children
               default to min-width:auto and overflow instead. */}
-          <div className="order-3 min-w-0 xl:order-1">
+          <div className="order-2 min-w-0 xl:order-1">
             {/* Frosted panel. The tint is dark, not white: the copy is white,
                 so a light frost would lift the backdrop and cost contrast.
                 Thinned to 40% with a light blur so the motif reads through the
@@ -137,10 +113,10 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
             </div>
           </div>
 
-          {/* Film — centre, cut to a scalloped cartouche. Generated
-              parametrically (7 scallops a side, 2.5 units deep, shoulders at
-              9%) rather than hand-drawn, so the scallops stay evenly spaced
-              and the two axes mirror exactly. A clip path, not a
+          {/* Film — right, cut to a baroque mirror silhouette. Generated
+              parametrically from a half-width profile smoothed with Catmull-Rom,
+              so the shoulders, waist and hips undulate evenly and both axes
+              mirror exactly. A clip path, not a
               border-radius: points and scallops are beyond what radii express.
               Held at the master's 464x848 ratio so it is never upscaled. */}
           <div className="order-1 xl:order-2">
@@ -150,7 +126,7 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
               <svg width="0" height="0" className="absolute" aria-hidden>
                 <defs>
                   <clipPath id="hero-arch" clipPathUnits="objectBoundingBox">
-                    <path d="M0.5,0C0.566,0.008 0.975,0.0378 0.975,0.09A0.025,0.05857 0 0 1 0.975,0.20714A0.025,0.05857 0 0 1 0.975,0.32429A0.025,0.05857 0 0 1 0.975,0.44143A0.025,0.05857 0 0 1 0.975,0.55857A0.025,0.05857 0 0 1 0.975,0.67571A0.025,0.05857 0 0 1 0.975,0.79286A0.025,0.05857 0 0 1 0.975,0.91C0.975,0.9622 0.566,0.992 0.5,1C0.434,0.992 0.025,0.9622 0.025,0.91A0.025,0.05857 0 0 1 0.025,0.79286A0.025,0.05857 0 0 1 0.025,0.67571A0.025,0.05857 0 0 1 0.025,0.55857A0.025,0.05857 0 0 1 0.025,0.44143A0.025,0.05857 0 0 1 0.025,0.32429A0.025,0.05857 0 0 1 0.025,0.20714A0.025,0.05857 0 0 1 0.025,0.09C0.025,0.0378 0.434,0.008 0.5,0Z" />
+                    <path d="M0.5,0C0.51167,0.00167 0.535,0.00417 0.57,0.01C0.605,0.01583 0.645,0.02167 0.71,0.035C0.775,0.04833 0.92833,0.05917 0.96,0.09C0.99167,0.12083 0.89333,0.15167 0.9,0.22C0.90667,0.28833 1,0.40667 1,0.5C1,0.59333 0.90667,0.71167 0.9,0.78C0.89333,0.84833 0.99167,0.87917 0.96,0.91C0.92833,0.94083 0.775,0.95167 0.71,0.965C0.645,0.97833 0.605,0.98417 0.57,0.99C0.535,0.99583 0.51167,0.99833 0.5,1C0.48833,0.99833 0.465,0.99583 0.43,0.99C0.395,0.98417 0.355,0.97833 0.29,0.965C0.225,0.95167 0.07167,0.94083 0.04,0.91C0.00833,0.87917 0.10667,0.84833 0.1,0.78C0.09333,0.71167 0,0.59333 0,0.5C0,0.40667 0.09333,0.28833 0.1,0.22C0.10667,0.15167 0.00833,0.12083 0.04,0.09C0.07167,0.05917 0.225,0.04833 0.29,0.035C0.355,0.02167 0.395,0.01583 0.43,0.01C0.465,0.00417 0.48833,0.00167 0.5,0Z" />
                   </clipPath>
                 </defs>
               </svg>
@@ -186,7 +162,7 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
                 className="pointer-events-none absolute inset-0 h-full w-full"
               >
                 <path
-                  d="M50,0C56.6,1.46 97.5,6.92 97.5,16.47A2.5,10.72 0 0 1 97.5,37.91A2.5,10.72 0 0 1 97.5,59.34A2.5,10.72 0 0 1 97.5,80.78A2.5,10.72 0 0 1 97.5,102.22A2.5,10.72 0 0 1 97.5,123.66A2.5,10.72 0 0 1 97.5,145.09A2.5,10.72 0 0 1 97.5,166.53C97.5,176.08 56.6,181.54 50,183C43.4,181.54 2.5,176.08 2.5,166.53A2.5,10.72 0 0 1 2.5,145.09A2.5,10.72 0 0 1 2.5,123.66A2.5,10.72 0 0 1 2.5,102.22A2.5,10.72 0 0 1 2.5,80.78A2.5,10.72 0 0 1 2.5,59.34A2.5,10.72 0 0 1 2.5,37.91A2.5,10.72 0 0 1 2.5,16.47C2.5,6.92 43.4,1.46 50,0Z"
+                  d="M50,0C51.17,0.3 53.5,0.76 57,1.83C60.5,2.9 64.5,3.97 71,6.41C77.5,8.85 92.83,10.83 96,16.47C99.17,22.11 89.33,27.75 90,40.26C90.67,52.77 100,74.42 100,91.5C100,108.58 90.67,130.24 90,142.74C89.33,155.25 99.17,160.89 96,166.53C92.83,172.17 77.5,174.16 71,176.59C64.5,179.03 60.5,180.1 57,181.17C53.5,182.24 51.17,182.69 50,183C48.83,182.69 46.5,182.24 43,181.17C39.5,180.1 35.5,179.03 29,176.59C22.5,174.16 7.17,172.17 4,166.53C0.83,160.89 10.67,155.25 10,142.74C9.33,130.24 0,108.58 0,91.5C0,74.42 9.33,52.77 10,40.26C10.67,27.75 0.83,22.11 4,16.47C7.17,10.83 22.5,8.85 29,6.41C35.5,3.97 39.5,2.9 43,1.83C46.5,0.76 48.83,0.3 50,0Z"
                   fill="none"
                   stroke="rgb(214 205 245)"
                   strokeOpacity="0.5"
@@ -244,81 +220,6 @@ export function HeroSlideshow({ featured }: HeroSlideshowProps) {
           {/* Founder's Pick — right. Its own card, stacked: image above, then
               label, name, price and the link. Hidden entirely if the slug ever
               stops resolving. */}
-          {/* Capped and centred in its track: the track is now 1fr to keep the
-              film centred, so an uncapped card would stretch with it. */}
-          {featured && (
-            <div className="order-2 mx-auto w-full max-w-[360px] xl:order-3 xl:max-w-[340px]">
-              <div className="overflow-hidden rounded-luxury-lg border border-white/15 bg-brand-purple/40 shadow-luxury-lg backdrop-blur-sm">
-                {/* Image slider. All frames stack and cross-fade, so the box
-                    never reflows and nothing shifts as it advances. */}
-                <Link
-                  href={`/products/${featured.slug}`}
-                  className="relative block aspect-[4/5] w-full overflow-hidden bg-brand-purple-80"
-                >
-                  {featuredImages.map((img, i) => (
-                    <Image
-                      key={img.url}
-                      src={img.url}
-                      alt={img.alt || featured.name}
-                      fill
-                      sizes="(max-width: 1024px) 360px, 300px"
-                      className={`object-cover object-top transition-opacity duration-700 ${
-                        i === slide ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
-                  ))}
-
-                  {/* Indicators, in brand colours rather than plain white */}
-                  {slideCount > 1 && (
-                    <span className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
-                      {featuredImages.map((img, i) => (
-                        <span
-                          key={img.url}
-                          className={`block h-1 rounded-full transition-all duration-500 ${
-                            i === slide
-                              ? "w-6 bg-brand-blue-40"
-                              : "w-2 bg-brand-purple-20/60"
-                          }`}
-                        />
-                      ))}
-                    </span>
-                  )}
-                </Link>
-
-                <div className="p-6">
-                  <p className="text-caption font-medium uppercase tracking-luxury-wide text-white/70">
-                    Founder&apos;s Pick
-                  </p>
-                  <h2 className="mt-2 font-heading text-xl font-light leading-snug text-white">
-                    {featured.name}
-                  </h2>
-                  <p className="mt-1 font-body text-body-lg text-white/95">
-                    {formatPrice(featured.price)}
-                  </p>
-
-                  <Link
-                    href={`/products/${featured.slug}`}
-                    className="group mt-6 inline-flex items-center gap-2 text-caption font-medium uppercase tracking-luxury-wide text-white transition-colors hover:text-brand-blue-40"
-                  >
-                    View details
-                    <svg
-                      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M5 12h14m-7-7 7 7-7 7"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </section>

@@ -109,3 +109,10 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - The motif is a CSS background, so the browser could not discover it until the stylesheet was parsed and the element laid out — by which point the 1.8 MB film was already fetching. The pattern lost the race to a file 46x its size.
 - Both the motif (38 KB) and the film's poster (18 KB) are now `<link rel="preload" as="image" fetchPriority="high">` in the document head. Discovery moves from post-layout to byte 3,414 of the document, against the video tag at byte 283,411.
 - Net effect: the patterned field and the poster frame paint first, so the hero never shows a bare purple block waiting on video bytes.
+
+## 2026-08-09 · Mirror cut-out, Founder's Pick out of the hero
+
+- **New film cut-out** — a baroque mirror silhouette (points top and bottom, wide shoulders, waist, flared hips) replacing the uniform scalloped cartouche. Generated from a half-width profile smoothed with Catmull-Rom, so the undulation is even and both axes mirror exactly.
+- **Hero is now two columns**: copy left, film right. The film track goes back to 380px since it no longer shares the row with a third column.
+- **Founder's Pick lifted out into its own section** directly below the hero, as a new `FoundersPick` component — larger image, slider, price, short description and a "View details" link on a light band. The slider state moved with it, so the hero no longer carries an interval timer it doesn't use.
+- Page order is now hero → Founder's Pick → Featured Pieces.
