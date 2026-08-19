@@ -147,3 +147,8 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - "Turning Fantasy Into Reality" now sets in **Pinyon Script**, added via `next/font` as `--font-display-script` and exposed as the `font-display` Tailwind family. Scoped to the hero line only.
 - Sized up to `clamp(2.5rem, 5.5vw, 3.75rem)` — a script reads optically smaller than a serif at the same pixel size — and given real leading. `leading-none` clips a script's descenders and swashes.
 - Fit checked with the real font metrics: "Turning Fantasy" is 369px at the 60px ceiling, against a 440px inner panel at `xl` and 480px at `2xl`.
+
+## 2026-08-09 · Jewellery eyebrow, hero script swapped
+
+- Jewellery carousel eyebrow "Born of ISYA" → **"Jewels of Isivis"**. Title stays "The Isivis Icons".
+- Hero script changed from Pinyon Script to **Monsieur La Doulaise** — larger looping capitals and higher stroke contrast, closer to the engraved copperplate reference. Still an approximation: the reference's swash alternates come from a licensed face and no Google font carries them.

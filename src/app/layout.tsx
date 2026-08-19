@@ -5,7 +5,7 @@ import {
   Cormorant_Garamond,
   Inter,
   Italiana,
-  Pinyon_Script,
+  Monsieur_La_Doulaise,
 } from "next/font/google";
 import "./globals.css";
 
@@ -22,10 +22,10 @@ const inter = Inter({
   display: "swap",
 });
 
-// Display script for the hero line. Pinyon Script is the closest copperplate
-// on Google Fonts; the reference's long swash alternates come from a licensed
-// face and are not reproducible here.
-const pinyon = Pinyon_Script({
+// Display script for the hero line. The reference is a licensed engraved
+// copperplate (Bickham/Burgues family); this is the most ornate approximation
+// available on Google Fonts — large looping capitals, high stroke contrast.
+const displayScript = Monsieur_La_Doulaise({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-display-script",
@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} ${italiana.variable} ${pinyon.variable}`}
+      className={`${cormorant.variable} ${inter.variable} ${italiana.variable} ${displayScript.variable}`}
     >
       <head>
         {/* The hero motif is a CSS background, so the browser cannot discover
