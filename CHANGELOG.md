@@ -134,3 +134,10 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 
 - The copy panel and the film were drifting to opposite edges on a wide monitor. The copy track was `1fr`, so it absorbed all the spare width — roughly 420px of empty pattern opened up between them at 1440px and above, and the two read as unrelated rather than one composition.
 - Both tracks are now bounded (520/360 at `xl`, 560/380 at `2xl`) and the pair is centred with `justify-center`, so the gap stays at 40–48px regardless of viewport width.
+
+## 2026-08-09 · ISIVIS Brooch added (draft)
+
+- **ISIVIS Brooch** created — `ISV-AC-001`, £160, in Accessories. First product to use the `AC` SKU code. One Size / Gold variant, New Arrival badge, care instructions, SEO title, meta description and keywords all set.
+- **Held as a draft: no image supplied.** The founder-wearing shot exists only as a chat screenshot, and there is nothing brooch-related in the assets folder. Publishing a £160 jewellery product with an empty gallery is the same fault already flagged against the other 23 drafts, so it is unpublished until artwork lands in `New Products/ISIVIS Brooch/`.
+- Copy written fresh in the register of the supplied reference. The reference was a competitor's live product description, so the tone was matched rather than the text reused.
+- Material deliberately left as "gold-tone metal" — no one has stated what the piece is actually made from, and at this price the specific material should not be guessed.
