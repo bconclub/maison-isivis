@@ -50,6 +50,8 @@ const config: Config = {
         heading: ["var(--font-italiana)", "serif"],
         body: ["var(--font-inter)", "sans-serif"],
         script: ["var(--font-cormorant)", "cursive"],
+        // Formal copperplate, for the hero line only
+        display: ["var(--font-display-script)", "cursive"],
       },
       fontSize: {
         hero: [

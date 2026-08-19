@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Cormorant_Garamond, Inter, Italiana } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  Inter,
+  Italiana,
+  Pinyon_Script,
+} from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -14,6 +19,16 @@ const cormorant = Cormorant_Garamond({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+// Display script for the hero line. Pinyon Script is the closest copperplate
+// on Google Fonts; the reference's long swash alternates come from a licensed
+// face and are not reproducible here.
+const pinyon = Pinyon_Script({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display-script",
   display: "swap",
 });
 
@@ -50,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} ${italiana.variable}`}
+      className={`${cormorant.variable} ${inter.variable} ${italiana.variable} ${pinyon.variable}`}
     >
       <head>
         {/* The hero motif is a CSS background, so the browser cannot discover

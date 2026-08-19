@@ -82,7 +82,10 @@ export function HeroSlideshow() {
             <div className="mx-auto max-w-xl rounded-luxury-lg border border-white/15 bg-brand-purple/40 p-8 text-center shadow-luxury-lg backdrop-blur-sm sm:p-10 lg:text-left xl:mx-0 xl:max-w-none xl:p-10">
               {/* Below xl the panel caps itself; from xl the column is already
                   bounded, so it fills the track. */}
-              <h1 className="font-heading text-h1 font-light leading-none text-white">
+              {/* Copperplate script. Sized up because a script renders
+                  optically smaller than a serif at the same px, and given real
+                  leading — `leading-none` clips the descenders and swashes. */}
+              <h1 className="font-display text-[clamp(2.5rem,5.5vw,3.75rem)] leading-[1.25] text-white">
                 Turning Fantasy
                 <br />
                 Into Reality

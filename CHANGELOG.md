@@ -141,3 +141,9 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 - **Held as a draft: no image supplied.** The founder-wearing shot exists only as a chat screenshot, and there is nothing brooch-related in the assets folder. Publishing a £160 jewellery product with an empty gallery is the same fault already flagged against the other 23 drafts, so it is unpublished until artwork lands in `New Products/ISIVIS Brooch/`.
 - Copy written fresh in the register of the supplied reference. The reference was a competitor's live product description, so the tone was matched rather than the text reused.
 - Material deliberately left as "gold-tone metal" — no one has stated what the piece is actually made from, and at this price the specific material should not be guessed.
+
+## 2026-08-09 · Hero line set in copperplate script
+
+- "Turning Fantasy Into Reality" now sets in **Pinyon Script**, added via `next/font` as `--font-display-script` and exposed as the `font-display` Tailwind family. Scoped to the hero line only.
+- Sized up to `clamp(2.5rem, 5.5vw, 3.75rem)` — a script reads optically smaller than a serif at the same pixel size — and given real leading. `leading-none` clips a script's descenders and swashes.
+- Fit checked with the real font metrics: "Turning Fantasy" is 369px at the 60px ceiling, against a 440px inner panel at `xl` and 480px at `2xl`.
