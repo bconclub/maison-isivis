@@ -152,3 +152,12 @@ Docs added: `docs/SYSTEM-UPDATE.md` (running change log), `docs/PAYMENT-GATEWAY-
 
 - Jewellery carousel eyebrow "Born of ISYA" → **"Jewels of Isivis"**. Title stays "The Isivis Icons".
 - Hero script changed from Pinyon Script to **Monsieur La Doulaise** — larger looping capitals and higher stroke contrast, closer to the engraved copperplate reference. Still an approximation: the reference's swash alternates come from a licensed face and no Google font carries them.
+
+## 2026-08-09 · ISIVIS ICON Brooch published
+
+- Renamed **ISIVIS Brooch → ISIVIS ICON Brooch** (`isivis-icon-brooch`), and published it. `ISV-AC-001`, £160.
+- Real specification replaced the placeholder: **925 sterling silver, 18K yellow gold plated**, 65 × 45 × 2.5 mm stored as structured measurements. The earlier description said "gold-tone metal" because no material had been stated — at this price it was not something to guess.
+- Full description, styling notes and SEO metadata written from the supplied copy. Care instructions rewritten for plated silver (perfume and cosmetics dull plating).
+- Product image supplied and attached — 310 KB → 227 KB webp.
+- **Also linked to Jewellery** alongside Accessories, so it appears in the "Jewels of Isivis / The Isivis Icons" carousel beside the other ISIVIS Icon pieces. It would otherwise have been invisible next to its own family.
+- Catalogue is now 68 products.
